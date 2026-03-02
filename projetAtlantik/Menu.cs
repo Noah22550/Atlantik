@@ -41,5 +41,11 @@ namespace projetAtlantik
             AjoutBateau bateau = new AjoutBateau();
             bateau.ShowDialog();               
         }
+
+        private void mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AjoutTarifLiaisonPeriode ajoutTarifLiaisonPeriode = new AjoutTarifLiaisonPeriode();
+            ajoutTarifLiaisonPeriode.ShowDialog();
+        }
     }
 }

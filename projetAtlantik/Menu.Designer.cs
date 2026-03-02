@@ -40,7 +40,7 @@
             this.unSecteurToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mmPort = new System.Windows.Forms.ToolStripMenuItem();
             this.mmliaison = new System.Windows.Forms.ToolStripMenuItem();
-            this.lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAddBoat = new System.Windows.Forms.ToolStripMenuItem();
             this.uneTraverséToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +106,7 @@
             this.unSecteurToolStripMenuItem1,
             this.mmPort,
             this.mmliaison,
-            this.lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem,
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem,
             this.mmAddBoat,
             this.uneTraverséToolStripMenuItem});
             this.ajouterToolStripMenuItem1.Name = "ajouterToolStripMenuItem1";
@@ -134,11 +134,12 @@
             this.mmliaison.Text = "Une liaison";
             this.mmliaison.Click += new System.EventHandler(this.mmliaison_Click);
             // 
-            // lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem
+            // mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem
             // 
-            this.lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Name = "lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem";
-            this.lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
-            this.lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Text = "Les tarifs pour une liasion et une période";
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Name = "mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem";
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Text = "Les tarifs pour une liasion et une période";
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Click += new System.EventHandler(this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem_Click);
             // 
             // mmAddBoat
             // 
@@ -242,7 +243,7 @@
         private System.Windows.Forms.ToolStripMenuItem unSecteurToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mmPort;
         private System.Windows.Forms.ToolStripMenuItem mmliaison;
-        private System.Windows.Forms.ToolStripMenuItem lesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmAddBoat;
         private System.Windows.Forms.ToolStripMenuItem uneTraverséToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modifierToolStripMenuItem;

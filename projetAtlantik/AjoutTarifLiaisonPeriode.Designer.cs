@@ -29,119 +29,99 @@
         private void InitializeComponent()
         {
             this.lbxSecteur = new System.Windows.Forms.ListBox();
-            this.cmbLiaison = new System.Windows.Forms.ComboBox();
-            this.lblTarif = new System.Windows.Forms.Label();
-            this.lblCategorie = new System.Windows.Forms.Label();
-            this.tbxAdulte = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.lblsecteur = new System.Windows.Forms.Label();
+            this.cbxLiaison = new System.Windows.Forms.ComboBox();
+            this.gbxTarifs = new System.Windows.Forms.GroupBox();
+            this.cbxPeriode = new System.Windows.Forms.ComboBox();
+            this.btnadd = new System.Windows.Forms.Button();
+            this.lblLiaison = new System.Windows.Forms.Label();
+            this.lblPeriode = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbxSecteur
             // 
             this.lbxSecteur.FormattingEnabled = true;
-            this.lbxSecteur.Location = new System.Drawing.Point(11, 23);
+            this.lbxSecteur.Location = new System.Drawing.Point(34, 34);
             this.lbxSecteur.Name = "lbxSecteur";
-            this.lbxSecteur.Size = new System.Drawing.Size(120, 290);
+            this.lbxSecteur.Size = new System.Drawing.Size(120, 329);
             this.lbxSecteur.TabIndex = 0;
             // 
-            // cmbLiaison
+            // lblsecteur
             // 
-            this.cmbLiaison.FormattingEnabled = true;
-            this.cmbLiaison.Location = new System.Drawing.Point(11, 340);
-            this.cmbLiaison.Name = "cmbLiaison";
-            this.cmbLiaison.Size = new System.Drawing.Size(121, 21);
-            this.cmbLiaison.TabIndex = 1;
+            this.lblsecteur.AutoSize = true;
+            this.lblsecteur.Location = new System.Drawing.Point(31, 18);
+            this.lblsecteur.Name = "lblsecteur";
+            this.lblsecteur.Size = new System.Drawing.Size(58, 13);
+            this.lblsecteur.TabIndex = 1;
+            this.lblsecteur.Text = "Secteurs : ";
             // 
-            // lblTarif
+            // cbxLiaison
             // 
-            this.lblTarif.AutoSize = true;
-            this.lblTarif.Location = new System.Drawing.Point(602, 76);
-            this.lblTarif.Name = "lblTarif";
-            this.lblTarif.Size = new System.Drawing.Size(28, 13);
-            this.lblTarif.TabIndex = 2;
-            this.lblTarif.Text = "Tarif";
+            this.cbxLiaison.FormattingEnabled = true;
+            this.cbxLiaison.Location = new System.Drawing.Point(99, 379);
+            this.cbxLiaison.Name = "cbxLiaison";
+            this.cbxLiaison.Size = new System.Drawing.Size(121, 21);
+            this.cbxLiaison.TabIndex = 2;
             // 
-            // lblCategorie
+            // gbxTarifs
             // 
-            this.lblCategorie.AutoSize = true;
-            this.lblCategorie.Location = new System.Drawing.Point(425, 76);
-            this.lblCategorie.Name = "lblCategorie";
-            this.lblCategorie.Size = new System.Drawing.Size(79, 13);
-            this.lblCategorie.TabIndex = 3;
-            this.lblCategorie.Text = "Catégorie-Type";
+            this.gbxTarifs.Location = new System.Drawing.Point(499, 18);
+            this.gbxTarifs.Name = "gbxTarifs";
+            this.gbxTarifs.Size = new System.Drawing.Size(148, 317);
+            this.gbxTarifs.TabIndex = 3;
+            this.gbxTarifs.TabStop = false;
+            this.gbxTarifs.Text = "Tarifs";
             // 
-            // tbxAdulte
+            // cbxPeriode
             // 
-            this.tbxAdulte.Location = new System.Drawing.Point(605, 106);
-            this.tbxAdulte.Name = "tbxAdulte";
-            this.tbxAdulte.Size = new System.Drawing.Size(100, 20);
-            this.tbxAdulte.TabIndex = 4;
+            this.cbxPeriode.FormattingEnabled = true;
+            this.cbxPeriode.Location = new System.Drawing.Point(300, 379);
+            this.cbxPeriode.Name = "cbxPeriode";
+            this.cbxPeriode.Size = new System.Drawing.Size(121, 21);
+            this.cbxPeriode.TabIndex = 4;
             // 
-            // textBox2
+            // btnadd
             // 
-            this.textBox2.Location = new System.Drawing.Point(605, 375);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 5;
+            this.btnadd.Location = new System.Drawing.Point(499, 377);
+            this.btnadd.Name = "btnadd";
+            this.btnadd.Size = new System.Drawing.Size(140, 23);
+            this.btnadd.TabIndex = 5;
+            this.btnadd.Text = "Ajouter";
+            this.btnadd.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // lblLiaison
             // 
-            this.textBox3.Location = new System.Drawing.Point(605, 327);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 6;
+            this.lblLiaison.AutoSize = true;
+            this.lblLiaison.Location = new System.Drawing.Point(31, 379);
+            this.lblLiaison.Name = "lblLiaison";
+            this.lblLiaison.Size = new System.Drawing.Size(40, 13);
+            this.lblLiaison.TabIndex = 6;
+            this.lblLiaison.Text = "Liaison";
             // 
-            // textBox4
+            // lblPeriode
             // 
-            this.textBox4.Location = new System.Drawing.Point(605, 281);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 7;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(605, 235);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 8;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(605, 190);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 9;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(605, 148);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 10;
+            this.lblPeriode.AutoSize = true;
+            this.lblPeriode.Location = new System.Drawing.Point(236, 384);
+            this.lblPeriode.Name = "lblPeriode";
+            this.lblPeriode.Size = new System.Drawing.Size(43, 13);
+            this.lblPeriode.TabIndex = 7;
+            this.lblPeriode.Text = "Periode";
             // 
             // AjoutTarifLiaisonPeriode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 475);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.tbxAdulte);
-            this.Controls.Add(this.lblCategorie);
-            this.Controls.Add(this.lblTarif);
-            this.Controls.Add(this.cmbLiaison);
+            this.ClientSize = new System.Drawing.Size(800, 449);
+            this.Controls.Add(this.lblPeriode);
+            this.Controls.Add(this.lblLiaison);
+            this.Controls.Add(this.btnadd);
+            this.Controls.Add(this.cbxPeriode);
+            this.Controls.Add(this.gbxTarifs);
+            this.Controls.Add(this.cbxLiaison);
+            this.Controls.Add(this.lblsecteur);
             this.Controls.Add(this.lbxSecteur);
             this.Name = "AjoutTarifLiaisonPeriode";
-            this.Text = "Ajouter les tarifs pour une liaison et une période";
+            this.Text = "AjoutTarifLiaisonPeriode";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,15 +130,12 @@
         #endregion
 
         private System.Windows.Forms.ListBox lbxSecteur;
-        private System.Windows.Forms.ComboBox cmbLiaison;
-        private System.Windows.Forms.Label lblTarif;
-        private System.Windows.Forms.Label lblCategorie;
-        private System.Windows.Forms.TextBox tbxAdulte;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label lblsecteur;
+        private System.Windows.Forms.ComboBox cbxLiaison;
+        private System.Windows.Forms.GroupBox gbxTarifs;
+        private System.Windows.Forms.ComboBox cbxPeriode;
+        private System.Windows.Forms.Button btnadd;
+        private System.Windows.Forms.Label lblLiaison;
+        private System.Windows.Forms.Label lblPeriode;
     }
 }
