@@ -17,55 +17,49 @@ namespace projetAtlantik
         public AjoutLiaison()
         {
             InitializeComponent();
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            try
+            {
+                MaCo.Open();
+
+                string requetePort = "SELECT noport, nom FROM port";
+                MySqlCommand cmdPort = new MySqlCommand(requetePort, MaCo);
+                MySqlDataReader readerPort = cmdPort.ExecuteReader();
+
+                while (readerPort.Read())
+                {
+                    Port port = new Port((int)readerPort["noport"], readerPort["nom"].ToString());
+                    cmbdepart.Items.Add(port);
+                    cmbArrive.Items.Add(port);
+                }
+
+                readerPort.Close();
+
+                string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
+                MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
+                MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
+
+                while (readerSecteur.Read())
+                {
+
+                    Secteur secteur = new Secteur((int)readerSecteur["nosecteur"], readerSecteur["nom"].ToString());
+                    lbxliaison.Items.Add(secteur);
+                }
+
+                readerSecteur.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+            }
         }
 
         private void AjoutLiaison_Load(object sender, EventArgs e)
         {
-            MySqlConnection MaCo = new MySqlConnection ("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-                try
-                {
-                    MaCo.Open();
-
-                    string requetePort = "SELECT noport, nom FROM port";
-                    MySqlCommand cmdPort = new MySqlCommand(requetePort, MaCo);
-                    MySqlDataReader readerPort = cmdPort.ExecuteReader();
-
-                    while (readerPort.Read())
-                    {
-                        int id = Convert.ToInt32(readerPort["noport"]);
-                        string nom = readerPort["nom"].ToString();
-
-                        Port p = new Port(id, nom);
-
-                        cmbdepart.Items.Add(p);
-                        cmbArrive.Items.Add(p);
-                    }
-
-                    readerPort.Close();
-
-                    string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
-                    MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
-                    MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
-
-                    while (readerSecteur.Read())
-                    {
-                        int id = Convert.ToInt32(readerSecteur["nosecteur"]);
-                        string nom = readerSecteur["nom"].ToString();
-
-                        Secteur s = new Secteur(id, nom);
-                        lbxliaison.Items.Add(s);
-                    }
-
-                    readerSecteur.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erreur : " + ex.Message);
-                }
-                finally
-                {
-                    MaCo.Close();
-                }
         }
 
         private void btnAddLiaison_Click(object sender, EventArgs e)
