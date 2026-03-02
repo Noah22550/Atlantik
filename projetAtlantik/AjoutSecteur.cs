@@ -25,9 +25,7 @@ namespace projetAtlantik
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-            MySqlConnection maCo;
-            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
-            maCo = new MySqlConnection(CHAINECONNEXION);
+            MySqlConnection maCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
             object nomSecteur = tbxadd.Text;
             try
             {
