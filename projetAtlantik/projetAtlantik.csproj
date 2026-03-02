@@ -149,6 +149,12 @@
     <Compile Include="AjoutSecteur.Designer.cs">
       <DependentUpon>AjoutSecteur.cs</DependentUpon>
     </Compile>
+    <Compile Include="AjoutTarifLiaisonPeriode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AjoutTarifLiaisonPeriode.Designer.cs">
+      <DependentUpon>AjoutTarifLiaisonPeriode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AjoutSecteur.resx">
       <DependentUpon>AjoutSecteur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AjoutTarifLiaisonPeriode.resx">
+      <DependentUpon>AjoutTarifLiaisonPeriode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

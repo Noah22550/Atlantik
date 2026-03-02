@@ -21,16 +21,13 @@ namespace projetAtlantik
 
         private void AjoutLiaison_Load(object sender, EventArgs e)
         {
-            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
-
-            using (MySqlConnection maCo = new MySqlConnection(CHAINECONNEXION))
-            {
+            MySqlConnection MaCo = new MySqlConnection ("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
                 try
                 {
-                    maCo.Open();
+                    MaCo.Open();
 
                     string requetePort = "SELECT noport, nom FROM port";
-                    MySqlCommand cmdPort = new MySqlCommand(requetePort, maCo);
+                    MySqlCommand cmdPort = new MySqlCommand(requetePort, MaCo);
                     MySqlDataReader readerPort = cmdPort.ExecuteReader();
 
                     while (readerPort.Read())
@@ -47,7 +44,7 @@ namespace projetAtlantik
                     readerPort.Close();
 
                     string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
-                    MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, maCo);
+                    MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
                     MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
 
                     while (readerSecteur.Read())
@@ -65,7 +62,10 @@ namespace projetAtlantik
                 {
                     MessageBox.Show("Erreur : " + ex.Message);
                 }
-            }
+                finally
+                {
+                    MaCo.Close();
+                }
         }
 
         private void btnAddLiaison_Click(object sender, EventArgs e)
@@ -88,8 +88,8 @@ namespace projetAtlantik
                 {
                     MessageBox.Show(" impossible de créer une liaison...");
                 }else {
-                    string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
-                    MySqlCommand maCde = new MySqlCommand(requete, maCo);
+                string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
+                MySqlCommand maCde = new MySqlCommand(requete, maCo);
                 maCde.Parameters.AddWithValue("@noport_depart", idDepart);
                 maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
                 maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
