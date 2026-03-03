@@ -45,6 +45,7 @@
             this.lbxSecteur.Name = "lbxSecteur";
             this.lbxSecteur.Size = new System.Drawing.Size(120, 329);
             this.lbxSecteur.TabIndex = 0;
+            this.lbxSecteur.SelectedIndexChanged += new System.EventHandler(this.lbxSecteur_SelectedIndexChanged);
             // 
             // lblsecteur
             // 
@@ -62,15 +63,17 @@
             this.cbxLiaison.Name = "cbxLiaison";
             this.cbxLiaison.Size = new System.Drawing.Size(121, 21);
             this.cbxLiaison.TabIndex = 2;
+            this.cbxLiaison.SelectedIndexChanged += new System.EventHandler(this.cbxLiaison_SelectedIndexChanged);
             // 
             // gbxTarifs
             // 
-            this.gbxTarifs.Location = new System.Drawing.Point(499, 18);
+            this.gbxTarifs.Location = new System.Drawing.Point(422, 18);
             this.gbxTarifs.Name = "gbxTarifs";
-            this.gbxTarifs.Size = new System.Drawing.Size(148, 317);
+            this.gbxTarifs.Size = new System.Drawing.Size(354, 317);
             this.gbxTarifs.TabIndex = 3;
             this.gbxTarifs.TabStop = false;
             this.gbxTarifs.Text = "Tarifs";
+            this.gbxTarifs.Enter += new System.EventHandler(this.gbxTarifs_Enter);
             // 
             // cbxPeriode
             // 
@@ -88,6 +91,7 @@
             this.btnadd.TabIndex = 5;
             this.btnadd.Text = "Ajouter";
             this.btnadd.UseVisualStyleBackColor = true;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
             // 
             // lblLiaison
             // 
