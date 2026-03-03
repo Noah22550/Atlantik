@@ -8,26 +8,17 @@ namespace projetAtlantik
 {
     internal class Liaison
     {
-        private int NoLiaison;
-        private int NoportDepart;
-        private int NoSecteur;
-        private int NoportArrivee;
-        private double Distance;
-        public Liaison(int NoLiaison, int NoportDepart, int NoSecteur, int NoportArrivee, double Distance) 
+
+        private string NomportDepart;
+        private string NomportArrivee;
+        public Liaison( string NomportDepart, string NomportArrivee) 
         {
-        this.NoLiaison = NoLiaison;
-        this.NoportDepart = NoportDepart;
-        this.NoSecteur = NoSecteur;
-        this.NoportArrivee = NoportArrivee;
-        this.Distance = Distance;
+        this.NomportDepart = NomportDepart;
+        this.NomportArrivee = NomportArrivee;
         }
-        public int GetNoportDepart() {return NoportDepart; }
-        public int GetNoSecteur() { return NoSecteur; }
-        public int GetNoPortArrivee() {  return NoportArrivee; }
-        public double GetDistance() {  return Distance; }
-        //public override string ToString()
-       // {
-            //return NoportDepart.ToString() + No ;
-        //}
+        public override string ToString()
+        {
+            return  NomportDepart.ToString() + " - " + NomportArrivee.ToString() ;
+        }
     }
 }

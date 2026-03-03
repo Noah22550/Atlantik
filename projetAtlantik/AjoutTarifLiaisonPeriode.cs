@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace projetAtlantik
 {
@@ -17,6 +18,7 @@ namespace projetAtlantik
         {
             InitializeComponent();
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+           //AFFICHAGE LISTBOX SECTEUR
             try
             {
                 MaCo.Open();
@@ -44,7 +46,7 @@ namespace projetAtlantik
                 MaCo.Close();
 
             }
-
+            //AFFICHAGE DYNAMIQUE
             try
             {
                 MaCo.Open();
@@ -101,6 +103,8 @@ namespace projetAtlantik
             {
                 MaCo.Close();
             }
+            //AFFICHAGE COMBOBOX
+            
         }
 
         private void gbxTarifs_Enter(object sender, EventArgs e)
@@ -115,7 +119,33 @@ namespace projetAtlantik
 
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            try
+            {
+                MaCo.Open();
+                int nosecteur = ((Secteur)lbxSecteur.SelectedItem).GetNosecteur();
+                string NomDepart, NomArrivee;
+                string requete = "SELECT p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
+                MySqlCommand maCde = new MySqlCommand(requete, MaCo);
+                maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
+                MySqlDataReader reader = maCde.ExecuteReader();
+                cbxLiaison.Items.Clear();
+                while (reader.Read())
+                {
+                    NomDepart = reader["NOM"].ToString();
+                    NomArrivee = reader["pNOM"].ToString();
+                    Liaison Liaison = new Liaison(NomDepart, NomArrivee);
+                    cbxLiaison.Items.Add(Liaison);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+            }
         }
 
         private void cbxLiaison_SelectedIndexChanged(object sender, EventArgs e)
