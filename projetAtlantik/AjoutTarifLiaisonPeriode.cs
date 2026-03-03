@@ -18,7 +18,22 @@ namespace projetAtlantik
         {
             InitializeComponent();
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-           //AFFICHAGE LISTBOX SECTEUR
+            //AFFICHAGE PERIODE
+            try
+            {
+                MaCo.Open();
+                double datedebut, datefin;
+                string requetePeriode = "SELECT DATEDEBUT, DATEFIN FROM periode";
+                MySqlCommand Cmdperiode = new MySqlCommand(requetePeriode, MaCo);
+                MySqlDataReader readerPeriode = Cmdperiode.ExecuteReader();
+                while (readerPeriode.Read())
+                {
+                    
+
+                }
+            }
+            
+            //AFFICHAGE LISTBOX SECTEUR
             try
             {
                 MaCo.Open();
