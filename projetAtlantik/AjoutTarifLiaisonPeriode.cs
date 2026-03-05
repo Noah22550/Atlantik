@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,14 +24,15 @@ namespace projetAtlantik
             {
                 MaCo.Open();
                 string datedebut, datefin;
-                string requetePeriode = "SELECT DATEDEBUT, DATEFIN FROM periode";
+                string requetePeriode = "SELECT * FROM periode";
                 MySqlCommand Cmdperiode = new MySqlCommand(requetePeriode, MaCo);
                 MySqlDataReader readerPeriode = Cmdperiode.ExecuteReader();
                 while (readerPeriode.Read())
                 {
+                    int NoPeriode = Convert.ToInt32(readerPeriode["noperiode"]);
                     datedebut = readerPeriode["DATEDEBUT"].ToString();
                     datefin = readerPeriode["DATEFIN"].ToString() ;
-                    Periode nPeriode = new Periode(datedebut, datefin);
+                    Periode nPeriode = new Periode(datedebut, datefin,NoPeriode );
                     cbxPeriode.Items.Add(nPeriode);
 
                 }
@@ -97,7 +99,7 @@ namespace projetAtlantik
 
                     TextBox txt = new TextBox();
                     txt.Location = new Point(200, y - 3);
-                    txt.Tag = noType + ":" + lettre;
+                    txt.Tag = lblType.GetNoType() + ":" + lblType.GetLettre();
                     txt.Width = 100;
 
                     // Ajout dans le GroupBox
@@ -128,7 +130,51 @@ namespace projetAtlantik
 
         private void btnadd_Click(object sender, EventArgs e)
         {
+            object nPeriode = ((Periode)cbxPeriode.SelectedItem).GetNoPeriode();
+            object nliaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
 
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            string tab;
+
+
+            try
+            {
+                MaCo.Open();
+
+                foreach (Control c in gbxTarifs.Controls)
+                {
+                    if (c is TextBox tbx)
+                    {
+
+                        tab = (tbx.Tag).ToString();
+                        tab.Split(':');
+
+                        int notype = int.Parse(tab[0].ToString());
+                        string lettre = tab[2].ToString();
+                        double tarif = int.Parse(tbx.Text);
+
+                        string Requete = "INSERT INTO tarifer(NOPERIODE, LETTRECATEGORIE, NOTYPE, NOLIAISON, TARIF) VALUES(@nperiode, @lettrecate, @notype, @noliaison, @tarif)";
+
+                        MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
+
+                        maCde.Parameters.AddWithValue("@nperiode", nPeriode);
+                        maCde.Parameters.AddWithValue("@lettrecate", lettre);
+                        maCde.Parameters.AddWithValue("@notype", notype);
+                        maCde.Parameters.AddWithValue("@noliaison", nliaison);
+                        maCde.Parameters.AddWithValue("@tarif", tarif);
+                        int nb = maCde.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Tarifs ajoutés");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+            }
         }
 
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,16 +185,17 @@ namespace projetAtlantik
                 MaCo.Open();
                 int nosecteur = ((Secteur)lbxSecteur.SelectedItem).GetNosecteur();
                 string NomDepart, NomArrivee;
-                string requete = "SELECT p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
+                string requete = "SELECT  noliaison, p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
                 MySqlDataReader reader = maCde.ExecuteReader();
                 cbxLiaison.Items.Clear();
                 while (reader.Read())
                 {
+                    int NoLiaison = Convert.ToInt32(reader["noliaison"]);
                     NomDepart = reader["NOM"].ToString();
                     NomArrivee = reader["pNOM"].ToString();
-                    Liaison Liaison = new Liaison(NomDepart, NomArrivee);
+                    Liaison Liaison = new Liaison(NomDepart, NomArrivee, NoLiaison);
                     cbxLiaison.Items.Add(Liaison);
                 }
             }

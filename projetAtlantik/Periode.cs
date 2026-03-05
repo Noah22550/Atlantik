@@ -10,11 +10,14 @@ namespace projetAtlantik
     {
         private string DateDebut;
         private string DateFin;
-        public Periode (string DateDebut, string DateFin)
+        private int NoPeriode;
+        public Periode (string DateDebut, string DateFin, int noPeriode)
         {
             this.DateDebut = DateDebut;
             this.DateFin = DateFin;
+            NoPeriode = noPeriode;  
         }
+        public int GetNoPeriode() {  return NoPeriode; }
         public override string ToString()
         {
             return "Date de debut : " + DateDebut.ToString() + " Date de fin : " + DateFin.ToString();

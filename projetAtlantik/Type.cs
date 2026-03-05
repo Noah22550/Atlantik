@@ -18,6 +18,8 @@ namespace projetAtlantik
             NoType = noType;
             Libelle = libelle;
         }
+        public string GetLettre() { return LettreCategorie; }
+        public int GetNoType() { return NoType; }
         public override string ToString() { return LettreCategorie + "  " + NoType + " - " + Libelle; }
     }
 }

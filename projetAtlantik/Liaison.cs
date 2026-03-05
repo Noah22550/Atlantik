@@ -11,11 +11,14 @@ namespace projetAtlantik
 
         private string NomportDepart;
         private string NomportArrivee;
-        public Liaison( string NomportDepart, string NomportArrivee) 
+        private int NoLiaison;
+        public Liaison( string NomportDepart, string NomportArrivee, int NoLiaison) 
         {
         this.NomportDepart = NomportDepart;
         this.NomportArrivee = NomportArrivee;
+        this.NoLiaison = NoLiaison;
         }
+        public int GetNoLiaison() { return NoLiaison;}
         public override string ToString()
         {
             return  NomportDepart.ToString() + " - " + NomportArrivee.ToString() ;
