@@ -43,8 +43,8 @@ namespace projetAtlantik
                     txt.Width = 100;
 
                     // Ajout dans le GroupBox
-                    groupBox1_Enter.Controls.Add(lblNoType);
-                    groupBox1_Enter.Controls.Add(txt);
+                    gbxboat.Controls.Add(lblNoType);
+                    gbxboat.Controls.Add(txt);
 
                     y += 30;
                 }
@@ -66,7 +66,8 @@ namespace projetAtlantik
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+
+        private void gbxboat_Enter(object sender, EventArgs e)
         {
 
         }

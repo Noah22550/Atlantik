@@ -31,7 +31,7 @@
             this.lblAddBoat = new System.Windows.Forms.Label();
             this.tbxAddBoat = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbxboat = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // lblAddBoat
@@ -60,22 +60,22 @@
             this.btnAdd.Text = "Ajouter";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // gbxboat
             // 
-            this.groupBox1.Location = new System.Drawing.Point(367, 35);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(262, 245);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Bateau";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.gbxboat.Location = new System.Drawing.Point(341, 35);
+            this.gbxboat.Name = "gbxboat";
+            this.gbxboat.Size = new System.Drawing.Size(278, 245);
+            this.gbxboat.TabIndex = 3;
+            this.gbxboat.TabStop = false;
+            this.gbxboat.Text = "groupBox1";
+            this.gbxboat.Enter += new System.EventHandler(this.gbxboat_Enter);
             // 
             // AjoutBateau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 400);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbxboat);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.tbxAddBoat);
             this.Controls.Add(this.lblAddBoat);
@@ -91,6 +91,6 @@
         private System.Windows.Forms.Label lblAddBoat;
         private System.Windows.Forms.TextBox tbxAddBoat;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbxboat;
     }
 }
