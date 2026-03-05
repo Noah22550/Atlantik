@@ -37,34 +37,40 @@
             // lblAddBoat
             // 
             this.lblAddBoat.AutoSize = true;
-            this.lblAddBoat.Location = new System.Drawing.Point(24, 38);
+            this.lblAddBoat.Location = new System.Drawing.Point(32, 47);
+            this.lblAddBoat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAddBoat.Name = "lblAddBoat";
-            this.lblAddBoat.Size = new System.Drawing.Size(80, 13);
+            this.lblAddBoat.Size = new System.Drawing.Size(99, 16);
             this.lblAddBoat.TabIndex = 0;
             this.lblAddBoat.Text = "Nom du bateau";
             // 
             // tbxAddBoat
             // 
-            this.tbxAddBoat.Location = new System.Drawing.Point(122, 35);
+            this.tbxAddBoat.Location = new System.Drawing.Point(163, 43);
+            this.tbxAddBoat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxAddBoat.Name = "tbxAddBoat";
-            this.tbxAddBoat.Size = new System.Drawing.Size(145, 20);
+            this.tbxAddBoat.Size = new System.Drawing.Size(192, 22);
             this.tbxAddBoat.TabIndex = 1;
             this.tbxAddBoat.TextChanged += new System.EventHandler(this.tbxAddBoat_TextChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(159, 257);
+            this.btnAdd.Location = new System.Drawing.Point(212, 316);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(108, 23);
+            this.btnAdd.Size = new System.Drawing.Size(144, 28);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Ajouter";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // gbxboat
             // 
-            this.gbxboat.Location = new System.Drawing.Point(341, 35);
+            this.gbxboat.Location = new System.Drawing.Point(455, 43);
+            this.gbxboat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxboat.Name = "gbxboat";
-            this.gbxboat.Size = new System.Drawing.Size(278, 245);
+            this.gbxboat.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxboat.Size = new System.Drawing.Size(371, 302);
             this.gbxboat.TabIndex = 3;
             this.gbxboat.TabStop = false;
             this.gbxboat.Text = "groupBox1";
@@ -72,15 +78,17 @@
             // 
             // AjoutBateau
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 400);
+            this.ClientSize = new System.Drawing.Size(913, 492);
             this.Controls.Add(this.gbxboat);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.tbxAddBoat);
             this.Controls.Add(this.lblAddBoat);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AjoutBateau";
             this.Text = "Ajout d\'un bateau";
+            this.Load += new System.EventHandler(this.AjoutBateau_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

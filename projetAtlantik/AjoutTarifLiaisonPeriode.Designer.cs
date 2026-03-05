@@ -41,35 +41,41 @@
             // lbxSecteur
             // 
             this.lbxSecteur.FormattingEnabled = true;
-            this.lbxSecteur.Location = new System.Drawing.Point(34, 34);
+            this.lbxSecteur.ItemHeight = 16;
+            this.lbxSecteur.Location = new System.Drawing.Point(45, 42);
+            this.lbxSecteur.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lbxSecteur.Name = "lbxSecteur";
-            this.lbxSecteur.Size = new System.Drawing.Size(120, 329);
+            this.lbxSecteur.Size = new System.Drawing.Size(159, 404);
             this.lbxSecteur.TabIndex = 0;
             this.lbxSecteur.SelectedIndexChanged += new System.EventHandler(this.lbxSecteur_SelectedIndexChanged);
             // 
             // lblsecteur
             // 
             this.lblsecteur.AutoSize = true;
-            this.lblsecteur.Location = new System.Drawing.Point(31, 18);
+            this.lblsecteur.Location = new System.Drawing.Point(41, 22);
+            this.lblsecteur.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblsecteur.Name = "lblsecteur";
-            this.lblsecteur.Size = new System.Drawing.Size(58, 13);
+            this.lblsecteur.Size = new System.Drawing.Size(69, 16);
             this.lblsecteur.TabIndex = 1;
             this.lblsecteur.Text = "Secteurs : ";
             // 
             // cbxLiaison
             // 
             this.cbxLiaison.FormattingEnabled = true;
-            this.cbxLiaison.Location = new System.Drawing.Point(99, 379);
+            this.cbxLiaison.Location = new System.Drawing.Point(132, 466);
+            this.cbxLiaison.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxLiaison.Name = "cbxLiaison";
-            this.cbxLiaison.Size = new System.Drawing.Size(121, 21);
+            this.cbxLiaison.Size = new System.Drawing.Size(160, 24);
             this.cbxLiaison.TabIndex = 2;
             this.cbxLiaison.SelectedIndexChanged += new System.EventHandler(this.cbxLiaison_SelectedIndexChanged);
             // 
             // gbxTarifs
             // 
-            this.gbxTarifs.Location = new System.Drawing.Point(422, 18);
+            this.gbxTarifs.Location = new System.Drawing.Point(563, 22);
+            this.gbxTarifs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxTarifs.Name = "gbxTarifs";
-            this.gbxTarifs.Size = new System.Drawing.Size(354, 317);
+            this.gbxTarifs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxTarifs.Size = new System.Drawing.Size(472, 390);
             this.gbxTarifs.TabIndex = 3;
             this.gbxTarifs.TabStop = false;
             this.gbxTarifs.Text = "Tarifs";
@@ -78,16 +84,18 @@
             // cbxPeriode
             // 
             this.cbxPeriode.FormattingEnabled = true;
-            this.cbxPeriode.Location = new System.Drawing.Point(285, 379);
+            this.cbxPeriode.Location = new System.Drawing.Point(380, 466);
+            this.cbxPeriode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxPeriode.Name = "cbxPeriode";
-            this.cbxPeriode.Size = new System.Drawing.Size(345, 21);
+            this.cbxPeriode.Size = new System.Drawing.Size(459, 24);
             this.cbxPeriode.TabIndex = 4;
             // 
             // btnadd
             // 
-            this.btnadd.Location = new System.Drawing.Point(636, 379);
+            this.btnadd.Location = new System.Drawing.Point(848, 466);
+            this.btnadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnadd.Name = "btnadd";
-            this.btnadd.Size = new System.Drawing.Size(140, 23);
+            this.btnadd.Size = new System.Drawing.Size(187, 28);
             this.btnadd.TabIndex = 5;
             this.btnadd.Text = "Ajouter";
             this.btnadd.UseVisualStyleBackColor = true;
@@ -96,26 +104,28 @@
             // lblLiaison
             // 
             this.lblLiaison.AutoSize = true;
-            this.lblLiaison.Location = new System.Drawing.Point(31, 379);
+            this.lblLiaison.Location = new System.Drawing.Point(41, 466);
+            this.lblLiaison.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLiaison.Name = "lblLiaison";
-            this.lblLiaison.Size = new System.Drawing.Size(40, 13);
+            this.lblLiaison.Size = new System.Drawing.Size(50, 16);
             this.lblLiaison.TabIndex = 6;
             this.lblLiaison.Text = "Liaison";
             // 
             // lblPeriode
             // 
             this.lblPeriode.AutoSize = true;
-            this.lblPeriode.Location = new System.Drawing.Point(236, 384);
+            this.lblPeriode.Location = new System.Drawing.Point(315, 473);
+            this.lblPeriode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPeriode.Name = "lblPeriode";
-            this.lblPeriode.Size = new System.Drawing.Size(43, 13);
+            this.lblPeriode.Size = new System.Drawing.Size(55, 16);
             this.lblPeriode.TabIndex = 7;
             this.lblPeriode.Text = "Periode";
             // 
             // AjoutTarifLiaisonPeriode
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 449);
+            this.ClientSize = new System.Drawing.Size(1067, 553);
             this.Controls.Add(this.lblPeriode);
             this.Controls.Add(this.lblLiaison);
             this.Controls.Add(this.btnadd);
@@ -124,8 +134,10 @@
             this.Controls.Add(this.cbxLiaison);
             this.Controls.Add(this.lblsecteur);
             this.Controls.Add(this.lbxSecteur);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AjoutTarifLiaisonPeriode";
             this.Text = "AjoutTarifLiaisonPeriode";
+            this.Load += new System.EventHandler(this.AjoutTarifLiaisonPeriode_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

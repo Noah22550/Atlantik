@@ -213,5 +213,10 @@ namespace projetAtlantik
         {
 
         }
+
+        private void AjoutTarifLiaisonPeriode_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
