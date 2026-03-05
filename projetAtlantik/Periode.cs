@@ -8,9 +8,9 @@ namespace projetAtlantik
 {
     internal class Periode
     {
-        private double DateDebut;
-        private double DateFin;
-        public Periode (double DateDebut, double DateFin)
+        private string DateDebut;
+        private string DateFin;
+        public Periode (string DateDebut, string DateFin)
         {
             this.DateDebut = DateDebut;
             this.DateFin = DateFin;

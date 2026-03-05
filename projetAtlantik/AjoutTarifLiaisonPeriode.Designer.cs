@@ -78,14 +78,14 @@
             // cbxPeriode
             // 
             this.cbxPeriode.FormattingEnabled = true;
-            this.cbxPeriode.Location = new System.Drawing.Point(300, 379);
+            this.cbxPeriode.Location = new System.Drawing.Point(285, 379);
             this.cbxPeriode.Name = "cbxPeriode";
-            this.cbxPeriode.Size = new System.Drawing.Size(121, 21);
+            this.cbxPeriode.Size = new System.Drawing.Size(345, 21);
             this.cbxPeriode.TabIndex = 4;
             // 
             // btnadd
             // 
-            this.btnadd.Location = new System.Drawing.Point(499, 377);
+            this.btnadd.Location = new System.Drawing.Point(636, 379);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(140, 23);
             this.btnadd.TabIndex = 5;

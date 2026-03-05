@@ -22,17 +22,29 @@ namespace projetAtlantik
             try
             {
                 MaCo.Open();
-                double datedebut, datefin;
+                string datedebut, datefin;
                 string requetePeriode = "SELECT DATEDEBUT, DATEFIN FROM periode";
                 MySqlCommand Cmdperiode = new MySqlCommand(requetePeriode, MaCo);
                 MySqlDataReader readerPeriode = Cmdperiode.ExecuteReader();
                 while (readerPeriode.Read())
                 {
-                    
+                    datedebut = readerPeriode["DATEDEBUT"].ToString();
+                    datefin = readerPeriode["DATEFIN"].ToString() ;
+                    Periode nPeriode = new Periode(datedebut, datefin);
+                    cbxPeriode.Items.Add(nPeriode);
 
                 }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+
+            }
+
             //AFFICHAGE LISTBOX SECTEUR
             try
             {
@@ -76,35 +88,22 @@ namespace projetAtlantik
                     int noType = Convert.ToInt32(reader["notype"]);
                     string libelle = reader["libelle"].ToString();
                     string lettre = reader["lettrecategorie"].ToString();
-
+                    Type lblType = new Type(lettre, noType, libelle);
                     // Label pour notype
                     Label lblNoType = new Label();
-                    lblNoType.Text = noType.ToString();
+                    lblNoType.Text = lblType.ToString();
                     lblNoType.Location = new Point(10, y);
                     lblNoType.AutoSize = true;
 
-                    // Label pour libelle
-                    Label lblLibelle = new Label();
-                    lblLibelle.Text = libelle;
-                    lblLibelle.Location = new Point(50, y);
-                    lblLibelle.AutoSize = true;
-
-                    // Label pour lettre catégorie
-                    Label lblLettre = new Label();
-                    lblLettre.Text = lettre;
-                    lblLettre.Location = new Point(20, y);
-                    lblLettre.AutoSize = true;
-
                     TextBox txt = new TextBox();
                     txt.Location = new Point(200, y - 3);
+                    txt.Tag = noType + ":" + lettre;
                     txt.Width = 100;
 
                     // Ajout dans le GroupBox
-                    gbxTarifs.Controls.Add(lblLettre);
                     gbxTarifs.Controls.Add(lblNoType);
-                    gbxTarifs.Controls.Add(lblLibelle);
                     gbxTarifs.Controls.Add(txt);
-
+                    
                     y += 30;
                 }
 
