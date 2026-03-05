@@ -93,9 +93,9 @@ namespace projetAtlantik
                     Type lblType = new Type(lettre, noType, libelle);
                     // Label pour notype
                     Label lblNoType = new Label();
-                    lblNoType.Text = lblType.ToString();
+                    lblNoType.Text = noType.ToString()+" - "+lettre  + libelle;
                     lblNoType.Location = new Point(10, y);
-                    lblNoType.AutoSize = true;
+                    //lblNoType.AutoSize = true;
 
                     TextBox txt = new TextBox();
                     txt.Location = new Point(200, y - 3);

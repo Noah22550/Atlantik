@@ -47,5 +47,10 @@ namespace projetAtlantik
             AjoutTarifLiaisonPeriode ajoutTarifLiaisonPeriode = new AjoutTarifLiaisonPeriode();
             ajoutTarifLiaisonPeriode.ShowDialog();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
