@@ -113,7 +113,6 @@ namespace projetAtlantik
                         string requete2 = "INSERT INTO contenir VALUES(@lettre, @nobateau, @capamax)";
 
                         MySqlCommand maCde2 = new MySqlCommand(requete2, MaCo);
-                        //int nb2 = maCde.ExecuteNonQuery();
 
                         maCde2.Parameters.AddWithValue("@lettre", lettre);
                         maCde2.Parameters.AddWithValue("@nobateau", nobateau);

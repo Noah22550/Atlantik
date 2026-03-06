@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -34,7 +35,7 @@ namespace projetAtlantik
                     string lettre = reader["LETTRECATEGORIE"].ToString();
                     string libelle = reader["LIBELLE"].ToString();
 
-
+            
                     // Label
                     Label lblBoat = new Label();
                     lblBoat.Text = lettre + " - " + libelle;
@@ -66,13 +67,15 @@ namespace projetAtlantik
             {
                 MaCo.Open();
                 string nom;
+                int noBateau;
                 string requeteBateau = "SELECT * FROM bateau";
                 MySqlCommand CmdBateau = new MySqlCommand(requeteBateau, MaCo);
-                MySqlDataReader readerPeriode = CmdBateau.ExecuteReader();
-                while (readerPeriode.Read())
+                MySqlDataReader readerBateau = CmdBateau.ExecuteReader();
+                while (readerBateau.Read())
                 {
-                    nom = readerPeriode["NOM"].ToString();
-                    Bateau nomb = new Bateau(nom);
+                    noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
+                    nom = readerBateau["NOM"].ToString();
+                    Bateau nomb = new Bateau(nom, noBateau);
                     cmbmodifbateau.Items.Add(nom);
 
                 }
@@ -90,15 +93,93 @@ namespace projetAtlantik
 
         private void btnmodifier_Click(object sender, EventArgs e)
         {
+            object NoBateau = ((Bateau)cmbmodifbateau.SelectedItem).GetNoBateau();
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            string tab;
+            try
+            {
+                MaCo.Open();
 
+                foreach (Control c in gbxmodifbateau.Controls)
+                {
+                    if (c is TextBox tbx)
+                    {
+
+                        tab = (tbx.Tag).ToString();
+
+                        MaCo.Open();
+
+                        string lettre = tab;
+                        int capaciteMax = int.Parse((tbx.Text).ToString());
+                        string Requete = "";
+
+                        MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
+
+                        //maCde.Parameters.AddWithValue("@nperiode", nPeriode);
+                        //maCde.Parameters.AddWithValue("@lettrecate", lettre);
+                        //maCde.Parameters.AddWithValue("@notype", notype);
+                        //maCde.Parameters.AddWithValue("@noliaison", nliaison);
+                        //maCde.Parameters.AddWithValue("@tarif", tarif);
+                        int nb = maCde.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Bateau modifié !!!!!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+            }
         }
 
         private void cmbmodifbateau_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            int noBateau = 0;
+            try
+            {
+                MaCo.Open();
 
+                string requete = "SELECT * FROM  categorie WHERE NOBATEAU = @nobateau";
+                MySqlCommand CmdBateau = new MySqlCommand(requete, MaCo);
+                CmdBateau.Parameters.AddWithValue("@nobateau", noBateau);
+                MySqlDataReader readerBateau = CmdBateau.ExecuteReader();
+                
+                while (readerBateau.Read())
+                {
+                    int NoBateau = ((Bateau)cmbmodifbateau.SelectedItem).GetNoBateau();
+                    noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
+                        foreach (Control c in gbxmodifbateau.Controls)
+                        {
+                            if (c is TextBox tbx)
+                            {
+                                
+                                string lettre = (tbx.Tag).ToString();
+                                tbx.Text = readerBateau["CAPACITEMAX"].ToString();
+                            }
+                        }
+                } 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            finally
+            {
+                MaCo.Close();
+
+            }
         }
 
         private void gbxmodifbateau_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ModifBateaucs_Load(object sender, EventArgs e)
         {
 
         }
