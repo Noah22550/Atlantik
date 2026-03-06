@@ -25,18 +25,18 @@ namespace projetAtlantik
             {
                 MaCo.Open();
 
-                string requete = "SELECT c.LETTRECATEGORIE, c.LIBELLE, co.CAPACITEMAX\r\nFROM categorie c\r\nINNER JOIN contenir co ON c.LETTRECATEGORIE = co.LETTRECATEGORIE";
+                string requete = " SELECT * FROM  categorie";
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 int y = 10;
-                int compteur = 0;
+                //int compteur = 0;
 
-                while (reader.Read() && compteur < 3)
+                while (reader.Read())
                 {
                     string lettre = reader["LETTRECATEGORIE"].ToString();
                     string libelle = reader["LIBELLE"].ToString();
-                    int capaciteMax = Convert.ToInt32(reader["CAPACITEMAX"]);
+
 
                     // Label
                     Label lblBoat = new Label();
@@ -46,14 +46,13 @@ namespace projetAtlantik
                     // TextBox
                     TextBox txt = new TextBox();
                     txt.Location = new Point(200, y - 3);
-                    txt.Tag = lettre + ";" + libelle + ";" + capaciteMax; ;
+                    txt.Tag = lettre;
                     txt.Width = 100;
 
                     gbxboat.Controls.Add(lblBoat);
                     gbxboat.Controls.Add(txt);
 
                    y += 30;
-                    compteur++;
                 }
 
                 reader.Close();
@@ -90,34 +89,42 @@ namespace projetAtlantik
             string tab;
             try
             {
+                string nomboat = tbxAddBoat.Text;
+                MaCo.Open();
+                string requete = "INSERT INTO Bateau(NOM) VALUES (@nom)";
+                MySqlCommand maCde = new MySqlCommand(requete, MaCo);
+                maCde.Parameters.AddWithValue("@nom", nomboat);
+                int nb = maCde.ExecuteNonQuery();
+                int nobateau = (int)maCde.LastInsertedId;
+                MaCo.Close();
+
+
                 foreach (Control c in gbxboat.Controls)
                 {
                     if (c is TextBox tbx2)
                     {
                         tab = (tbx2.Tag).ToString();
-                        tab.Split(';');
 
-                        string libelle = tab[0].ToString();
-                        string lettre = tab[2].ToString();
-                        int capaciteMax = int.Parse(tab[4].ToString());
-                        string nomboat = tbxAddBoat.Text;
                         MaCo.Open();
-                        string requete = "INSERT INTO Bateau(NOLIAISON, NOM) VALUES (@nom)";
-                        MySqlCommand maCde = new MySqlCommand(requete, MaCo);
-                        MySqlDataReader reader = maCde.ExecuteReader();
-                        string requete2 = "INSERT INTO contenir(LETTRECATEGORIE, NOBATEAU, CAPACITEMAX) VALUES(@lettre, @nobateau, @capamax)";
+                        
+                        string lettre = tab;
+                        int capaciteMax = int.Parse((tbx2.Text).ToString());
+                        
+                        string requete2 = "INSERT INTO contenir VALUES(@lettre, @nobateau, @capamax)";
 
                         MySqlCommand maCde2 = new MySqlCommand(requete2, MaCo);
-                        MySqlDataReader reader2 = maCde2.ExecuteReader();
+                        //int nb2 = maCde.ExecuteNonQuery();
 
-                        maCde2.Parameters.AddWithValue("@libelle", libelle);
                         maCde2.Parameters.AddWithValue("@lettre", lettre);
+                        maCde2.Parameters.AddWithValue("@nobateau", nobateau);
                         maCde2.Parameters.AddWithValue("@capamax", capaciteMax);
-                        maCde.Parameters.AddWithValue("@nom", nomboat);
-                        int nb = maCde.ExecuteNonQuery();
-                        MessageBox.Show("Bateau ajouté !");
+                        
+                        int nb2 = maCde.ExecuteNonQuery();
+                        
+                        MaCo.Close();
                     }
                 }
+                MessageBox.Show("Bateau ajouté !");
             }
             catch (Exception ex)
             {

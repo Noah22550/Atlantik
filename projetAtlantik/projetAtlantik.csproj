@@ -155,6 +155,7 @@
     <Compile Include="AjoutTarifLiaisonPeriode.Designer.cs">
       <DependentUpon>AjoutTarifLiaisonPeriode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bateau.cs" />
     <Compile Include="Categorie.cs" />
     <Compile Include="Liaison.cs" />
     <Compile Include="Menu.cs">
@@ -162,6 +163,12 @@
     </Compile>
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModifBateaucs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifBateaucs.Designer.cs">
+      <DependentUpon>ModifBateaucs.cs</DependentUpon>
     </Compile>
     <Compile Include="Periode.cs" />
     <Compile Include="Port.cs" />
@@ -186,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifBateaucs.resx">
+      <DependentUpon>ModifBateaucs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -52,5 +52,11 @@ namespace projetAtlantik
         {
 
         }
+
+        private void mmModifierBateau_Click(object sender, EventArgs e)
+        {
+            ModifBateaucs modifBateaucs = new ModifBateaucs();
+            modifBateaucs.ShowDialog();
+        }
     }
 }
