@@ -82,7 +82,6 @@
             this.Controls.Add(this.cmbmodifbateau);
             this.Controls.Add(this.lblmodif);
             this.Name = "ModifBateaucs";
-            this.Text = "ModifBateaucs";
             this.Load += new System.EventHandler(this.ModifBateaucs_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

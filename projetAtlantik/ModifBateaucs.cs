@@ -49,6 +49,7 @@ namespace projetAtlantik
 
                     gbxmodifbateau.Controls.Add(lblBoat);
                     gbxmodifbateau.Controls.Add(txt);
+                    //cmbmodifbateau.Items.Add(nomb);
 
                     y += 30;
                 }
@@ -76,7 +77,7 @@ namespace projetAtlantik
                     noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
                     nom = readerBateau["NOM"].ToString();
                     Bateau nomb = new Bateau(nom, noBateau);
-                    cmbmodifbateau.Items.Add(nom);
+                    cmbmodifbateau.Items.Add(nomb);
 
                 }
             }
@@ -93,9 +94,11 @@ namespace projetAtlantik
 
         private void btnmodifier_Click(object sender, EventArgs e)
         {
-            object NoBateau = ((Bateau)cmbmodifbateau.SelectedItem).GetNoBateau();
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            string tab;
+            Bateau b = (Bateau)cmbmodifbateau.SelectedItem;
+            int noBateau = b.GetNoBateau();
+
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=");
+
             try
             {
                 MaCo.Open();
@@ -104,30 +107,26 @@ namespace projetAtlantik
                 {
                     if (c is TextBox tbx)
                     {
+                        string lettre = tbx.Tag.ToString();
+                        int capaciteMax = int.Parse(tbx.Text);
 
-                        tab = (tbx.Tag).ToString();
+                        string requete = "UPDATE contenir SET capacitemax = @capacite WHERE nobateau = @bateau AND lettrecategorie = @lettre";
 
-                        MaCo.Open();
+                        MySqlCommand cmd = new MySqlCommand(requete, MaCo);
 
-                        string lettre = tab;
-                        int capaciteMax = int.Parse((tbx.Text).ToString());
-                        string Requete = "";
+                        cmd.Parameters.AddWithValue("@capacite", capaciteMax);
+                        cmd.Parameters.AddWithValue("@bateau", noBateau);
+                        cmd.Parameters.AddWithValue("@lettre", lettre);
 
-                        MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
-
-                        //maCde.Parameters.AddWithValue("@nperiode", nPeriode);
-                        //maCde.Parameters.AddWithValue("@lettrecate", lettre);
-                        //maCde.Parameters.AddWithValue("@notype", notype);
-                        //maCde.Parameters.AddWithValue("@noliaison", nliaison);
-                        //maCde.Parameters.AddWithValue("@tarif", tarif);
-                        int nb = maCde.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Bateau modifié !!!!!");
+
+                MessageBox.Show("Bateau modifié !");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur : " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
             finally
             {
@@ -137,40 +136,48 @@ namespace projetAtlantik
 
         private void cmbmodifbateau_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            int noBateau = 0;
+            Bateau b = (Bateau)cmbmodifbateau.SelectedItem;
+            int noBateau = b.GetNoBateau();
+
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=");
+
             try
             {
                 MaCo.Open();
 
-                string requete = "SELECT * FROM  categorie WHERE NOBATEAU = @nobateau";
-                MySqlCommand CmdBateau = new MySqlCommand(requete, MaCo);
-                CmdBateau.Parameters.AddWithValue("@nobateau", noBateau);
-                MySqlDataReader readerBateau = CmdBateau.ExecuteReader();
-                
-                while (readerBateau.Read())
+                string requete = "SELECT lettrecategorie, capacitemax FROM contenir WHERE nobateau = @bateau";
+
+                MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+                cmd.Parameters.AddWithValue("@bateau", noBateau);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    int NoBateau = ((Bateau)cmbmodifbateau.SelectedItem).GetNoBateau();
-                    noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
-                        foreach (Control c in gbxmodifbateau.Controls)
+                    string lettre = reader["lettrecategorie"].ToString();
+                    string capacite = reader["capacitemax"].ToString();
+
+                    foreach (Control c in gbxmodifbateau.Controls)
+                    {
+                        if (c is TextBox tbx)
                         {
-                            if (c is TextBox tbx)
+                            if (tbx.Tag.ToString() == lettre)
                             {
-                                
-                                string lettre = (tbx.Tag).ToString();
-                                tbx.Text = readerBateau["CAPACITEMAX"].ToString();
+                                tbx.Text = capacite;
                             }
                         }
-                } 
+                    }
+                }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur : " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
             finally
             {
                 MaCo.Close();
-
             }
         }
 

@@ -58,5 +58,11 @@ namespace projetAtlantik
             ModifBateaucs modifBateaucs = new ModifBateaucs();
             modifBateaucs.ShowDialog();
         }
+
+        private void mmtraverse_Click(object sender, EventArgs e)
+        {
+            AjoutTraversé traverse = new AjoutTraversé();
+            traverse.ShowDialog();
+        }
     }
 }

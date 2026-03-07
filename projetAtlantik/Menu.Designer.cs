@@ -42,7 +42,7 @@
             this.mmliaison = new System.Windows.Forms.ToolStripMenuItem();
             this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAddBoat = new System.Windows.Forms.ToolStripMenuItem();
-            this.uneTraverséToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmtraverse = new System.Windows.Forms.ToolStripMenuItem();
             this.modifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmModifierBateau = new System.Windows.Forms.ToolStripMenuItem();
             this.lesParamètreDuSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +111,7 @@
             this.mmliaison,
             this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem,
             this.mmAddBoat,
-            this.uneTraverséToolStripMenuItem});
+            this.mmtraverse});
             this.ajouterToolStripMenuItem1.Name = "ajouterToolStripMenuItem1";
             this.ajouterToolStripMenuItem1.Size = new System.Drawing.Size(72, 24);
             this.ajouterToolStripMenuItem1.Text = "Ajouter";
@@ -151,11 +151,12 @@
             this.mmAddBoat.Text = "Un bateau";
             this.mmAddBoat.Click += new System.EventHandler(this.mmAddBoat_Click);
             // 
-            // uneTraverséToolStripMenuItem
+            // mmtraverse
             // 
-            this.uneTraverséToolStripMenuItem.Name = "uneTraverséToolStripMenuItem";
-            this.uneTraverséToolStripMenuItem.Size = new System.Drawing.Size(361, 26);
-            this.uneTraverséToolStripMenuItem.Text = "Une traversée";
+            this.mmtraverse.Name = "mmtraverse";
+            this.mmtraverse.Size = new System.Drawing.Size(361, 26);
+            this.mmtraverse.Text = "Une traversée";
+            this.mmtraverse.Click += new System.EventHandler(this.mmtraverse_Click);
             // 
             // modifierToolStripMenuItem
             // 
@@ -226,7 +227,7 @@
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.lblAtlantik);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -252,7 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem mmliaison;
         private System.Windows.Forms.ToolStripMenuItem mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmAddBoat;
-        private System.Windows.Forms.ToolStripMenuItem uneTraverséToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mmtraverse;
         private System.Windows.Forms.ToolStripMenuItem modifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmModifierBateau;
         private System.Windows.Forms.ToolStripMenuItem lesParamètreDuSiteToolStripMenuItem;
