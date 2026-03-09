@@ -64,5 +64,11 @@ namespace projetAtlantik
             AjoutTraversé traverse = new AjoutTraversé();
             traverse.ShowDialog();
         }
+
+        private void mmAfficherTraverse_Click(object sender, EventArgs e)
+        {
+            Affichertraverse traverse = new Affichertraverse();
+            traverse.ShowDialog();
+        }
     }
 }

@@ -44,17 +44,19 @@
             // 
             // dateDepart
             // 
-            this.dateDepart.Location = new System.Drawing.Point(425, 254);
+            this.dateDepart.Location = new System.Drawing.Point(319, 206);
+            this.dateDepart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateDepart.Name = "dateDepart";
-            this.dateDepart.Size = new System.Drawing.Size(200, 22);
+            this.dateDepart.Size = new System.Drawing.Size(151, 20);
             this.dateDepart.TabIndex = 0;
             this.dateDepart.ValueChanged += new System.EventHandler(this.dateDepart_ValueChanged);
             // 
             // dateArrivee
             // 
-            this.dateArrivee.Location = new System.Drawing.Point(425, 282);
+            this.dateArrivee.Location = new System.Drawing.Point(319, 229);
+            this.dateArrivee.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dateArrivee.Name = "dateArrivee";
-            this.dateArrivee.Size = new System.Drawing.Size(200, 22);
+            this.dateArrivee.Size = new System.Drawing.Size(151, 20);
             this.dateArrivee.TabIndex = 1;
             this.dateArrivee.Value = new System.DateTime(2026, 3, 7, 14, 0, 4, 0);
             this.dateArrivee.ValueChanged += new System.EventHandler(this.dateArrivee_ValueChanged);
@@ -69,81 +71,89 @@
             // lblLiaison
             // 
             this.lblLiaison.AutoSize = true;
-            this.lblLiaison.Location = new System.Drawing.Point(12, 328);
+            this.lblLiaison.Location = new System.Drawing.Point(9, 266);
+            this.lblLiaison.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLiaison.Name = "lblLiaison";
-            this.lblLiaison.Size = new System.Drawing.Size(50, 16);
+            this.lblLiaison.Size = new System.Drawing.Size(40, 13);
             this.lblLiaison.TabIndex = 2;
             this.lblLiaison.Text = "Liaison";
             // 
             // lblbateau
             // 
             this.lblbateau.AutoSize = true;
-            this.lblbateau.Location = new System.Drawing.Point(399, 39);
+            this.lblbateau.Location = new System.Drawing.Point(299, 32);
+            this.lblbateau.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblbateau.Name = "lblbateau";
-            this.lblbateau.Size = new System.Drawing.Size(82, 16);
+            this.lblbateau.Size = new System.Drawing.Size(66, 13);
             this.lblbateau.TabIndex = 4;
             this.lblbateau.Text = "Nom Bateau";
             // 
             // lblSecteur
             // 
             this.lblSecteur.AutoSize = true;
-            this.lblSecteur.Location = new System.Drawing.Point(12, 25);
+            this.lblSecteur.Location = new System.Drawing.Point(9, 20);
+            this.lblSecteur.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSecteur.Name = "lblSecteur";
-            this.lblSecteur.Size = new System.Drawing.Size(53, 16);
+            this.lblSecteur.Size = new System.Drawing.Size(44, 13);
             this.lblSecteur.TabIndex = 5;
             this.lblSecteur.Text = "Secteur";
             // 
             // lblArrivee
             // 
             this.lblArrivee.AutoSize = true;
-            this.lblArrivee.Location = new System.Drawing.Point(251, 288);
+            this.lblArrivee.Location = new System.Drawing.Point(188, 234);
+            this.lblArrivee.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblArrivee.Name = "lblArrivee";
-            this.lblArrivee.Size = new System.Drawing.Size(124, 16);
+            this.lblArrivee.Size = new System.Drawing.Size(101, 13);
             this.lblArrivee.TabIndex = 6;
             this.lblArrivee.Text = "Date et heure arrivé";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(251, 254);
+            this.label6.Location = new System.Drawing.Point(188, 206);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 16);
+            this.label6.Size = new System.Drawing.Size(123, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "Date et heure de départ ";
             // 
             // lbxSecteur
             // 
             this.lbxSecteur.FormattingEnabled = true;
-            this.lbxSecteur.ItemHeight = 16;
-            this.lbxSecteur.Location = new System.Drawing.Point(12, 44);
+            this.lbxSecteur.Location = new System.Drawing.Point(9, 36);
+            this.lbxSecteur.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lbxSecteur.Name = "lbxSecteur";
-            this.lbxSecteur.Size = new System.Drawing.Size(135, 260);
+            this.lbxSecteur.Size = new System.Drawing.Size(102, 212);
             this.lbxSecteur.TabIndex = 8;
             this.lbxSecteur.SelectedIndexChanged += new System.EventHandler(this.lbxSecteur_SelectedIndexChanged);
             // 
             // cmbLiaison
             // 
             this.cmbLiaison.FormattingEnabled = true;
-            this.cmbLiaison.Location = new System.Drawing.Point(15, 361);
+            this.cmbLiaison.Location = new System.Drawing.Point(11, 293);
+            this.cmbLiaison.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbLiaison.Name = "cmbLiaison";
-            this.cmbLiaison.Size = new System.Drawing.Size(132, 24);
+            this.cmbLiaison.Size = new System.Drawing.Size(100, 21);
             this.cmbLiaison.TabIndex = 9;
             this.cmbLiaison.SelectedIndexChanged += new System.EventHandler(this.cmbLiaison_SelectedIndexChanged);
             // 
             // cmbBateau
             // 
             this.cmbBateau.FormattingEnabled = true;
-            this.cmbBateau.Location = new System.Drawing.Point(496, 36);
+            this.cmbBateau.Location = new System.Drawing.Point(372, 29);
+            this.cmbBateau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cmbBateau.Name = "cmbBateau";
-            this.cmbBateau.Size = new System.Drawing.Size(132, 24);
+            this.cmbBateau.Size = new System.Drawing.Size(100, 21);
             this.cmbBateau.TabIndex = 10;
             this.cmbBateau.SelectedIndexChanged += new System.EventHandler(this.cmbBateau_SelectedIndexChanged);
             // 
             // btnaddtraverse
             // 
-            this.btnaddtraverse.Location = new System.Drawing.Point(372, 362);
+            this.btnaddtraverse.Location = new System.Drawing.Point(279, 294);
+            this.btnaddtraverse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnaddtraverse.Name = "btnaddtraverse";
-            this.btnaddtraverse.Size = new System.Drawing.Size(107, 23);
+            this.btnaddtraverse.Size = new System.Drawing.Size(80, 19);
             this.btnaddtraverse.TabIndex = 11;
             this.btnaddtraverse.Text = "Ajouter !";
             this.btnaddtraverse.UseVisualStyleBackColor = true;
@@ -151,9 +161,9 @@
             // 
             // AjoutTraversé
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.btnaddtraverse);
             this.Controls.Add(this.cmbBateau);
             this.Controls.Add(this.cmbLiaison);
@@ -165,8 +175,10 @@
             this.Controls.Add(this.lblLiaison);
             this.Controls.Add(this.dateArrivee);
             this.Controls.Add(this.dateDepart);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AjoutTraversé";
             this.Text = "AjoutTraversé";
+            this.Load += new System.EventHandler(this.AjoutTraversé_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

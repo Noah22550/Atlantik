@@ -183,5 +183,10 @@ namespace projetAtlantik
                 MaCo.Close();
             }
         }
+
+        private void AjoutTraversé_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -49,7 +49,6 @@ namespace projetAtlantik
 
                     gbxmodifbateau.Controls.Add(lblBoat);
                     gbxmodifbateau.Controls.Add(txt);
-                    //cmbmodifbateau.Items.Add(nomb);
 
                     y += 30;
                 }
