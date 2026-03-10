@@ -123,8 +123,8 @@ namespace projetAtlantik
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@noliaison", noLiaison);
                 maCde.Parameters.AddWithValue("@nobateau", nobateau);
-                maCde.Parameters.AddWithValue("@datehD", dateDepart.Value.Date);
-                maCde.Parameters.AddWithValue("@datehA", dateArrivee.Value.Date);
+                maCde.Parameters.AddWithValue("@datehD", dateDepart.Value);
+                maCde.Parameters.AddWithValue("@datehA", dateArrivee.Value);
                 int nb = maCde.ExecuteNonQuery();
                 MessageBox.Show("Traversé ajouté !!");
 

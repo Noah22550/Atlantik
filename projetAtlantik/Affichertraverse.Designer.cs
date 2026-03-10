@@ -43,9 +43,9 @@
             // lvTraverse
             // 
             this.lvTraverse.HideSelection = false;
-            this.lvTraverse.Location = new System.Drawing.Point(273, 213);
+            this.lvTraverse.Location = new System.Drawing.Point(169, 213);
             this.lvTraverse.Name = "lvTraverse";
-            this.lvTraverse.Size = new System.Drawing.Size(492, 225);
+            this.lvTraverse.Size = new System.Drawing.Size(619, 225);
             this.lvTraverse.TabIndex = 0;
             this.lvTraverse.UseCompatibleStateImageBehavior = false;
             this.lvTraverse.SelectedIndexChanged += new System.EventHandler(this.lvTraverse_SelectedIndexChanged);
@@ -75,6 +75,7 @@
             this.btnAfficher.TabIndex = 3;
             this.btnAfficher.Text = "Afficher les traversées";
             this.btnAfficher.UseVisualStyleBackColor = true;
+            this.btnAfficher.Click += new System.EventHandler(this.btnAfficher_Click);
             // 
             // dateTimePicker1
             // 
@@ -104,7 +105,7 @@
             // lblDispo
             // 
             this.lblDispo.AutoSize = true;
-            this.lblDispo.Location = new System.Drawing.Point(519, 197);
+            this.lblDispo.Location = new System.Drawing.Point(451, 197);
             this.lblDispo.Name = "lblDispo";
             this.lblDispo.Size = new System.Drawing.Size(154, 13);
             this.lblDispo.TabIndex = 7;
@@ -113,7 +114,7 @@
             // lblTraverse
             // 
             this.lblTraverse.AutoSize = true;
-            this.lblTraverse.Location = new System.Drawing.Point(270, 197);
+            this.lblTraverse.Location = new System.Drawing.Point(166, 197);
             this.lblTraverse.Name = "lblTraverse";
             this.lblTraverse.Size = new System.Drawing.Size(55, 13);
             this.lblTraverse.TabIndex = 8;
