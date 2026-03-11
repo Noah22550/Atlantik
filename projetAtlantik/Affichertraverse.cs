@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,12 +22,13 @@ namespace projetAtlantik
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
             try
             {
+                MaCo.Open();
                 string requeteEnregistrer = "select sum(e.QUANTITERESERVEE) from reservation r " +
                     "INNER JOIN enregistrer e on r.NORESERVATION = e.NORESERVATION " +
                     "where e.LETTRECATEGORIE = @lettrecat and r.NOTRAVERSEE = @notrav;";
                 MySqlCommand MaCde = new MySqlCommand(requeteEnregistrer, MaCo);
-                MaCde.Parameters.AddWithValue("@lettrecat", noTraverse);
-                MaCde.Parameters.AddWithValue("@notrav", lettrecategorie);
+                MaCde.Parameters.AddWithValue("@lettrecat", lettrecategorie);
+                MaCde.Parameters.AddWithValue("@notrav", noTraverse);
                 MySqlDataReader readerEnregistrement = MaCde.ExecuteReader();
                 return GetQuantiteEnregistree(noTraverse, lettrecategorie);
 
@@ -47,12 +49,13 @@ namespace projetAtlantik
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
             try
             {
+                MaCo.Open();
                 string requeteCapamax = "SELECT CAPACITEMAX from traversee t " +
                     "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU INNER JOIN contenir c ON c.NOBATEAU = t.NOBATEAU " +
                     "where t.notraversee = @numtrav and c.lettrecategorie = @lettrecat;";
                 MySqlCommand MaCde = new MySqlCommand(requeteCapamax, MaCo);
-                MaCde.Parameters.AddWithValue("@lettrecat", noTraverse);
-                MaCde.Parameters.AddWithValue("@numtrav", lettrecategorie);
+                MaCde.Parameters.AddWithValue("@lettrecat", lettrecategorie);
+                MaCde.Parameters.AddWithValue("@notrav", noTraverse);
                 MySqlDataReader readerCpamax = MaCde.ExecuteReader();
                 return GetCapaciteMax(noTraverse, lettrecategorie);
             }
@@ -66,22 +69,52 @@ namespace projetAtlantik
                 MaCo.Close();
             }
         }
-        public int GetLesTraverseesBateaux(int noTraverse, string lettrecategorie)
+        private List<Traversees> GetLesTraverseesBateaux(int noliaison, string datetraversee)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;";
+            MySqlConnection maCo = new MySqlConnection(CHAINECONNEXION);
+
+            List<Traversees> lestraversees = new List<Traversees>();
+
             try
             {
-                return;
+                maCo.Open();
+
+                string requete = "SELECT notraversee, nom, dateheuredepart " +
+                                 "FROM traversee t " +
+                                 "INNER JOIN bateau b ON t.nobateau = b.nobateau " +
+                                 "WHERE noliaison = @noliaison AND DATE(dateheuredepart) = @date";
+
+                MySqlCommand maCde = new MySqlCommand(requete, maCo);
+
+                maCde.Parameters.AddWithValue("@noliaison", noliaison);
+                maCde.Parameters.AddWithValue("@date", datetraversee);
+
+                MySqlDataReader reader = maCde.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int notraverse = (int)reader["notraversee"];
+                    string nom = reader["nom"].ToString();
+                    DateTime dateheuredepart = (DateTime)reader["dateheuredepart"];
+
+                    Traversees trav = new Traversees(notraverse, nom, dateheuredepart.ToString());
+
+                    lestraversees.Add(trav);
+                }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur : " + ex.Message);
-                return -1;
+                MessageBox.Show(ex.Message);
             }
             finally
             {
-                MaCo.Close();
+                maCo.Close();
             }
+
+            return lestraversees;
         }
 
         public Affichertraverse()
@@ -165,43 +198,8 @@ namespace projetAtlantik
 
         private void lvTraverse_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-
-            try
-            {
-                MaCo.Open();
-                string requeteafficherbateau = "SELECT NOTRAVERSEE, b.NOM, DATEHEUREDEPART, DATEHEUREARRIVEE FROM `traversee`t inner join bateau b on (b.NOBATEAU = t.NOBATEAU);";
-                MySqlCommand cmdtraverse = new MySqlCommand(requeteafficherbateau, MaCo);
-                MySqlDataReader readertraverse = cmdtraverse.ExecuteReader();
-                while (readertraverse.Read())
-                {
-
-
-                    Secteur secteur = new Secteur((int)readertraverse["NOTRAVERSEE"], readertraverse["nom"].ToString());
-                    lbxSecteur.Items.Add(secteur);
-
-                    //int numtrav = (int)readertraverse["NOTRAVERSEE"];
-                    //string bnom = (string)readertraverse["NOM"];
-                    //DateTime dhd = (DateTime)readertraverse["DATEHEUREDEPART"];
-                    //DateTime dha = (DateTime)readertraverse["DATEHEUREARRIVEE"];
-
-                    //lvTraverse.Items.Add(numtrav).ToString();
-                    //lvTraverse.Items.Add(bnom);
-                    //lvTraverse.Items.Add(dhd);
-                    //lvTraverse.Items.Add(dha);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-            }
-            finally
-            {
-                MaCo.Close();
-            }
+          
         }
-
         private void btnAfficher_Click(object sender, EventArgs e)
         {
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
@@ -209,7 +207,48 @@ namespace projetAtlantik
             try
             {
                 MaCo.Open();
-                
+
+                lvTraverse.Items.Clear();
+
+                int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
+                DateTime date = dateafficher.Value;
+
+                List<Traversees> lesTrav = GetLesTraverseesBateaux(noLiaison, date.ToString("yyyy-MM-dd"));
+
+                string requete = "SELECT NOTRAVERSEE, DATEHEUREDEPART, b.NOM " +
+                                 "FROM traversee t " +
+                                 "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
+                                 "WHERE NOLIAISON = @noliaison AND DATE(DATEHEUREDEPART) = @date";
+
+                MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+
+                cmd.Parameters.AddWithValue("@noliaison", noLiaison);
+                cmd.Parameters.AddWithValue("@date", date);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int numtrav = (int)reader["NOTRAVERSEE"];
+                    DateTime heure = (DateTime)reader["DATEHEUREDEPART"];
+                    string bateau = reader["NOM"].ToString();
+
+                    int A = GetQuantiteEnregistree(numtrav, "A");
+                    int B = GetQuantiteEnregistree(numtrav, "B");
+                    int C = GetQuantiteEnregistree(numtrav, "C");
+
+                    ListViewItem ligne = new ListViewItem(numtrav.ToString());
+
+                    ligne.SubItems.Add(heure.ToString("HH:mm"));
+                    ligne.SubItems.Add(bateau);
+                    ligne.SubItems.Add(A.ToString());
+                    ligne.SubItems.Add(B.ToString());
+                    ligne.SubItems.Add(C.ToString());
+
+                    lvTraverse.Items.Add(ligne);
+                }
+
+                reader.Close();
             }
             catch (Exception ex)
             {

@@ -187,6 +187,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secteur.cs" />
+    <Compile Include="Traversees.cs" />
     <Compile Include="Type.cs" />
     <EmbeddedResource Include="Affichertraverse.resx">
       <DependentUpon>Affichertraverse.cs</DependentUpon>
