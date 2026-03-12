@@ -185,7 +185,8 @@ namespace projetAtlantik
         {
 
         }
-        private void btnAfficher_Click(object sender, EventArgs e)
+
+        private void btnAfficher_Click(object sender, EventArgs e, Categorie lettre)
         {
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
 
@@ -196,8 +197,8 @@ namespace projetAtlantik
                 lvTraverse.Items.Clear();
 
                 int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
-                DateTime date = dateafficher.Value.Today;
-                string lettrecat = Text;
+                DateTime date = dateafficher.Value;
+                string lettrecat = lettre.getLettre();
                 double capmax = GetCapaciteMax(noLiaison, lettrecat);
 
                 //List<Traversees> lesTrav = GetLesTraverseesBateaux(noLiaison, date.ToString("yyyy-MM-dd"));
@@ -207,12 +208,13 @@ namespace projetAtlantik
                     "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
                     "INNER JOIN contenir c ON c.NOBATEAU = t.NOBATEAU " +
                     "WHERE NOLIAISON = @noliaison AND DATE(DATEHEUREDEPART) = @date" +
-                    "WHERE LETTRECATEGORIE = @lettrecat AND CAPACITEMAX = capmax";
+                    "AND LETTRECATEGORIE = @lettrecat AND CAPACITEMAX = capmax";
 
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
-
                 cmd.Parameters.AddWithValue("@noliaison", noLiaison);
-                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@lettrecat", lettrecat);
+                cmd.Parameters.AddWithValue("@capmax", capmax);
 
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -222,9 +224,9 @@ namespace projetAtlantik
                     int numtrav = (int)reader["NOTRAVERSEE"];
                     DateTime heure = (DateTime)reader["DATEHEUREDEPART"];
                     string bateau = reader["NOM"].ToString();
-                    Traversees lestraversees = new Traversees(numtrav, bateau);
-                    Categorie lettre;
-                    int A = GetCapaciteMax(lestraversees.GetNoTraversee(), lettre.getLettre()) - GetQuantiteEnregistree(lestraversees.GetNoTraversee(), lettre.getLettre());
+                    Traversees lestraversees = new Traversees(numtrav, bateau, heure);
+
+                    int A = GetCapaciteMax(numtrav, lettre.getLettre()) - GetQuantiteEnregistree(numtrav, lettre.getLettre());
                     int B = GetQuantiteEnregistree(numtrav, "B");
                     int C = GetQuantiteEnregistree(numtrav, "C");
 
