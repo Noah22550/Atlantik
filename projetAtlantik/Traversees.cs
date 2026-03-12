@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Crypto.Digests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,17 @@ namespace projetAtlantik
     public class Traversees
     {
         private int notraversee;
-        private string bateau;
+        private int Nobateau;
         private DateTime heure;
 
-        public Traversees(int notraversee, string bateau, DateTime heure)
+        public Traversees(int notraversee, int Nobateau, DateTime heure)
         {
             this.notraversee = notraversee;
-            this.bateau = bateau;
+            this.Nobateau = Nobateau;
             this.heure = heure;
         }
-
+        public int getNotraversee() { return notraversee; }
+        public int getBateau() { return Nobateau; }
         public int GetNoTraversee()
         {
             return notraversee;
@@ -26,6 +28,10 @@ namespace projetAtlantik
         public DateTime GetDateHeureDepart()
         {
             return heure;
+        }
+        public override string ToString()
+        {
+            return bateau + " - " + notraversee + " - " + heure + " - ";
         }
     }
 }
