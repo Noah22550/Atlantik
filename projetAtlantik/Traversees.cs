@@ -10,9 +10,9 @@ namespace projetAtlantik
     {
         private int notraversee;
         private string nom;
-        private string dateheuredepart;
+        private DateTime dateheuredepart;
 
-        public Traversees(int notraversee, string nom, string dateheuredepart)
+        public Traversees(int notraversee, string nom, DateTime dateheuredepart)
         {
             this.notraversee = notraversee;
             this.nom = nom;
@@ -29,7 +29,7 @@ namespace projetAtlantik
             return nom;
         }
 
-        public string GetDateHeureDepart()
+        public DateTime GetDateHeureDepart()
         {
             return dateheuredepart;
         }

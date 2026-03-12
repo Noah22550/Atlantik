@@ -10,6 +10,7 @@ namespace projetAtlantik
     {
         private string lettre;
         private string libelle;
+        public string getLettre() {  return lettre; }
         public override string ToString()
         {
             return lettre + " " + libelle;

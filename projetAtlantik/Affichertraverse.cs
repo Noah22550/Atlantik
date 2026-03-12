@@ -69,12 +69,10 @@ namespace projetAtlantik
                 MaCo.Close();
             }
         }
-        private List<Traversees> GetLesTraverseesBateaux(int noliaison, string datetraversee)
+        public int GetLesTraverseesBateaux(int noliaison, string datetraversee)
         {
             string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;";
             MySqlConnection maCo = new MySqlConnection(CHAINECONNEXION);
-
-            List<Traversees> lestraversees = new List<Traversees>();
 
             try
             {
@@ -89,32 +87,19 @@ namespace projetAtlantik
 
                 maCde.Parameters.AddWithValue("@noliaison", noliaison);
                 maCde.Parameters.AddWithValue("@date", datetraversee);
-
                 MySqlDataReader reader = maCde.ExecuteReader();
+                return GetLesTraverseesBateaux(noliaison, datetraversee);
 
-                while (reader.Read())
-                {
-                    int notraverse = (int)reader["notraversee"];
-                    string nom = reader["nom"].ToString();
-                    DateTime dateheuredepart = (DateTime)reader["dateheuredepart"];
-
-                    Traversees trav = new Traversees(notraverse, nom, dateheuredepart.ToString());
-
-                    lestraversees.Add(trav);
-                }
-
-                reader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return -1;
             }
             finally
             {
                 maCo.Close();
             }
-
-            return lestraversees;
         }
 
         public Affichertraverse()
@@ -198,7 +183,7 @@ namespace projetAtlantik
 
         private void lvTraverse_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
+
         }
         private void btnAfficher_Click(object sender, EventArgs e)
         {
@@ -211,19 +196,24 @@ namespace projetAtlantik
                 lvTraverse.Items.Clear();
 
                 int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
-                DateTime date = dateafficher.Value;
+                DateTime date = dateafficher.Value.Today;
+                string lettrecat = Text;
+                double capmax = GetCapaciteMax(noLiaison, lettrecat);
 
-                List<Traversees> lesTrav = GetLesTraverseesBateaux(noLiaison, date.ToString("yyyy-MM-dd"));
+                //List<Traversees> lesTrav = GetLesTraverseesBateaux(noLiaison, date.ToString("yyyy-MM-dd"));
 
                 string requete = "SELECT NOTRAVERSEE, DATEHEUREDEPART, b.NOM " +
-                                 "FROM traversee t " +
-                                 "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
-                                 "WHERE NOLIAISON = @noliaison AND DATE(DATEHEUREDEPART) = @date";
+                    " FROM traversee t " +
+                    "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
+                    "INNER JOIN contenir c ON c.NOBATEAU = t.NOBATEAU " +
+                    "WHERE NOLIAISON = @noliaison AND DATE(DATEHEUREDEPART) = @date" +
+                    "WHERE LETTRECATEGORIE = @lettrecat AND CAPACITEMAX = capmax";
 
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
 
                 cmd.Parameters.AddWithValue("@noliaison", noLiaison);
                 cmd.Parameters.AddWithValue("@date", date);
+
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -232,22 +222,23 @@ namespace projetAtlantik
                     int numtrav = (int)reader["NOTRAVERSEE"];
                     DateTime heure = (DateTime)reader["DATEHEUREDEPART"];
                     string bateau = reader["NOM"].ToString();
-
-                    int A = GetQuantiteEnregistree(numtrav, "A");
+                    Traversees lestraversees = new Traversees(numtrav, bateau);
+                    Categorie lettre;
+                    int A = GetCapaciteMax(lestraversees.GetNoTraversee(), lettre.getLettre()) - GetQuantiteEnregistree(lestraversees.GetNoTraversee(), lettre.getLettre());
                     int B = GetQuantiteEnregistree(numtrav, "B");
                     int C = GetQuantiteEnregistree(numtrav, "C");
 
-                    ListViewItem ligne = new ListViewItem(numtrav.ToString());
+                    var tabItem = new string[5];
+                    ListViewItem unItem;
+                    tabItem[0] = heure.ToString("HH:mm");
+                    tabItem[1] = bateau;
+                    tabItem[2] = A.ToString();
+                    tabItem[3] = B.ToString();
+                    tabItem[4] = C.ToString();
+                    unItem = new ListViewItem(tabItem); // Création ligne
+                    lvTraverse.Items.Add(unItem); // Ajout ligne
 
-                    ligne.SubItems.Add(heure.ToString("HH:mm"));
-                    ligne.SubItems.Add(bateau);
-                    ligne.SubItems.Add(A.ToString());
-                    ligne.SubItems.Add(B.ToString());
-                    ligne.SubItems.Add(C.ToString());
-
-                    lvTraverse.Items.Add(ligne);
                 }
-
                 reader.Close();
             }
             catch (Exception ex)
