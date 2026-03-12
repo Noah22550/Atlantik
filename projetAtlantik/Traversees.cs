@@ -31,7 +31,7 @@ namespace projetAtlantik
         }
         public override string ToString()
         {
-            return bateau + " - " + notraversee + " - " + heure + " - ";
+            return Nobateau + " - " + notraversee + " - " + heure + " - ";
         }
     }
 }
