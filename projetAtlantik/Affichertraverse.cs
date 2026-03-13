@@ -229,27 +229,27 @@ namespace projetAtlantik
             //Secteur secteur = lbxSecteur ;
             //// CATEGORIE ////
 
-            try
-            {
-                MaCo.Open();
+            //try
+            //{
+            //    MaCo.Open();
 
-                string requete = "SELECT * FROM categorie";
-                MySqlCommand maCde = new MySqlCommand(requete, MaCo);
+            //    string requete = "SELECT * FROM categorie";
+            //    MySqlCommand maCde = new MySqlCommand(requete, MaCo);
 
-                MySqlDataReader readerSecteur = maCde.ExecuteReader();
-                /*le pb commence ici */while (readerSecteur.Read())
-                {
-                    Categorie cat = new Categorie((string)readerSecteur["LETTRECATEGORIE"], (string)readerSecteur["LIBELLE"]) ;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-            }
-            finally
-            {
-                MaCo.Close();
-            }
+            //    MySqlDataReader readerSecteur = maCde.ExecuteReader();
+            //    /*le pb commence ici */while (readerSecteur.Read())
+            //    {
+            //        Categorie cat = new Categorie((string)readerSecteur["LETTRECATEGORIE"], (string)readerSecteur["LIBELLE"]) ;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Erreur : " + ex.Message);
+            //}
+            //finally
+            //{
+            //    MaCo.Close();
+            //}
 
 
             try
@@ -270,7 +270,7 @@ namespace projetAtlantik
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
 
                 cmd.Parameters.AddWithValue("@noliaison", noLiaison);
-                cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@date", date);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -279,12 +279,19 @@ namespace projetAtlantik
                     int numtrav = Convert.ToInt32(reader["NOTRAVERSEE"]);
                     DateTime heure = Convert.ToDateTime(reader["DATEHEUREDEPART"]);
                     string bateau = reader["NOM"].ToString();
-                    foreach (Traversees lestrav in )
-                    {
-                         = GetCapaciteMax(numtrav, ) - GetQuantiteEnregistree(numtrav, );
-                    }
 
-                    ListViewItem item = new ListViewItem(tabItem);
+                    int A = GetQuantiteEnregistree(numtrav, "A");
+                    int B = GetQuantiteEnregistree(numtrav, "B");
+                    int C = GetQuantiteEnregistree(numtrav, "C");
+
+                    ListViewItem item = new ListViewItem(numtrav.ToString());
+
+                    item.SubItems.Add(heure.ToString("HH:mm"));
+                    item.SubItems.Add(bateau);
+                    item.SubItems.Add(A.ToString());
+                    item.SubItems.Add(B.ToString());
+                    item.SubItems.Add(C.ToString());
+
                     lvTraverse.Items.Add(item);
                 }
 
@@ -292,13 +299,12 @@ namespace projetAtlantik
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Erreur : " + ex.Message);
             }
             finally
             {
                 MaCo.Close();
             }
-
         }
     }
 }
