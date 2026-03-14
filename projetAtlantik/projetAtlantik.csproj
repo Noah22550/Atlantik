@@ -169,6 +169,7 @@
     </Compile>
     <Compile Include="Bateau.cs" />
     <Compile Include="Categorie.cs" />
+    <Compile Include="LettreDeLaCat.cs" />
     <Compile Include="Liaison.cs" />
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>

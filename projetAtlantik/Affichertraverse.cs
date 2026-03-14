@@ -15,127 +15,128 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace projetAtlantik
 {
-    
+
     public partial class Affichertraverse : Form
     {
-        public int GetQuantiteEnregistree(int noTraverse, string lettrecategorie)
+        public int GetCapaciteMax(int noTraverse, string lettre)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            try
-            {
-                int res;
-                MaCo.Open();
-                string requeteEnregistrer = "select sum(e.QUANTITERESERVEE) from reservation r " +
-                    "INNER JOIN enregistrer e on r.NORESERVATION = e.NORESERVATION " +
-                    "where e.LETTRECATEGORIE = @lettrecat and r.NOTRAVERSEE = @notrav;";
-                MySqlCommand MaCde = new MySqlCommand(requeteEnregistrer, MaCo);
-                MaCde.Parameters.AddWithValue("@lettrecat", lettrecategorie);
-                MaCde.Parameters.AddWithValue("@notrav", noTraverse);
-                MySqlDataReader readerEnregistrement = MaCde.ExecuteReader();
-                res = Convert.ToInt32(readerEnregistrement.Read());
-                return res;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-                return -1;
-            }
-            finally
-            {
-                MaCo.Close();
-            }
-            
-        }
-        public int GetCapaciteMax(int noTraverse, string lettrecategorie)
-        {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            try
-            {
-                int res;
-                MaCo.Open();
-                string requeteCapamax = "SELECT CAPACITEMAX from traversee t " +
-                    "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU INNER JOIN contenir c ON c.NOBATEAU = t.NOBATEAU " +
-                    "where t.notraversee = @numtrav and c.lettrecategorie = @lettrecat;";
-                MySqlCommand MaCde = new MySqlCommand(requeteCapamax, MaCo);
-                MaCde.Parameters.AddWithValue("@lettrecat", lettrecategorie);
-                MaCde.Parameters.AddWithValue("@notrav", noTraverse);
-                MySqlDataReader readerCpamax = MaCde.ExecuteReader();
-                res = Convert.ToInt32(MaCde.ExecuteReader());
-                return res;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-                return -1;
-            }
-            finally
-            {
-                MaCo.Close();
-            }
-        }
-        public List<object> GetCategorie(string lettrecategorie, string libelle)
-        {
-            List<object> list = new List<object>();
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            try
-            {
-                MaCo.Open();
-                string requeteCapamax = "SELECT * FROM categorie";
-                MySqlCommand MaCde = new MySqlCommand(requeteCapamax, MaCo);
-                MySqlDataReader readerCpamax = MaCde.ExecuteReader();
-                while (readerCpamax.Read())
-                {
-                    Categorie c = new Categorie((string)readerCpamax["LETTRECATEGORIE"], (string)readerCpamax["LIBELLE"]);
-                    list.Add(c);
-                    
-                }
-                return list;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-                return list;
-            }
-            finally
-            {
-                MaCo.Close();
-            }
-        }
-        public List<object> GetLesTraverseesBateaux(int noliaison, string datetraversee)
-        {
-            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;";
-            MySqlConnection maCo = new MySqlConnection(CHAINECONNEXION);
-            List<object> list = new List<object>();
-            try
-            {
-                maCo.Open();
-                int res;
-                string requete = "SELECT notraversee, nom, dateheuredepart " +
-                                 "FROM traversee t " +
-                                 "INNER JOIN bateau b ON t.nobateau = b.nobateau " +
-                                 "WHERE noliaison = @noliaison AND DATE(dateheuredepart) = @date";
+            int res = 0;
 
-                MySqlCommand maCde = new MySqlCommand(requete, maCo);
-                maCde.Parameters.AddWithValue("@noliaison", noliaison);
-                maCde.Parameters.AddWithValue("@date", datetraversee);
-                MySqlDataReader reader = maCde.ExecuteReader();
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            MaCo.Open();
 
-                while (reader.Read())
-                {
-                    Traversees T = new Traversees((int)reader["NOTRAVERSE"], (int)reader["NOBATEAU"], (DateTime)reader["DATEHEUREDEPART"]);
-                    list.Add(T);
-                }
-                return list;
-            }
-            catch (Exception ex)
+            string requete =
+            "SELECT c.CAPACITEMAX " +
+            "FROM traversee t " +
+            "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
+            "INNER JOIN contenir c ON c.NOBATEAU = b.NOBATEAU " +
+            "WHERE t.NOTRAVERSEE = @notrav AND c.LETTRECATEGORIE = @lettre";
+
+            MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+
+            cmd.Parameters.AddWithValue("@notrav", noTraverse);
+            cmd.Parameters.AddWithValue("@lettre", lettre);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read() && reader[0] != DBNull.Value)
+                res = Convert.ToInt32(reader["CAPACITEMAX"]);
+
+            reader.Close();
+            MaCo.Close();
+
+            return res;
+        }
+        public int GetQuantiteEnregistree(int noTraverse, string lettre)
+        {
+            int res = 0;
+
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            MaCo.Open();
+
+            string requete =
+            "SELECT SUM(e.QUANTITERESERVEE) " +
+            "FROM reservation r " +
+            "INNER JOIN enregistrer e ON r.NORESERVATION = e.NORESERVATION " +
+            "WHERE r.NOTRAVERSEE = @notrav AND e.LETTRECATEGORIE = @lettre";
+
+            MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+
+            cmd.Parameters.AddWithValue("@notrav", noTraverse);
+            cmd.Parameters.AddWithValue("@lettre", lettre);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read() && reader[0] != DBNull.Value)
             {
-                MessageBox.Show(ex.Message);
-                return list;
+                res = Convert.ToInt32(reader[0]);
             }
-            finally
+                
+
+            reader.Close();
+            MaCo.Close();
+
+            return res;
+        }
+        public List<Categorie> GetCategorie()
+        {
+            List<Categorie> list = new List<Categorie>();
+
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            MaCo.Open();
+
+            string requete = "SELECT LETTRECATEGORIE, LIBELLE FROM categorie";
+            MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                maCo.Close();
+                Categorie c = new Categorie(
+                    reader["LETTRECATEGORIE"].ToString(),
+                    reader["LIBELLE"].ToString()
+                );
+
+                list.Add(c);
             }
+
+            reader.Close();
+            MaCo.Close();
+
+            return list;
+        }
+
+        public List<Traversees> GetLesTraverseesBateaux(int noliaison, DateTime date)
+        {
+            List<Traversees> list = new List<Traversees>();
+
+            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            MaCo.Open();
+
+            string requete =
+            "SELECT t.NOTRAVERSEE, t.DATEHEUREDEPART, b.NOM " +
+            "FROM traversee t " +
+            "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
+            "WHERE t.NOLIAISON = @noliaison AND DATE(t.DATEHEUREDEPART) = @date";
+
+            MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+
+            cmd.Parameters.AddWithValue("@noliaison", noliaison);
+            cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Traversees t = new Traversees(Convert.ToInt32(reader["NOTRAVERSEE"]), reader["NOM"].ToString(),Convert.ToDateTime(reader["DATEHEUREDEPART"]) );
+
+                list.Add(t);
+            }
+
+            reader.Close();
+            MaCo.Close();
+
+            return list;
         }
 
         public Affichertraverse()
@@ -182,7 +183,7 @@ namespace projetAtlantik
             lvTraverse.Columns.Add("A Passager", 120);
             lvTraverse.Columns.Add("B Véh.in.2m", 120);
             lvTraverse.Columns.Add("C Véh.sup.2m", 120);
-           
+
         }
 
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
@@ -224,86 +225,37 @@ namespace projetAtlantik
 
         private void btnAfficher_Click(object sender, EventArgs e)
         {
-            
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            //Secteur secteur = lbxSecteur ;
-            //// CATEGORIE ////
+            lvTraverse.Items.Clear();
 
-            //try
-            //{
-            //    MaCo.Open();
+            int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
+            DateTime date = dateafficher.Value;
 
-            //    string requete = "SELECT * FROM categorie";
-            //    MySqlCommand maCde = new MySqlCommand(requete, MaCo);
+            List<Traversees> lesTraversees = GetLesTraverseesBateaux(noLiaison, date);
+            List<Categorie> lesCategories = GetCategorie();
 
-            //    MySqlDataReader readerSecteur = maCde.ExecuteReader();
-            //    /*le pb commence ici */while (readerSecteur.Read())
-            //    {
-            //        Categorie cat = new Categorie((string)readerSecteur["LETTRECATEGORIE"], (string)readerSecteur["LIBELLE"]) ;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Erreur : " + ex.Message);
-            //}
-            //finally
-            //{
-            //    MaCo.Close();
-            //}
-
-
-            try
+            foreach (Traversees trav in lesTraversees)
             {
-                MaCo.Open();
+                string[] ligne = new string[6];
 
-                lvTraverse.Items.Clear();
+                ligne[0] = trav.GetNoTraverse().ToString();
+                ligne[1] = trav.GetDateHeure().ToString("HH:mm");
+                ligne[2] = trav.GetNomBateau();
 
-                int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
-                DateTime date = dateafficher.Value;
+                int i = 3;
 
-                string requete = "SELECT t.NOTRAVERSEE, t.DATEHEUREDEPART, b.NOM " +
-                                 "FROM traversee t " +
-                                 "INNER JOIN bateau b ON b.NOBATEAU = t.NOBATEAU " +
-                                 "WHERE t.NOLIAISON = @noliaison " +
-                                 "AND DATE(t.DATEHEUREDEPART) = @date";
-
-                MySqlCommand cmd = new MySqlCommand(requete, MaCo);
-
-                cmd.Parameters.AddWithValue("@noliaison", noLiaison);
-                cmd.Parameters.AddWithValue("@date", date);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                foreach (Categorie cat in lesCategories)
                 {
-                    int numtrav = Convert.ToInt32(reader["NOTRAVERSEE"]);
-                    DateTime heure = Convert.ToDateTime(reader["DATEHEUREDEPART"]);
-                    string bateau = reader["NOM"].ToString();
+                    int capacite = GetCapaciteMax(trav.GetNoTraverse(), cat.GetLettreCategorie());
+                    int reserve = GetQuantiteEnregistree(trav.GetNoTraverse(), cat.GetLettreCategorie());
 
-                    int A = GetQuantiteEnregistree(numtrav, "A");
-                    int B = GetQuantiteEnregistree(numtrav, "B");
-                    int C = GetQuantiteEnregistree(numtrav, "C");
+                    int dispo = capacite - reserve;
 
-                    ListViewItem item = new ListViewItem(numtrav.ToString());
-
-                    item.SubItems.Add(heure.ToString("HH:mm"));
-                    item.SubItems.Add(bateau);
-                    item.SubItems.Add(A.ToString());
-                    item.SubItems.Add(B.ToString());
-                    item.SubItems.Add(C.ToString());
-
-                    lvTraverse.Items.Add(item);
+                    ligne[i] = dispo.ToString();
+                    i++;
                 }
 
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-            }
-            finally
-            {
-                MaCo.Close();
+                ListViewItem item = new ListViewItem(ligne);
+                lvTraverse.Items.Add(item);
             }
         }
     }

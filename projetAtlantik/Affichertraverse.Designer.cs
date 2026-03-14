@@ -85,7 +85,7 @@
             this.dateafficher.Name = "dateafficher";
             this.dateafficher.Size = new System.Drawing.Size(200, 20);
             this.dateafficher.TabIndex = 4;
-            this.dateafficher.Value = new System.DateTime(2021, 3, 10, 0, 0, 0, 0);
+            this.dateafficher.Value = new System.DateTime(2021, 7, 10, 0, 0, 0, 0);
             // 
             // lblDate
             // 

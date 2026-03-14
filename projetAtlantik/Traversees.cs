@@ -10,28 +10,29 @@ namespace projetAtlantik
     public class Traversees
     {
         private int notraversee;
-        private int Nobateau;
-        private DateTime heure;
+        private string nombateau;
+        private DateTime dateheure;
 
-        public Traversees(int notraversee, int Nobateau, DateTime heure)
+        public Traversees(int n, string nom, DateTime date)
         {
-            this.notraversee = notraversee;
-            this.Nobateau = Nobateau;
-            this.heure = heure;
+            notraversee = n;
+            nombateau = nom;
+            dateheure = date;
         }
-        public int getNotraversee() { return notraversee; }
-        public int getBateau() { return Nobateau; }
-        public int GetNoTraversee()
+
+        public int GetNoTraverse()
         {
             return notraversee;
         }
-        public DateTime GetDateHeureDepart()
+
+        public string GetNomBateau()
         {
-            return heure;
+            return nombateau;
         }
-        public override string ToString()
+
+        public DateTime GetDateHeure()
         {
-            return Nobateau + " - " + notraversee + " - " + heure + " - ";
+            return dateheure;
         }
     }
 }
