@@ -17,66 +17,71 @@ namespace projetAtlantik
         public AfficherReservationClients()
         {
             InitializeComponent();
-            lvAfficherRes.View = View.Details;
-            lvAfficherRes.GridLines = true;
-            lvAfficherRes.FullRowSelect = true;
 
-            lvAfficherRes.Columns.Add("Reservation", 120);
-            lvAfficherRes.Columns.Add("Liaison", 120);
-            lvAfficherRes.Columns.Add("Traversée", 120);
-            lvAfficherRes.Columns.Add("Date départ", 150);
         }
 
         private void lvAfficherRes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
 
+            MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
+            gbxAfficher.Controls.Clear();
+            string noRes = lvAfficherRes.SelectedItems[0].Text;
             try
             {
-                int noReservation = Convert.ToInt32(lvAfficherRes.SelectedItems[0].Text);
+                maCnx.Open();
+                string req = "SELECT * from enregistrer e " +
+                    "inner join type t on e.NOTYPE = t.NOTYPE " +
+                    "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
+                    "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
+                    "and e.NORESERVATION = @noRes";
 
-                MaCo.Open();
-
-                string req = "SELECT c.libelle, e.quantitereservee " +
-                             "FROM enregistrer e " +
-                             "JOIN categorie c ON e.lettrecategorie = c.lettrecategorie " +
-                             "WHERE e.noreservation = @noReservation";
-
-                MySqlCommand cmd = new MySqlCommand(req, MaCo);
-                cmd.Parameters.AddWithValue("@noReservation", noReservation);
-
+                MySqlCommand cmd = new MySqlCommand(req, maCnx);
+                cmd.Parameters.AddWithValue("@noRes", noRes);
                 MySqlDataReader reader = cmd.ExecuteReader();
+
+                int i = 0;
+                double montant = 0;
 
                 while (reader.Read())
                 {
-                    string categorie = reader["libelle"].ToString();
-                    int quantite = Convert.ToInt32(reader["quantitereservee"]);
+                    // Affichage dynamique de chaque catégorie
+                    Label lbl = new Label();
+                    lbl.Text = reader["LIBELLE"].ToString() + ": " + reader["QUANTITERESERVEE"].ToString();
+                    lbl.Location = new Point(15, 25 * i);
+                    lbl.AutoSize = true;
+                    gbxAfficher.Controls.Add(lbl);
 
-                    if (categorie.Contains("Adulte"))
-                        lblAdulte.Text = quantite.ToString();
-
-                    if (categorie.Contains("Junior"))
-                        lblJunior.Text = quantite.ToString();
-
-                    if (categorie.Contains("Enfant"))
-                        lblEnfant.Text = quantite.ToString();
-
-                    if (categorie.Contains("Voiture"))
-                        lblVoiture.Text = quantite.ToString();
+                        montant = Convert.ToDouble(reader["MONTANTTOTAL"]);
+                    i++;
                 }
 
-                reader.Close();
+                // Montant total
+                Label lblMontant = new Label();
+                lblMontant.Text = "Montant total: " + montant + "€";
+                lblMontant.Location = new Point(15, 25 * i);
+                lblMontant.AutoSize = true;
+                gbxAfficher.Controls.Add(lblMontant);
+                i++;
+
+                // Mode de paiement
+                Label lblReg = new Label();
+                lblReg.Text = "Réglé par Carte Bancaire" ;
+                lblReg.Location = new Point(15, 25 * i);
+                lblReg.AutoSize = true;
+                gbxAfficher.Controls.Add(lblReg);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Erreur: " + ex.Message);
             }
             finally
             {
-                MaCo.Close();
+                maCnx.Close();
             }
         }
+
+
 
         private void gbxAfficher_Enter(object sender, EventArgs e)
         {
@@ -85,82 +90,116 @@ namespace projetAtlantik
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            lvAfficherRes.FullRowSelect = true;
+            lvAfficherRes.GridLines = true;
+            lvAfficherRes.Items.Clear();
+            lvAfficherRes.Columns.Clear();
+            lvAfficherRes.View = View.Details;
+            lvAfficherRes.Columns.Add("N° Reservation", 100);
+            lvAfficherRes.Columns.Add("Liaison", 150);
+            lvAfficherRes.Columns.Add("N° Traversée", 80);
+            lvAfficherRes.Columns.Add("Date Départ", 120);
 
+            MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
+            MySqlDataReader jeuEnr = null;
             try
             {
-                lvAfficherRes.Items.Clear();
+                maCnx.Open();
+                string requête = "select NORESERVATION, reservation.NOTRAVERSEE, DATEHEURE from reservation inner join traversee on reservation.NOTRAVERSEE = traversee.NOTRAVERSEE inner join liaison on traversee.NOLIAISON = liaison.NOLIAISON inner join client on reservation.NOCLIENT = client.NOCLIENT where client.noclient = 1";
 
-                Client c = (Client)comboBox1.SelectedItem;
-                int noClient = c.GetNoClient();
+                var maCde = new MySqlCommand(requête, maCnx);
 
-                MaCo.Open();
 
-                string req = "SELECT noReservation, t.noTraversee, dateHeureDepart " +
-                             "FROM reservation r " +
-                             "JOIN traversee t ON r.noTraversee = t.noTraversee " +
-                             "WHERE r.noClient = @noClient";
+                jeuEnr = maCde.ExecuteReader();
 
-                MySqlCommand cmd = new MySqlCommand(req, MaCo);
-                cmd.Parameters.AddWithValue("@noClient", noClient);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                while (jeuEnr.Read())
                 {
-                    ListViewItem ligne = new ListViewItem(reader["noReservation"].ToString());
+                    string noreservation = jeuEnr["NORESERVATION"].ToString();
+                    string notraversee = jeuEnr["NOTRAVERSEE"].ToString();
+                    string liaison = GetLiaison(notraversee);
+                    string dateheure = ((DateTime)jeuEnr["DATEHEURE"]).ToString("dd/MM/yyyy à HH:mm");
 
-                    ligne.SubItems.Add(reader["noTraversee"].ToString());
-                    ligne.SubItems.Add(Convert.ToDateTime(reader["dateHeureDepart"]).ToString());
-
-                    lvAfficherRes.Items.Add(ligne);
+                    ListViewItem position = new ListViewItem(noreservation);
+                    position.SubItems.Add(liaison);
+                    position.SubItems.Add(notraversee);
+                    position.SubItems.Add(dateheure);
+                    lvAfficherRes.Items.Add(position);
                 }
-
-                reader.Close();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Erreur " + ex.ToString());
             }
             finally
             {
-                MaCo.Close();
+                if (jeuEnr is object & !jeuEnr.IsClosed)
+                {
+                    jeuEnr.Close(); // s'il existe et n'est pas déjà fermé
+                }
+
+                if (maCnx is object & maCnx.State == ConnectionState.Open)
+                {
+                    maCnx.Close(); // on se déconnecte
+
+                }
             }
         }
-
-        private void AfficherReservationClients_Load(object sender, EventArgs e)
+        private string GetLiaison(string noTraversee)
         {
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
+            MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
+            MySqlDataReader jeuEnr = null;
 
             try
             {
-                MaCo.Open();
+                maCnx.Open();
+                string requete = "select p1.nom as 'nomport_depart', p2.nom as 'nomport_arrivee', li.noliaison from liaison li inner join port p1 on li.NOPORT_DEPART = p1.noport inner join port p2 on li.NOPORT_ARRIVEE = p2.noport inner join traversee on traversee.NOLIAISON = li.NOLIAISON where traversee.notraversee = @notraversee";
+                var maCde = new MySqlCommand(requete, maCnx);
+                maCde.Parameters.AddWithValue("@noTraversee", noTraversee);
+                jeuEnr = maCde.ExecuteReader();
 
-                string req = "SELECT noClient, nom, prenom FROM client";
-                MySqlCommand cmd = new MySqlCommand(req, MaCo);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                while (jeuEnr.Read())
                 {
-                    Client c = new Client(
-                        Convert.ToInt32(reader["noClient"]),
-                        reader["nom"].ToString(),
-                        reader["prenom"].ToString()
-                    );
-
-                    comboBox1.Items.Add(c);
+                    Liaison p = new Liaison((string)jeuEnr["nomport_depart"], (string)jeuEnr["nomport_arrivee"], (int)jeuEnr["noliaison"]);
+                    return p.ToString();
                 }
-
-                reader.Close();
+                return "";
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Erreur " + ex.ToString());
+                return "";
             }
             finally
             {
-                MaCo.Close();
+                    maCnx.Close();
+            }
+        }
+        private void AfficherReservationClients_Load(object sender, EventArgs e)
+        {
+            MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
+            MySqlDataReader jeuEnr = null;
+            maCnx.Open();
+            try
+            {
+                string requête = "select * from client";
+                var maCde = new MySqlCommand(requête, maCnx);
+                jeuEnr = maCde.ExecuteReader();
+
+                while (jeuEnr.Read())
+                {
+                    Client c = new Client((int)jeuEnr["noclient"], (string)jeuEnr["nom"], (string)jeuEnr["prenom"]);
+                    comboBox1.Items.Add(c);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erreur " + ex.ToString());
+            }
+            finally
+            {
+                maCnx.Close(); 
+
+
             }
         }
     }
