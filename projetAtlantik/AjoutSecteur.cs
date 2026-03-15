@@ -6,8 +6,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace projetAtlantik
 {
@@ -20,7 +22,17 @@ namespace projetAtlantik
 
         private void tbxadd_TextChanged(object sender, EventArgs e)
         {
+            var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôùûïî]*$");
+            var resultatTest = objetRegEx.Match(tbxadd.Text);
 
+            if (!resultatTest.Success)
+            {
+                tbxadd.BackColor = Color.Red;
+            }
+            else
+            {
+                tbxadd.BackColor = Color.White;
+            }
         }
 
         private void btnadd_Click(object sender, EventArgs e)
@@ -35,6 +47,11 @@ namespace projetAtlantik
                 MySqlCommand maCde = new MySqlCommand(requete, maCo);
                 maCde.Parameters.AddWithValue("@nom", nomSecteur);
                 int nb = maCde.ExecuteNonQuery();
+                if (tbxadd.BackColor == Color.Red)
+                {
+                    MessageBox.Show("Saisie incorrecte");
+                    return;
+                }
                 MessageBox.Show("Secteur ajouté !");
             }
             catch (Exception ex)
@@ -48,6 +65,11 @@ namespace projetAtlantik
         }
 
         private void lbladd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AjoutSecteur_Load(object sender, EventArgs e)
         {
 
         }

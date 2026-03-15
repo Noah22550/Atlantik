@@ -130,6 +130,7 @@ namespace projetAtlantik
 
         private void btnadd_Click(object sender, EventArgs e)
         {
+
             object nPeriode = ((Periode)cbxPeriode.SelectedItem).GetNoPeriode();
             object nliaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
 

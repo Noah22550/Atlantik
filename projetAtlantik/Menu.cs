@@ -76,5 +76,11 @@ namespace projetAtlantik
             AfficherReservationClients afficherReservationClients = new AfficherReservationClients();
             afficherReservationClients.ShowDialog();
         }
+
+        private void mmParamètre_Click(object sender, EventArgs e)
+        {
+            ModifParamètre modifParamètre = new ModifParamètre();
+            modifParamètre.ShowDialog();
+        }
     }
 }

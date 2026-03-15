@@ -45,7 +45,7 @@
             this.mmtraverse = new System.Windows.Forms.ToolStripMenuItem();
             this.modifierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmModifierBateau = new System.Windows.Forms.ToolStripMenuItem();
-            this.lesParamètreDuSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmParamètre = new System.Windows.Forms.ToolStripMenuItem();
             this.afficherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAfficherTraverse = new System.Windows.Forms.ToolStripMenuItem();
             this.mmDetailReservClients = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,7 +163,7 @@
             // 
             this.modifierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mmModifierBateau,
-            this.lesParamètreDuSiteToolStripMenuItem});
+            this.mmParamètre});
             this.modifierToolStripMenuItem.Name = "modifierToolStripMenuItem";
             this.modifierToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.modifierToolStripMenuItem.Text = "Modifier";
@@ -175,11 +175,12 @@
             this.mmModifierBateau.Text = "Un beateau";
             this.mmModifierBateau.Click += new System.EventHandler(this.mmModifierBateau_Click);
             // 
-            // lesParamètreDuSiteToolStripMenuItem
+            // mmParamètre
             // 
-            this.lesParamètreDuSiteToolStripMenuItem.Name = "lesParamètreDuSiteToolStripMenuItem";
-            this.lesParamètreDuSiteToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.lesParamètreDuSiteToolStripMenuItem.Text = "Les paramètre du site";
+            this.mmParamètre.Name = "mmParamètre";
+            this.mmParamètre.Size = new System.Drawing.Size(186, 22);
+            this.mmParamètre.Text = "Les paramètre du site";
+            this.mmParamètre.Click += new System.EventHandler(this.mmParamètre_Click);
             // 
             // afficherToolStripMenuItem
             // 
@@ -256,7 +257,7 @@
         private System.Windows.Forms.ToolStripMenuItem mmtraverse;
         private System.Windows.Forms.ToolStripMenuItem modifierToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmModifierBateau;
-        private System.Windows.Forms.ToolStripMenuItem lesParamètreDuSiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mmParamètre;
         private System.Windows.Forms.ToolStripMenuItem afficherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmAfficherTraverse;
         private System.Windows.Forms.ToolStripMenuItem mmDetailReservClients;

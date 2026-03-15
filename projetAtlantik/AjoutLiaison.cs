@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -64,33 +65,48 @@ namespace projetAtlantik
 
         private void btnAddLiaison_Click(object sender, EventArgs e)
         {
+            if (textBox1.BackColor == Color.Red)
+            {
+                MessageBox.Show("Veuillez entrer une distance correcte");
+                return;
+            }
+
             MySqlConnection maCo;
             string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
             maCo = new MySqlConnection(CHAINECONNEXION);
+
             Secteur secteur = (Secteur)lbxliaison.SelectedItem;
             int idSecteur = secteur.GetNosecteur();
+
             Port depart = (Port)cmbdepart.SelectedItem;
             Port arrive = (Port)cmbArrive.SelectedItem;
+
             int idDepart = depart.GetNoport();
             int idArrive = arrive.GetNoport();
+
             int distance = int.Parse(textBox1.Text);
 
             try
             {
                 maCo.Open();
-                if(depart == arrive)
+
+                if (depart == arrive)
                 {
-                    MessageBox.Show(" impossible de créer une liaison...");
-                }else {
+                    MessageBox.Show("Impossible de créer une liaison avec le même port");
+                    return;
+                }
+
                 string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
+
                 MySqlCommand maCde = new MySqlCommand(requete, maCo);
                 maCde.Parameters.AddWithValue("@noport_depart", idDepart);
                 maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
                 maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
                 maCde.Parameters.AddWithValue("@distance", distance);
-                int nb = maCde.ExecuteNonQuery();
-                MessageBox.Show("Liaison ajouté !");
-            }
+
+                maCde.ExecuteNonQuery();
+
+                MessageBox.Show("Liaison ajoutée !");
             }
             catch (Exception ex)
             {
@@ -114,7 +130,17 @@ namespace projetAtlantik
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            var objetRegEx = new Regex("^[0-9]*$");
+            var resultatTest = objetRegEx.Match(textBox1.Text);
 
+            if (!resultatTest.Success)
+            {
+                textBox1.BackColor = Color.Red;
+            }
+            else
+            {
+                textBox1.BackColor = Color.White;
+            }
         }
 
         private void lbxliaison_SelectedIndexChanged(object sender, EventArgs e)

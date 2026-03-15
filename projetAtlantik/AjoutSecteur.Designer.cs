@@ -71,6 +71,7 @@
             this.Controls.Add(this.btnadd);
             this.Name = "AjoutSecteur";
             this.Text = "AjoutSecteur";
+            this.Load += new System.EventHandler(this.AjoutSecteur_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
