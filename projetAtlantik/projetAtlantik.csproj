@@ -125,6 +125,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AfficherReservationClients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AfficherReservationClients.Designer.cs">
+      <DependentUpon>AfficherReservationClients.cs</DependentUpon>
+    </Compile>
     <Compile Include="Affichertraverse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,7 @@
     </Compile>
     <Compile Include="Bateau.cs" />
     <Compile Include="Categorie.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="LettreDeLaCat.cs" />
     <Compile Include="Liaison.cs" />
     <Compile Include="Menu.cs">
@@ -190,6 +197,9 @@
     <Compile Include="Secteur.cs" />
     <Compile Include="Traversees.cs" />
     <Compile Include="Type.cs" />
+    <EmbeddedResource Include="AfficherReservationClients.resx">
+      <DependentUpon>AfficherReservationClients.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Affichertraverse.resx">
       <DependentUpon>Affichertraverse.cs</DependentUpon>
     </EmbeddedResource>

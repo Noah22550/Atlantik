@@ -48,7 +48,7 @@
             this.lesParamètreDuSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.afficherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmAfficherTraverse = new System.Windows.Forms.ToolStripMenuItem();
-            this.lesDétailDuneRéservationPourUnClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mmDetailReservClients = new System.Windows.Forms.ToolStripMenuItem();
             this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblAtlantik = new System.Windows.Forms.Label();
             this.contextMenuStrip2.SuspendLayout();
@@ -185,7 +185,7 @@
             // 
             this.afficherToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mmAfficherTraverse,
-            this.lesDétailDuneRéservationPourUnClientToolStripMenuItem});
+            this.mmDetailReservClients});
             this.afficherToolStripMenuItem.Name = "afficherToolStripMenuItem";
             this.afficherToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.afficherToolStripMenuItem.Text = "Afficher";
@@ -198,11 +198,12 @@
     "gorie";
             this.mmAfficherTraverse.Click += new System.EventHandler(this.mmAfficherTraverse_Click);
             // 
-            // lesDétailDuneRéservationPourUnClientToolStripMenuItem
+            // mmDetailReservClients
             // 
-            this.lesDétailDuneRéservationPourUnClientToolStripMenuItem.Name = "lesDétailDuneRéservationPourUnClientToolStripMenuItem";
-            this.lesDétailDuneRéservationPourUnClientToolStripMenuItem.Size = new System.Drawing.Size(524, 22);
-            this.lesDétailDuneRéservationPourUnClientToolStripMenuItem.Text = "Les détail d\'une réservation pour un client";
+            this.mmDetailReservClients.Name = "mmDetailReservClients";
+            this.mmDetailReservClients.Size = new System.Drawing.Size(524, 22);
+            this.mmDetailReservClients.Text = "Les détail d\'une réservation pour un client";
+            this.mmDetailReservClients.Click += new System.EventHandler(this.mmDetailReservClients_Click);
             // 
             // aProposToolStripMenuItem
             // 
@@ -258,7 +259,7 @@
         private System.Windows.Forms.ToolStripMenuItem lesParamètreDuSiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem afficherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mmAfficherTraverse;
-        private System.Windows.Forms.ToolStripMenuItem lesDétailDuneRéservationPourUnClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mmDetailReservClients;
         private System.Windows.Forms.ToolStripMenuItem aProposToolStripMenuItem;
         private System.Windows.Forms.Label lblAtlantik;
     }

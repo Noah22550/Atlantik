@@ -70,5 +70,11 @@ namespace projetAtlantik
             Affichertraverse traverse = new Affichertraverse();
             traverse.ShowDialog();
         }
+
+        private void mmDetailReservClients_Click(object sender, EventArgs e)
+        {
+            AfficherReservationClients afficherReservationClients = new AfficherReservationClients();
+            afficherReservationClients.ShowDialog();
+        }
     }
 }
