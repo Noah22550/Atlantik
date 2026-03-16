@@ -77,10 +77,10 @@ namespace projetAtlantik
 
                 while (readerParam.Read())
                 {
-                    string site = readerParam["site_pb"].ToString();
-                    string rang = readerParam["rang_pb"].ToString();
-                    string identifiant = readerParam["identifiant_pb"].ToString();
-                    string cleHMAC = readerParam["cleHMAC_pb"].ToString();
+                    string site = readerParam["SITE_PB"].ToString();
+                    string rang = readerParam["RANG_PB"].ToString();
+                    string identifiant = readerParam["IDENTIFIANT_PB"].ToString();
+                    string cleHMAC = readerParam["CLEHMAC_PB"].ToString();
 
                     lblSite = new Label();
                     lblSite.Text = "Site :";
@@ -139,6 +139,7 @@ namespace projetAtlantik
             }
             finally
             {
+                readerParam.Close();
                 maCnx.Close();
             }
         }

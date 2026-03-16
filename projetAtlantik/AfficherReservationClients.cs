@@ -60,7 +60,6 @@ namespace projetAtlantik
                 Label lblMontant = new Label();
                 lblMontant.Text = "Montant total: " + montant + "€";
                 lblMontant.Location = new Point(15, 25 * i);
-                lblMontant.AutoSize = true;
                 gbxAfficher.Controls.Add(lblMontant);
                 i++;
 
