@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbxSecteur = new System.Windows.Forms.ListBox();
             this.lblsecteur = new System.Windows.Forms.Label();
             this.cbxLiaison = new System.Windows.Forms.ComboBox();
@@ -36,6 +37,8 @@
             this.btnadd = new System.Windows.Forms.Button();
             this.lblLiaison = new System.Windows.Forms.Label();
             this.lblPeriode = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // lbxSecteur
@@ -43,7 +46,7 @@
             this.lbxSecteur.FormattingEnabled = true;
             this.lbxSecteur.ItemHeight = 16;
             this.lbxSecteur.Location = new System.Drawing.Point(45, 42);
-            this.lbxSecteur.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lbxSecteur.Margin = new System.Windows.Forms.Padding(4);
             this.lbxSecteur.Name = "lbxSecteur";
             this.lbxSecteur.Size = new System.Drawing.Size(159, 404);
             this.lbxSecteur.TabIndex = 0;
@@ -63,7 +66,7 @@
             // 
             this.cbxLiaison.FormattingEnabled = true;
             this.cbxLiaison.Location = new System.Drawing.Point(132, 466);
-            this.cbxLiaison.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxLiaison.Margin = new System.Windows.Forms.Padding(4);
             this.cbxLiaison.Name = "cbxLiaison";
             this.cbxLiaison.Size = new System.Drawing.Size(160, 24);
             this.cbxLiaison.TabIndex = 2;
@@ -72,20 +75,22 @@
             // gbxTarifs
             // 
             this.gbxTarifs.Location = new System.Drawing.Point(563, 22);
-            this.gbxTarifs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxTarifs.Margin = new System.Windows.Forms.Padding(4);
             this.gbxTarifs.Name = "gbxTarifs";
-            this.gbxTarifs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxTarifs.Padding = new System.Windows.Forms.Padding(4);
             this.gbxTarifs.Size = new System.Drawing.Size(472, 390);
             this.gbxTarifs.TabIndex = 3;
             this.gbxTarifs.TabStop = false;
             this.gbxTarifs.Text = "Tarifs";
+            this.gbxTarifs.TextChanged += new System.EventHandler(this.gbxTarifs_TextChanged);
             this.gbxTarifs.Enter += new System.EventHandler(this.gbxTarifs_Enter);
+            this.gbxTarifs.Validating += new System.ComponentModel.CancelEventHandler(this.gbxTarifs_Validating);
             // 
             // cbxPeriode
             // 
             this.cbxPeriode.FormattingEnabled = true;
             this.cbxPeriode.Location = new System.Drawing.Point(380, 466);
-            this.cbxPeriode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxPeriode.Margin = new System.Windows.Forms.Padding(4);
             this.cbxPeriode.Name = "cbxPeriode";
             this.cbxPeriode.Size = new System.Drawing.Size(459, 24);
             this.cbxPeriode.TabIndex = 4;
@@ -93,7 +98,7 @@
             // btnadd
             // 
             this.btnadd.Location = new System.Drawing.Point(848, 466);
-            this.btnadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnadd.Margin = new System.Windows.Forms.Padding(4);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(187, 28);
             this.btnadd.TabIndex = 5;
@@ -121,6 +126,10 @@
             this.lblPeriode.TabIndex = 7;
             this.lblPeriode.Text = "Periode";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AjoutTarifLiaisonPeriode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -134,10 +143,11 @@
             this.Controls.Add(this.cbxLiaison);
             this.Controls.Add(this.lblsecteur);
             this.Controls.Add(this.lbxSecteur);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AjoutTarifLiaisonPeriode";
             this.Text = "AjoutTarifLiaisonPeriode";
             this.Load += new System.EventHandler(this.AjoutTarifLiaisonPeriode_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,5 +163,6 @@
         private System.Windows.Forms.Button btnadd;
         private System.Windows.Forms.Label lblLiaison;
         private System.Windows.Forms.Label lblPeriode;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

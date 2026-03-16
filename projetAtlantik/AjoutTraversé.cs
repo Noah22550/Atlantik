@@ -188,5 +188,10 @@ namespace projetAtlantik
         {
 
         }
+
+        private void dateDepart_Validating(object sender, CancelEventArgs e)
+        {
+            dateArrivee.MinDate = dateDepart.Value;
+        }
     }
 }

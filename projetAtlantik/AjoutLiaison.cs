@@ -65,69 +65,59 @@ namespace projetAtlantik
 
         private void btnAddLiaison_Click(object sender, EventArgs e)
         {
-            if (textBox1.BackColor == Color.Red)
+
+            MySqlConnection maCo;
+            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
+            maCo = new MySqlConnection(CHAINECONNEXION);
+            if (cmbdepart.SelectedItem == null || cmbArrive.SelectedItem == null || lbxliaison.SelectedItem == null)
             {
-                MessageBox.Show("Veuillez entrer une distance correcte");
+                MessageBox.Show("Veuillez sélectionner un port de départ, d'arrivée et une liaison");
                 return;
             }
             else
             {
-                MySqlConnection maCo;
-                string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
-                maCo = new MySqlConnection(CHAINECONNEXION);
-                if(cmbdepart.SelectedItem == null || cmbArrive.SelectedItem == null || lbxliaison.SelectedItem == null)
+                Secteur secteur = (Secteur)lbxliaison.SelectedItem;
+                int idSecteur = secteur.GetNosecteur();
+                Port depart = (Port)cmbdepart.SelectedItem;
+                Port arrive = (Port)cmbArrive.SelectedItem;
+
+                int idDepart = depart.GetNoport();
+                int idArrive = arrive.GetNoport();
+
+                int distance = int.Parse(textBox1.Text);
+
+                try
                 {
-                    MessageBox.Show("Veuillez sélectionner un port de départ, d'arrivée et une liaison");
-                    return;
+                    maCo.Open();
+
+                    if (depart == arrive)
+                    {
+                        MessageBox.Show("Impossible de créer une liaison avec le même port");
+                        return;
+                    }
+
+                    string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
+
+                    MySqlCommand maCde = new MySqlCommand(requete, maCo);
+                    maCde.Parameters.AddWithValue("@noport_depart", idDepart);
+                    maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
+                    maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
+                    maCde.Parameters.AddWithValue("@distance", distance);
+
+                    maCde.ExecuteNonQuery();
+
+                    MessageBox.Show("Liaison ajoutée !");
                 }
-                else
+                catch (Exception ex)
                 {
-                    Secteur secteur = (Secteur)lbxliaison.SelectedItem;
-                    int idSecteur = secteur.GetNosecteur();
-                    Port depart = (Port)cmbdepart.SelectedItem;
-                    Port arrive = (Port)cmbArrive.SelectedItem;
-
-                    int idDepart = depart.GetNoport();
-                    int idArrive = arrive.GetNoport();
-
-                    int distance = int.Parse(textBox1.Text);
-
-                    try
-                    {
-                        maCo.Open();
-
-                        if (depart == arrive)
-                        {
-                            MessageBox.Show("Impossible de créer une liaison avec le même port");
-                            return;
-                        }
-
-                        string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
-
-                        MySqlCommand maCde = new MySqlCommand(requete, maCo);
-                        maCde.Parameters.AddWithValue("@noport_depart", idDepart);
-                        maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
-                        maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
-                        maCde.Parameters.AddWithValue("@distance", distance);
-
-                        maCde.ExecuteNonQuery();
-
-                        MessageBox.Show("Liaison ajoutée !");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Erreur : " + ex.Message);
-                    }
-                    finally
-                    {
-                        maCo.Close();
-                    }
+                    MessageBox.Show("Erreur : " + ex.Message);
                 }
-                    
+                finally
+                {
+                    maCo.Close();
+                }
             }
 
-           
-           
         }
 
         private void cmbdepart_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,22 +132,29 @@ namespace projetAtlantik
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            var objetRegEx = new Regex("^[0-9]*$");
-            var resultatTest = objetRegEx.Match(textBox1.Text);
 
-            if (!resultatTest.Success)
-            {
-                textBox1.BackColor = Color.Red;
-            }
-            else
-            {
-                textBox1.BackColor = Color.White;
-            }
         }
 
         private void lbxliaison_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_Validating(object sender, CancelEventArgs e)
+        {
+            var objetRegEx = new Regex("^[0-9]*$");
+            var résultatTest = objetRegEx.Match(textBox1.Text);
+            if (!résultatTest.Success)
+            {
+                textBox1.BackColor = Color.Red;
+                e.Cancel = true;
+                errorProvider1.SetError(textBox1, "Saisir des nombres !! ");
+            }
+            else
+            {
+                textBox1.BackColor = Color.Green;
+                errorProvider1.Clear();
+            }
         }
     }
 }

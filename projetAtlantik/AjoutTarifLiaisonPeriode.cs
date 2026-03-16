@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace projetAtlantik
 {
@@ -106,7 +107,8 @@ namespace projetAtlantik
                     // Ajout dans le GroupBox
                     gbxTarifs.Controls.Add(lblNoType);
                     gbxTarifs.Controls.Add(txt);
-                    
+                    txt.Validating += gbxTarifs_TextChanged;
+
                     y += 30;
                 }
 
@@ -126,40 +128,13 @@ namespace projetAtlantik
 
         private void gbxTarifs_Enter(object sender, EventArgs e)
         {
-        //    var objetRegEx = new Regex("^[0-9]*$");
-        //    // Nombre : ^[0-9]*$
-        //    // Alphabétique (sans accent, sans blanc : ^[a-zA-Z]*$
-        //    // Alphabétique (avec accent) : ^[a-zA-Zéèêëçàâôù ûïî]*$
-        //    var résultatTest = objetRegEx.Match(gbxTarifs.Text);
-        //    if (!résultatTest.Success)
-        //    {
-        //        // KO : Fond de la zone de saisie passe en rouge
-        //        gbxTarifs.BackColor = Color.Red;
-
-        //        e.Cancel = true;
-
-        //        errorProvider.SetError(tbxNombre, "Saisir un nombre ! ");
-
-        //    }
-
-        //    else
-
-        //    {
-
-        //        // OK : Fond de la zone de saisie passe en vert
-
-        //        gbxTarifs.BackColor = Color.Green;
-
-        //        errorProvider.Clear();
-
-        //    }
+       
         }
 
         private void btnadd_Click(object sender, EventArgs e)
         { 
 
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            string tab;
             if(cbxPeriode.SelectedItem == null || cbxLiaison.SelectedItem == null )
             {
                 MessageBox.Show("Veuillez sélectionner une période et une liaison (infos manquante).");
@@ -176,34 +151,26 @@ namespace projetAtlantik
                     {
                         if (c is TextBox tbx)
                         {
-                            if (tbx.Text == "")
-                            {
-                                MessageBox.Show("Veuillez remplir tous les champs");
-                                return;
-                            }
-                            else
-                            {
-                                tab = (tbx.Tag).ToString();
-                                tab.Split(':');
 
-                                int notype = int.Parse(tab[0].ToString());
-                                string lettre = tab[2].ToString();
-                                double tarif = int.Parse(tbx.Text);
+                            string tab = tbx.Tag.ToString();
+                            string[] infos = tab.Split(':');
 
-                                string Requete = "INSERT INTO tarifer(NOPERIODE, LETTRECATEGORIE, NOTYPE, NOLIAISON, TARIF) VALUES(@nperiode, @lettrecate, @notype, @noliaison, @tarif)";
+                            int notype = int.Parse(infos[0]);
+                            string lettre = infos[1];
+                            double tarif = int.Parse(tbx.Text);
 
-                                MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
+                            string Requete = "INSERT INTO tarifer(NOPERIODE, LETTRECATEGORIE, NOTYPE, NOLIAISON, TARIF) VALUES(@nperiode, @lettrecate, @notype, @noliaison, @tarif)";
 
-                                maCde.Parameters.AddWithValue("@nperiode", nPeriode);
-                                maCde.Parameters.AddWithValue("@lettrecate", lettre);
-                                maCde.Parameters.AddWithValue("@notype", notype);
-                                maCde.Parameters.AddWithValue("@noliaison", nliaison);
-                                maCde.Parameters.AddWithValue("@tarif", tarif);
-                                int nb = maCde.ExecuteNonQuery();
-                                
-                            }
+                            MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
+
+                            maCde.Parameters.AddWithValue("@nperiode", nPeriode);
+                            maCde.Parameters.AddWithValue("@lettrecate", lettre);
+                            maCde.Parameters.AddWithValue("@notype", notype);
+                            maCde.Parameters.AddWithValue("@noliaison", nliaison);
+                            maCde.Parameters.AddWithValue("@tarif", tarif);
+
+                            maCde.ExecuteNonQuery();
                         }
-                        
                     }
                     MessageBox.Show("Tarifs ajoutés");
                 }
@@ -260,5 +227,28 @@ namespace projetAtlantik
         {
 
         }
+
+        private void gbxTarifs_Validating(object sender, CancelEventArgs e)
+        {
+        }
+
+        private void gbxTarifs_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tbx = (TextBox)sender;
+            var objetRegEx = new Regex("^[0-9]*$");
+            var resultatTest = objetRegEx.Match(tbx.Text);
+
+            if (!resultatTest.Success)
+            {
+                tbx.BackColor = Color.Red;
+                btnadd.Enabled = false;
+            }
+            else
+            {
+                tbx.BackColor = Color.White;
+                btnadd.Enabled = true;
+            }
+        }
     }
 }
+

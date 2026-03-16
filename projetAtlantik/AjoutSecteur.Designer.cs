@@ -28,16 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnadd = new System.Windows.Forms.Button();
             this.tbxadd = new System.Windows.Forms.TextBox();
             this.lbladd = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnadd
             // 
-            this.btnadd.Location = new System.Drawing.Point(281, 125);
+            this.btnadd.Location = new System.Drawing.Point(375, 154);
+            this.btnadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnadd.Name = "btnadd";
-            this.btnadd.Size = new System.Drawing.Size(75, 23);
+            this.btnadd.Size = new System.Drawing.Size(100, 28);
             this.btnadd.TabIndex = 0;
             this.btnadd.Text = "Ajouter";
             this.btnadd.UseVisualStyleBackColor = true;
@@ -45,33 +49,42 @@
             // 
             // tbxadd
             // 
-            this.tbxadd.Location = new System.Drawing.Point(96, 125);
+            this.tbxadd.Location = new System.Drawing.Point(128, 154);
+            this.tbxadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxadd.Name = "tbxadd";
-            this.tbxadd.Size = new System.Drawing.Size(179, 20);
+            this.tbxadd.Size = new System.Drawing.Size(237, 22);
             this.tbxadd.TabIndex = 1;
             this.tbxadd.TextChanged += new System.EventHandler(this.tbxadd_TextChanged);
+            this.tbxadd.Validating += new System.ComponentModel.CancelEventHandler(this.tbxadd_Validating);
             // 
             // lbladd
             // 
             this.lbladd.AutoSize = true;
-            this.lbladd.Location = new System.Drawing.Point(93, 98);
+            this.lbladd.Location = new System.Drawing.Point(124, 121);
+            this.lbladd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbladd.Name = "lbladd";
-            this.lbladd.Size = new System.Drawing.Size(88, 13);
+            this.lbladd.Size = new System.Drawing.Size(107, 16);
             this.lbladd.TabIndex = 2;
             this.lbladd.Text = "Nom du secteur :";
             this.lbladd.Click += new System.EventHandler(this.lbladd_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AjoutSecteur
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 310);
+            this.ClientSize = new System.Drawing.Size(640, 382);
             this.Controls.Add(this.lbladd);
             this.Controls.Add(this.tbxadd);
             this.Controls.Add(this.btnadd);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AjoutSecteur";
             this.Text = "AjoutSecteur";
             this.Load += new System.EventHandler(this.AjoutSecteur_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,5 +95,6 @@
         private System.Windows.Forms.Button btnadd;
         private System.Windows.Forms.TextBox tbxadd;
         private System.Windows.Forms.Label lbladd;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

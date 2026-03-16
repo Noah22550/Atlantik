@@ -77,5 +77,30 @@ namespace projetAtlantik
         {
 
         }
+
+        private void tbxadd_Validating(object sender, CancelEventArgs e)
+        {
+            // sender = objet sur lequel l'évènement a été déclenché (ici tbxNote)
+
+            // particulièrement utile avec collection de Controls.
+
+
+
+            var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôù ûïî]*$");
+            var résultatTest = objetRegEx.Match(tbxadd.Text);
+            if (!résultatTest.Success)
+            {
+                // KO : Fond de la zone de saisie passe en rouge
+                tbxadd.BackColor = Color.Red;
+                e.Cancel = true;
+                errorProvider1.SetError(tbxadd, "Saisir des charactère  !! ");
+            }
+            else
+            {
+                // OK : Fond de la zone de saisie passe en vert
+                tbxadd.BackColor = Color.Green;
+                errorProvider1.Clear();
+            }
+        }
     }
 }
