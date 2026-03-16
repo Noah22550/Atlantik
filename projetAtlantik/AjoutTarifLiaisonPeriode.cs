@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
@@ -125,57 +126,97 @@ namespace projetAtlantik
 
         private void gbxTarifs_Enter(object sender, EventArgs e)
         {
-            
+        //    var objetRegEx = new Regex("^[0-9]*$");
+        //    // Nombre : ^[0-9]*$
+        //    // Alphabétique (sans accent, sans blanc : ^[a-zA-Z]*$
+        //    // Alphabétique (avec accent) : ^[a-zA-Zéèêëçàâôù ûïî]*$
+        //    var résultatTest = objetRegEx.Match(gbxTarifs.Text);
+        //    if (!résultatTest.Success)
+        //    {
+        //        // KO : Fond de la zone de saisie passe en rouge
+        //        gbxTarifs.BackColor = Color.Red;
+
+        //        e.Cancel = true;
+
+        //        errorProvider.SetError(tbxNombre, "Saisir un nombre ! ");
+
+        //    }
+
+        //    else
+
+        //    {
+
+        //        // OK : Fond de la zone de saisie passe en vert
+
+        //        gbxTarifs.BackColor = Color.Green;
+
+        //        errorProvider.Clear();
+
+        //    }
         }
 
         private void btnadd_Click(object sender, EventArgs e)
-        {
-
-            object nPeriode = ((Periode)cbxPeriode.SelectedItem).GetNoPeriode();
-            object nliaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
+        { 
 
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
             string tab;
-
-
-            try
+            if(cbxPeriode.SelectedItem == null || cbxLiaison.SelectedItem == null )
             {
-                MaCo.Open();
-
-                foreach (Control c in gbxTarifs.Controls)
+                MessageBox.Show("Veuillez sélectionner une période et une liaison (infos manquante).");
+                return;
+            }else
+            {
+                object nPeriode = ((Periode)cbxPeriode.SelectedItem).GetNoPeriode();
+                object nliaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
+                try
                 {
-                    if (c is TextBox tbx)
+                    MaCo.Open();
+
+                    foreach (Control c in gbxTarifs.Controls)
                     {
+                        if (c is TextBox tbx)
+                        {
+                            if (tbx.Text == "")
+                            {
+                                MessageBox.Show("Veuillez remplir tous les champs");
+                                return;
+                            }
+                            else
+                            {
+                                tab = (tbx.Tag).ToString();
+                                tab.Split(':');
 
-                        tab = (tbx.Tag).ToString();
-                        tab.Split(':');
+                                int notype = int.Parse(tab[0].ToString());
+                                string lettre = tab[2].ToString();
+                                double tarif = int.Parse(tbx.Text);
 
-                        int notype = int.Parse(tab[0].ToString());
-                        string lettre = tab[2].ToString();
-                        double tarif = int.Parse(tbx.Text);
+                                string Requete = "INSERT INTO tarifer(NOPERIODE, LETTRECATEGORIE, NOTYPE, NOLIAISON, TARIF) VALUES(@nperiode, @lettrecate, @notype, @noliaison, @tarif)";
 
-                        string Requete = "INSERT INTO tarifer(NOPERIODE, LETTRECATEGORIE, NOTYPE, NOLIAISON, TARIF) VALUES(@nperiode, @lettrecate, @notype, @noliaison, @tarif)";
+                                MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
 
-                        MySqlCommand maCde = new MySqlCommand(Requete, MaCo);
-
-                        maCde.Parameters.AddWithValue("@nperiode", nPeriode);
-                        maCde.Parameters.AddWithValue("@lettrecate", lettre);
-                        maCde.Parameters.AddWithValue("@notype", notype);
-                        maCde.Parameters.AddWithValue("@noliaison", nliaison);
-                        maCde.Parameters.AddWithValue("@tarif", tarif);
-                        int nb = maCde.ExecuteNonQuery();
+                                maCde.Parameters.AddWithValue("@nperiode", nPeriode);
+                                maCde.Parameters.AddWithValue("@lettrecate", lettre);
+                                maCde.Parameters.AddWithValue("@notype", notype);
+                                maCde.Parameters.AddWithValue("@noliaison", nliaison);
+                                maCde.Parameters.AddWithValue("@tarif", tarif);
+                                int nb = maCde.ExecuteNonQuery();
+                                
+                            }
+                        }
+                        
                     }
+                    MessageBox.Show("Tarifs ajoutés");
                 }
-                MessageBox.Show("Tarifs ajoutés");
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur : " + ex.Message);
+                }
+                finally
+                {
+                    MaCo.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-            }
-            finally
-            {
-                MaCo.Close();
-            }
+                
         }
 
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
