@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -36,15 +37,15 @@ namespace projetAtlantik
                 string rang = ((TextBox)gbxIdentifiant.Controls["tbxRang"]).Text;
                 string identifiant = ((TextBox)gbxIdentifiant.Controls["tbxIdentifiant"]).Text;
                 string cle = ((TextBox)gbxIdentifiant.Controls["tbxCle"]).Text;
-
-                string requete = "UPDATE parametres SET SITE_PB=@site, RANG_PB=@rang, IDENTIFIANT_PB=@id, CLEHMAC_PB=@cle WHERE NOIDENTIFIANT=1";
+                string mel = tbxMel.Text;
+                string requete = "UPDATE parametres SET SITE_PB=@site, RANG_PB=@rang, IDENTIFIANT_PB=@id, CLEHMAC_PB=@cle, MELSITE=@mel WHERE NOIDENTIFIANT=1";
 
                 MySqlCommand cmd = new MySqlCommand(requete, maCnx);
                 cmd.Parameters.AddWithValue("@site", site);
                 cmd.Parameters.AddWithValue("@rang", rang);
                 cmd.Parameters.AddWithValue("@id", identifiant);
                 cmd.Parameters.AddWithValue("@cle", cle);
-
+                cmd.Parameters.AddWithValue("@mel", mel);
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show("Modification enregistrée");
@@ -141,6 +142,37 @@ namespace projetAtlantik
             {
                 readerParam.Close();
                 maCnx.Close();
+            }
+        }
+
+        private void tbxMel_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tbx = (TextBox)sender;
+            var objetRegEx = new Regex(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$");
+            var resultatTest = objetRegEx.Match(tbx.Text);
+
+            if (!resultatTest.Success)
+            {
+                tbx.BackColor = Color.Red;
+                btnModif.Enabled = false;
+            }
+            else
+            {
+                tbx.BackColor = Color.White;
+                btnModif.Enabled = true;
+            }
+        }
+
+        private void tbxMel_Validating(object sender, CancelEventArgs e)
+        {
+            var objetRegEx = new Regex(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$");
+            var resultatTest = objetRegEx.Match(tbxMel.Text);
+
+            if (!resultatTest.Success)
+            {
+                MessageBox.Show("Format incorrect");
+                tbxMel.BackColor = Color.Red;
+
             }
         }
     }

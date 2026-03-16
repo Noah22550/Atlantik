@@ -37,9 +37,11 @@
             // 
             // gbxIdentifiant
             // 
-            this.gbxIdentifiant.Location = new System.Drawing.Point(12, 12);
+            this.gbxIdentifiant.Location = new System.Drawing.Point(16, 15);
+            this.gbxIdentifiant.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbxIdentifiant.Name = "gbxIdentifiant";
-            this.gbxIdentifiant.Size = new System.Drawing.Size(603, 358);
+            this.gbxIdentifiant.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbxIdentifiant.Size = new System.Drawing.Size(804, 441);
             this.gbxIdentifiant.TabIndex = 0;
             this.gbxIdentifiant.TabStop = false;
             this.gbxIdentifiant.Text = "Identifiants";
@@ -48,24 +50,29 @@
             // lblmel
             // 
             this.lblmel.AutoSize = true;
-            this.lblmel.Location = new System.Drawing.Point(427, 421);
+            this.lblmel.Location = new System.Drawing.Point(569, 518);
+            this.lblmel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblmel.Name = "lblmel";
-            this.lblmel.Size = new System.Drawing.Size(52, 13);
+            this.lblmel.Size = new System.Drawing.Size(62, 16);
             this.lblmel.TabIndex = 1;
             this.lblmel.Text = "Mél site : ";
             // 
             // tbxMel
             // 
-            this.tbxMel.Location = new System.Drawing.Point(515, 421);
+            this.tbxMel.Location = new System.Drawing.Point(687, 518);
+            this.tbxMel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxMel.Name = "tbxMel";
-            this.tbxMel.Size = new System.Drawing.Size(170, 20);
+            this.tbxMel.Size = new System.Drawing.Size(225, 22);
             this.tbxMel.TabIndex = 2;
+            this.tbxMel.TextChanged += new System.EventHandler(this.tbxMel_TextChanged);
+            this.tbxMel.Validating += new System.ComponentModel.CancelEventHandler(this.tbxMel_Validating);
             // 
             // btnModif
             // 
-            this.btnModif.Location = new System.Drawing.Point(430, 472);
+            this.btnModif.Location = new System.Drawing.Point(573, 581);
+            this.btnModif.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnModif.Name = "btnModif";
-            this.btnModif.Size = new System.Drawing.Size(255, 23);
+            this.btnModif.Size = new System.Drawing.Size(340, 28);
             this.btnModif.TabIndex = 3;
             this.btnModif.Text = "Modifier";
             this.btnModif.UseVisualStyleBackColor = true;
@@ -74,23 +81,25 @@
             // cbxProd
             // 
             this.cbxProd.AutoSize = true;
-            this.cbxProd.Location = new System.Drawing.Point(515, 386);
+            this.cbxProd.Location = new System.Drawing.Point(687, 475);
+            this.cbxProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxProd.Name = "cbxProd";
-            this.cbxProd.Size = new System.Drawing.Size(95, 17);
+            this.cbxProd.Size = new System.Drawing.Size(114, 20);
             this.cbxProd.TabIndex = 4;
             this.cbxProd.Text = "En production ";
             this.cbxProd.UseVisualStyleBackColor = true;
             // 
             // ModifParamètre
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 544);
+            this.ClientSize = new System.Drawing.Size(1067, 670);
             this.Controls.Add(this.cbxProd);
             this.Controls.Add(this.btnModif);
             this.Controls.Add(this.tbxMel);
             this.Controls.Add(this.lblmel);
             this.Controls.Add(this.gbxIdentifiant);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ModifParamètre";
             this.Text = "ModifParamètre";
             this.Load += new System.EventHandler(this.ModifParamètre_Load);

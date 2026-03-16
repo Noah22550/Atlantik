@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -49,7 +50,7 @@ namespace projetAtlantik
 
                     gbxmodifbateau.Controls.Add(lblBoat);
                     gbxmodifbateau.Controls.Add(txt);
-
+                    txt.Validating += gbxmodifbateau_TextChanged;
                     y += 30;
                 }
 
@@ -188,6 +189,24 @@ namespace projetAtlantik
         private void ModifBateaucs_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void gbxmodifbateau_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tbx = (TextBox)sender;
+            var objetRegEx = new Regex("^[0-9]*$");
+            var resultatTest = objetRegEx.Match(tbx.Text);
+
+            if (!resultatTest.Success)
+            {
+                tbx.BackColor = Color.Red;
+                btnmodifier.Enabled = false;
+            }
+            else
+            {
+                tbx.BackColor = Color.White;
+                btnmodifier.Enabled = true;
+            }
         }
     }
 }

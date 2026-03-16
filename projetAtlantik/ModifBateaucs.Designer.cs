@@ -70,6 +70,7 @@
             this.gbxmodifbateau.TabIndex = 4;
             this.gbxmodifbateau.TabStop = false;
             this.gbxmodifbateau.Text = "Capcité maximales";
+            this.gbxmodifbateau.TextChanged += new System.EventHandler(this.gbxmodifbateau_TextChanged);
             this.gbxmodifbateau.Enter += new System.EventHandler(this.gbxmodifbateau_Enter);
             // 
             // ModifBateaucs
