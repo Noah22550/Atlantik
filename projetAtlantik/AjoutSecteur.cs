@@ -42,17 +42,21 @@ namespace projetAtlantik
             try
             {
                 maCo.Open();
-
-                string requete = "INSERT INTO secteur(nom) VALUES (@nom)";
-                MySqlCommand maCde = new MySqlCommand(requete, maCo);
-                maCde.Parameters.AddWithValue("@nom", nomSecteur);
-                int nb = maCde.ExecuteNonQuery();
                 if (tbxadd.BackColor == Color.Red)
                 {
                     MessageBox.Show("Saisie incorrecte");
                     return;
                 }
-                MessageBox.Show("Secteur ajouté !");
+                else
+                {
+                    string requete = "INSERT INTO secteur(nom) VALUES (@nom)";
+                    MySqlCommand maCde = new MySqlCommand(requete, maCo);
+                    maCde.Parameters.AddWithValue("@nom", nomSecteur);
+                    int nb = maCde.ExecuteNonQuery();
+                    MessageBox.Show("Secteur ajouté !");
+                }
+
+                
             }
             catch (Exception ex)
             {

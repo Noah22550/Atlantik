@@ -28,16 +28,21 @@ namespace projetAtlantik
             {
                 maCo.Open();
 
-                string requete = "INSERT INTO port(nom) VALUES (@nom)";
-                MySqlCommand maCde = new MySqlCommand(requete, maCo);
-                maCde.Parameters.AddWithValue("@nom", nomPort);
-                int nb = maCde.ExecuteNonQuery();
+               
                 if (textBox1.BackColor == Color.Red)
                 {
                     MessageBox.Show("Saisie incorrecte");
                     return;
                 }
-                MessageBox.Show("Port ajouté !");
+                else
+                {
+                    string requete = "INSERT INTO port(nom) VALUES (@nom)";
+                    MySqlCommand maCde = new MySqlCommand(requete, maCo);
+                    maCde.Parameters.AddWithValue("@nom", nomPort);
+                    int nb = maCde.ExecuteNonQuery();
+                    MessageBox.Show("Port ajouté !");
+                }
+                
             }
             catch (Exception ex)
             {

@@ -70,52 +70,57 @@ namespace projetAtlantik
                 MessageBox.Show("Veuillez entrer une distance correcte");
                 return;
             }
-
-            MySqlConnection maCo;
-            string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
-            maCo = new MySqlConnection(CHAINECONNEXION);
-
-            Secteur secteur = (Secteur)lbxliaison.SelectedItem;
-            int idSecteur = secteur.GetNosecteur();
-
-            Port depart = (Port)cmbdepart.SelectedItem;
-            Port arrive = (Port)cmbArrive.SelectedItem;
-
-            int idDepart = depart.GetNoport();
-            int idArrive = arrive.GetNoport();
-
-            int distance = int.Parse(textBox1.Text);
-
-            try
+            else
             {
-                maCo.Open();
+                MySqlConnection maCo;
+                string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;";
+                maCo = new MySqlConnection(CHAINECONNEXION);
 
-                if (depart == arrive)
+                Secteur secteur = (Secteur)lbxliaison.SelectedItem;
+                int idSecteur = secteur.GetNosecteur();
+
+                Port depart = (Port)cmbdepart.SelectedItem;
+                Port arrive = (Port)cmbArrive.SelectedItem;
+
+                int idDepart = depart.GetNoport();
+                int idArrive = arrive.GetNoport();
+
+                int distance = int.Parse(textBox1.Text);
+
+                try
                 {
-                    MessageBox.Show("Impossible de créer une liaison avec le même port");
-                    return;
+                    maCo.Open();
+
+                    if (depart == arrive)
+                    {
+                        MessageBox.Show("Impossible de créer une liaison avec le même port");
+                        return;
+                    }
+
+                    string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
+
+                    MySqlCommand maCde = new MySqlCommand(requete, maCo);
+                    maCde.Parameters.AddWithValue("@noport_depart", idDepart);
+                    maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
+                    maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
+                    maCde.Parameters.AddWithValue("@distance", distance);
+
+                    maCde.ExecuteNonQuery();
+
+                    MessageBox.Show("Liaison ajoutée !");
                 }
-
-                string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
-
-                MySqlCommand maCde = new MySqlCommand(requete, maCo);
-                maCde.Parameters.AddWithValue("@noport_depart", idDepart);
-                maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
-                maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
-                maCde.Parameters.AddWithValue("@distance", distance);
-
-                maCde.ExecuteNonQuery();
-
-                MessageBox.Show("Liaison ajoutée !");
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur : " + ex.Message);
+                }
+                finally
+                {
+                    maCo.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur : " + ex.Message);
-            }
-            finally
-            {
-                maCo.Close();
-            }
+
+           
+           
         }
 
         private void cmbdepart_SelectedIndexChanged(object sender, EventArgs e)

@@ -31,10 +31,10 @@ namespace projetAtlantik
             {
                 maCnx.Open();
                 string req = "SELECT * from enregistrer e " +
-                    "inner join type t on e.NOTYPE = t.NOTYPE " +
-                    "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
-                    "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
-                    "and e.NORESERVATION = @noRes";
+                            "inner join type t on e.NOTYPE = t.NOTYPE " +
+                            "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
+                            "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
+                            "and e.NORESERVATION = @noRes";
 
                 MySqlCommand cmd = new MySqlCommand(req, maCnx);
                 cmd.Parameters.AddWithValue("@noRes", noRes);
