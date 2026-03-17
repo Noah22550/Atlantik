@@ -94,44 +94,53 @@ namespace projetAtlantik
 
         private void btnmodifier_Click(object sender, EventArgs e)
         {
-            Bateau b = (Bateau)cmbmodifbateau.SelectedItem;
-            int noBateau = b.GetNoBateau();
-
-            MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=");
-
-            try
+            if (cmbmodifbateau.SelectedItem == null)
             {
-                MaCo.Open();
+                MessageBox.Show("Veuillez sélectionner un bateau à modifier.");
 
-                foreach (Control c in gbxmodifbateau.Controls)
+            }
+            else
+            {
+                Bateau b = (Bateau)cmbmodifbateau.SelectedItem;
+                int noBateau = b.GetNoBateau();
+
+                MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=");
+
+                try
                 {
-                    if (c is TextBox tbx)
+                    MaCo.Open();
+
+                    foreach (Control c in gbxmodifbateau.Controls)
                     {
-                        string lettre = tbx.Tag.ToString();
-                        int capaciteMax = int.Parse(tbx.Text);
+                        if (c is TextBox tbx)
+                        {
+                            string lettre = tbx.Tag.ToString();
+                            int capaciteMax = int.Parse(tbx.Text);
 
-                        string requete = "UPDATE contenir SET capacitemax = @capacite WHERE nobateau = @bateau AND lettrecategorie = @lettre";
+                            string requete = "UPDATE contenir SET capacitemax = @capacite WHERE nobateau = @bateau AND lettrecategorie = @lettre";
 
-                        MySqlCommand cmd = new MySqlCommand(requete, MaCo);
+                            MySqlCommand cmd = new MySqlCommand(requete, MaCo);
 
-                        cmd.Parameters.AddWithValue("@capacite", capaciteMax);
-                        cmd.Parameters.AddWithValue("@bateau", noBateau);
-                        cmd.Parameters.AddWithValue("@lettre", lettre);
+                            cmd.Parameters.AddWithValue("@capacite", capaciteMax);
+                            cmd.Parameters.AddWithValue("@bateau", noBateau);
+                            cmd.Parameters.AddWithValue("@lettre", lettre);
 
-                        cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
-                }
 
-                MessageBox.Show("Bateau modifié !");
+                    MessageBox.Show("Bateau modifié !");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    MaCo.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                MaCo.Close();
-            }
+            
         }
 
         private void cmbmodifbateau_SelectedIndexChanged(object sender, EventArgs e)

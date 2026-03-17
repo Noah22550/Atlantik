@@ -94,14 +94,14 @@ namespace projetAtlantik
                     {
                         MessageBox.Show("Impossible de créer une liaison avec le même port");
                     }
-                    string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
+                    string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) " +
+                                     "VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
                     MySqlCommand maCde = new MySqlCommand(requete, maCo);
                     maCde.Parameters.AddWithValue("@noport_depart", idDepart);
                     maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
                     maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
                     maCde.Parameters.AddWithValue("@distance", distance);
                     maCde.ExecuteNonQuery();
-
                     MessageBox.Show("Liaison ajoutée !");
                 }
                 catch (Exception ex)

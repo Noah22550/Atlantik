@@ -124,16 +124,16 @@ namespace projetAtlantik
             cmd.Parameters.AddWithValue("@noliaison", noliaison);
             cmd.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
 
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
-            while (reader.Read())
+            while (JeuEnr.Read())
             {
-                Traversees t = new Traversees(Convert.ToInt32(reader["NOTRAVERSEE"]), reader["NOM"].ToString(), Convert.ToDateTime(reader["DATEHEUREDEPART"]));
+                Traversees t = new Traversees(Convert.ToInt32(JeuEnr["NOTRAVERSEE"]), JeuEnr["NOM"].ToString(), Convert.ToDateTime(JeuEnr["DATEHEUREDEPART"]));
 
                 list.Add(t);
             }
 
-            reader.Close();
+            JeuEnr.Close();
             MaCo.Close();
 
             return list;
@@ -194,7 +194,7 @@ namespace projetAtlantik
                 MaCo.Open();
                 int nosecteur = ((Secteur)lbxSecteur.SelectedItem).GetNosecteur();
                 string NomDepart, NomArrivee;
-                string requete = "SELECT  noliaison, p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
+                string requete = "SELECT  noliaison, p.NOM, po.NOM As pNOM From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
                 MySqlDataReader reader = maCde.ExecuteReader();
