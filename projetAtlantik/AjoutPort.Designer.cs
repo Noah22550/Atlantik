@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnaddport = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxAjoutPort = new System.Windows.Forms.TextBox();
             this.lblport = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -39,7 +39,7 @@
             // btnaddport
             // 
             this.btnaddport.Location = new System.Drawing.Point(324, 124);
-            this.btnaddport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnaddport.Margin = new System.Windows.Forms.Padding(4);
             this.btnaddport.Name = "btnaddport";
             this.btnaddport.Size = new System.Drawing.Size(100, 28);
             this.btnaddport.TabIndex = 0;
@@ -47,15 +47,15 @@
             this.btnaddport.UseVisualStyleBackColor = true;
             this.btnaddport.Click += new System.EventHandler(this.btnaddport_Click);
             // 
-            // textBox1
+            // tbxAjoutPort
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 128);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(237, 22);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
+            this.tbxAjoutPort.Location = new System.Drawing.Point(77, 128);
+            this.tbxAjoutPort.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxAjoutPort.Name = "tbxAjoutPort";
+            this.tbxAjoutPort.Size = new System.Drawing.Size(237, 22);
+            this.tbxAjoutPort.TabIndex = 1;
+            this.tbxAjoutPort.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tbxAjoutPort.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
             // lblport
             // 
@@ -77,9 +77,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 362);
             this.Controls.Add(this.lblport);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbxAjoutPort);
             this.Controls.Add(this.btnaddport);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AjoutPort";
             this.Text = "AjoutPort";
             this.Load += new System.EventHandler(this.AjoutPort_Load);
@@ -92,7 +92,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnaddport;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxAjoutPort;
         private System.Windows.Forms.Label lblport;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }

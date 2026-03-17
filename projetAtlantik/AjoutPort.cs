@@ -23,13 +23,13 @@ namespace projetAtlantik
         private void btnaddport_Click(object sender, EventArgs e)
         {
             MySqlConnection maCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            object nomPort = textBox1.Text;
+            object nomPort = tbxAjoutPort.Text;
             try
             {
                 maCo.Open();
 
                
-                if (textBox1.BackColor == Color.Red)
+                if (tbxAjoutPort.BackColor == Color.Red)
                 {
                     MessageBox.Show("Saisie incorrecte");
                     return;
@@ -58,15 +58,15 @@ namespace projetAtlantik
         {
 
             var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôùûïî]*$");
-            var resultatTest = objetRegEx.Match(textBox1.Text);
+            var resultatTest = objetRegEx.Match(tbxAjoutPort.Text);
 
             if (!resultatTest.Success)
             {
-                textBox1.BackColor = Color.Red;
+                tbxAjoutPort.BackColor = Color.Red;
             }
             else
             {
-                textBox1.BackColor = Color.White;
+                tbxAjoutPort.BackColor = Color.White;
             }
 
         }
@@ -86,18 +86,18 @@ namespace projetAtlantik
 
 
             var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôù ûïî]*$");
-            var résultatTest = objetRegEx.Match(textBox1.Text);
+            var résultatTest = objetRegEx.Match(tbxAjoutPort.Text);
             if (!résultatTest.Success)
             {
                 // KO : Fond de la zone de saisie passe en rouge
-                textBox1.BackColor = Color.Red;
+                tbxAjoutPort.BackColor = Color.Red;
                 e.Cancel = true;
-                errorProvider1.SetError(textBox1, "Saisir des charactère  !! ");
+                errorProvider1.SetError(tbxAjoutPort, "Saisir des charactère  !! ");
             }
             else
             {
                 // OK : Fond de la zone de saisie passe en vert
-                textBox1.BackColor = Color.Green;
+                tbxAjoutPort.BackColor = Color.Green;
                 errorProvider1.Clear();
             }
         }
