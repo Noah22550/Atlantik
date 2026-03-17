@@ -71,11 +71,11 @@ namespace projetAtlantik
                 int noBateau;
                 string requeteBateau = "SELECT * FROM bateau";
                 MySqlCommand CmdBateau = new MySqlCommand(requeteBateau, MaCo);
-                MySqlDataReader readerBateau = CmdBateau.ExecuteReader();
-                while (readerBateau.Read())
+                MySqlDataReader JeuEnrBateau = CmdBateau.ExecuteReader();
+                while (JeuEnrBateau.Read())
                 {
-                    noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
-                    nom = readerBateau["NOM"].ToString();
+                    noBateau = Convert.ToInt32(JeuEnrBateau["NOBATEAU"]);
+                    nom = JeuEnrBateau["NOM"].ToString();
                     Bateau nomb = new Bateau(nom, noBateau);
                     cmbmodifbateau.Items.Add(nomb);
 
@@ -150,12 +150,12 @@ namespace projetAtlantik
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
                 cmd.Parameters.AddWithValue("@bateau", noBateau);
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
-                while (reader.Read())
+                while (JeuEnr.Read())
                 {
-                    string lettre = reader["lettrecategorie"].ToString();
-                    string capacite = reader["capacitemax"].ToString();
+                    string lettre = JeuEnr["lettrecategorie"].ToString();
+                    string capacite = JeuEnr["capacitemax"].ToString();
 
                     foreach (Control c in gbxmodifbateau.Controls)
                     {
@@ -169,7 +169,7 @@ namespace projetAtlantik
                     }
                 }
 
-                reader.Close();
+                JeuEnr.Close();
             }
             catch (Exception ex)
             {

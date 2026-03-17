@@ -23,26 +23,26 @@ namespace projetAtlantik
         private void tbxadd_TextChanged(object sender, EventArgs e)
         {
             var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôùûïî]*$");
-            var resultatTest = objetRegEx.Match(tbxadd.Text);
+            var resultatTest = objetRegEx.Match(tbxAjoutSecteur.Text);
 
             if (!resultatTest.Success)
             {
-                tbxadd.BackColor = Color.Red;
+                tbxAjoutSecteur.BackColor = Color.Red;
             }
             else
             {
-                tbxadd.BackColor = Color.White;
+                tbxAjoutSecteur.BackColor = Color.White;
             }
         }
 
         private void btnadd_Click(object sender, EventArgs e)
         {
             MySqlConnection maCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            object nomSecteur = tbxadd.Text;
+            object nomSecteur = tbxAjoutSecteur.Text;
             try
             {
                 maCo.Open();
-                if (tbxadd.BackColor == Color.Red)
+                if (tbxAjoutSecteur.BackColor == Color.Red)
                 {
                     MessageBox.Show("Saisie incorrecte");
                     return;
@@ -87,18 +87,18 @@ namespace projetAtlantik
 
 
             var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôù ûïî]*$");
-            var résultatTest = objetRegEx.Match(tbxadd.Text);
+            var résultatTest = objetRegEx.Match(tbxAjoutSecteur.Text);
             if (!résultatTest.Success)
             {
                 // KO : Fond de la zone de saisie passe en rouge
-                tbxadd.BackColor = Color.Red;
+                tbxAjoutSecteur.BackColor = Color.Red;
                 e.Cancel = true;
-                errorProvider1.SetError(tbxadd, "Saisir des charactère  !! ");
+                errorProvider1.SetError(tbxAjoutSecteur, "Saisir des charactère  !! ");
             }
             else
             {
                 // OK : Fond de la zone de saisie passe en vert
-                tbxadd.BackColor = Color.Green;
+                tbxAjoutSecteur.BackColor = Color.Green;
                 errorProvider1.Clear();
             }
         }

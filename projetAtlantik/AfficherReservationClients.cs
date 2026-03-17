@@ -22,62 +22,64 @@ namespace projetAtlantik
 
         private void lvAfficherRes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
-            MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
-            gbxAfficher.Controls.Clear();
-            string noRes = lvAfficherRes.SelectedItems[0].Text;
-            try
+            if(lvAfficherRes.SelectedItems.Count != 0)
             {
-                maCnx.Open();
-                string req = "SELECT * from enregistrer e " +
-                            "inner join type t on e.NOTYPE = t.NOTYPE " +
-                            "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
-                            "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
-                            "and e.NORESERVATION = @noRes";
-
-                MySqlCommand cmd = new MySqlCommand(req, maCnx);
-                cmd.Parameters.AddWithValue("@noRes", noRes);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                int i = 0;
-                double montant = 0;
-
-                while (reader.Read())
+                MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
+                gbxAfficher.Controls.Clear();
+                string noRes = lvAfficherRes.SelectedItems[0].Text;
+                try
                 {
-                    // Affichage dynamique de chaque catégorie
-                    Label lbl = new Label();
-                    lbl.Text = reader["LIBELLE"].ToString() + ": " + reader["QUANTITERESERVEE"].ToString();
-                    lbl.Location = new Point(15, 25 * i);
-                    lbl.AutoSize = true;
-                    gbxAfficher.Controls.Add(lbl);
+                    maCnx.Open();
+                    string req = "SELECT * from enregistrer e " +
+                                "inner join type t on e.NOTYPE = t.NOTYPE " +
+                                "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
+                                "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
+                                "and e.NORESERVATION = @noRes";
+
+                    MySqlCommand cmd = new MySqlCommand(req, maCnx);
+                    cmd.Parameters.AddWithValue("@noRes", noRes);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    int i = 0;
+                    double montant = 0;
+
+                    while (reader.Read())
+                    {
+                        // Affichage dynamique de chaque catégorie
+                        Label lbl = new Label();
+                        lbl.Text = reader["LIBELLE"].ToString() + ": " + reader["QUANTITERESERVEE"].ToString();
+                        lbl.Location = new Point(15, 25 * i);
+                        lbl.AutoSize = true;
+                        gbxAfficher.Controls.Add(lbl);
 
                         montant = Convert.ToDouble(reader["MONTANTTOTAL"]);
+                        i++;
+                    }
+
+                    // Montant total
+                    Label lblMontant = new Label();
+                    lblMontant.Text = "Montant total: " + montant + "€";
+                    lblMontant.Location = new Point(15, 25 * i);
+                    gbxAfficher.Controls.Add(lblMontant);
                     i++;
+
+                    // Mode de paiement
+                    Label lblReg = new Label();
+                    lblReg.Text = "Réglé par Carte Bancaire";
+                    lblReg.Location = new Point(15, 25 * i);
+                    lblReg.AutoSize = true;
+                    gbxAfficher.Controls.Add(lblReg);
                 }
-
-                // Montant total
-                Label lblMontant = new Label();
-                lblMontant.Text = "Montant total: " + montant + "€";
-                lblMontant.Location = new Point(15, 25 * i);
-                gbxAfficher.Controls.Add(lblMontant);
-                i++;
-
-                // Mode de paiement
-                Label lblReg = new Label();
-                lblReg.Text = "Réglé par Carte Bancaire" ;
-                lblReg.Location = new Point(15, 25 * i);
-                lblReg.AutoSize = true;
-                gbxAfficher.Controls.Add(lblReg);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur: " + ex.Message);
+                }
+                finally
+                {
+                    maCnx.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur: " + ex.Message);
-            }
-            finally
-            {
-                maCnx.Close();
-            }
+            
         }
 
 

@@ -25,29 +25,29 @@ namespace projetAtlantik
 
                 string requetePort = "SELECT noport, nom FROM port";
                 MySqlCommand cmdPort = new MySqlCommand(requetePort, MaCo);
-                MySqlDataReader readerPort = cmdPort.ExecuteReader();
+                MySqlDataReader JeuEnrPort = cmdPort.ExecuteReader();
 
-                while (readerPort.Read())
+                while (JeuEnrPort.Read())
                 {
-                    Port port = new Port((int)readerPort["noport"], readerPort["nom"].ToString());
+                    Port port = new Port((int)JeuEnrPort["noport"], JeuEnrPort["nom"].ToString());
                     cmbdepart.Items.Add(port);
                     cmbArrive.Items.Add(port);
                 }
 
-                readerPort.Close();
+                JeuEnrPort.Close();
                
                 string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
                 MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
-                MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
+                MySqlDataReader JeuEnrSecteur = cmdSecteur.ExecuteReader();
 
-                while (readerSecteur.Read())
+                while (JeuEnrSecteur.Read())
                 {
 
-                    Secteur secteur = new Secteur((int)readerSecteur["nosecteur"], readerSecteur["nom"].ToString());
+                    Secteur secteur = new Secteur((int)JeuEnrSecteur["nosecteur"], JeuEnrSecteur["nom"].ToString());
                     lbxliaison.Items.Add(secteur);
                 }
 
-                readerSecteur.Close();
+                JeuEnrSecteur.Close();
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace projetAtlantik
                 int idDepart = depart.GetNoport();
                 int idArrive = arrive.GetNoport();
 
-                int distance = int.Parse(textBox1.Text);
+                int distance = int.Parse(tbxAddDIstance.Text);
 
                 try
                 {
@@ -93,17 +93,13 @@ namespace projetAtlantik
                     if (depart == arrive)
                     {
                         MessageBox.Show("Impossible de créer une liaison avec le même port");
-                        return;
                     }
-
                     string requete = "INSERT INTO liaison(noport_depart, nosecteur, noport_arrivee, distance) VALUES (@noport_depart, @nosecteur, @noport_arrivee, @distance)";
-
                     MySqlCommand maCde = new MySqlCommand(requete, maCo);
                     maCde.Parameters.AddWithValue("@noport_depart", idDepart);
                     maCde.Parameters.AddWithValue("@nosecteur", idSecteur);
                     maCde.Parameters.AddWithValue("@noport_arrivee", idArrive);
                     maCde.Parameters.AddWithValue("@distance", distance);
-
                     maCde.ExecuteNonQuery();
 
                     MessageBox.Show("Liaison ajoutée !");
@@ -143,16 +139,16 @@ namespace projetAtlantik
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
             var objetRegEx = new Regex("^[0-9]*$");
-            var résultatTest = objetRegEx.Match(textBox1.Text);
+            var résultatTest = objetRegEx.Match(tbxAddDIstance.Text);
             if (!résultatTest.Success)
             {
-                textBox1.BackColor = Color.Red;
+                tbxAddDIstance.BackColor = Color.Red;
                 e.Cancel = true;
-                errorProvider1.SetError(textBox1, "Saisir des nombres !! ");
+                errorProvider1.SetError(tbxAddDIstance, "Saisir des nombres !! ");
             }
             else
             {
-                textBox1.BackColor = Color.Green;
+                tbxAddDIstance.BackColor = Color.Green;
                 errorProvider1.Clear();
             }
         }

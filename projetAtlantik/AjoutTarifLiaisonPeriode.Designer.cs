@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.lbxSecteur = new System.Windows.Forms.ListBox();
             this.lblsecteur = new System.Windows.Forms.Label();
-            this.cbxLiaison = new System.Windows.Forms.ComboBox();
+            this.cmbLiaison = new System.Windows.Forms.ComboBox();
             this.gbxTarifs = new System.Windows.Forms.GroupBox();
-            this.cbxPeriode = new System.Windows.Forms.ComboBox();
+            this.cmbPeriode = new System.Windows.Forms.ComboBox();
             this.btnadd = new System.Windows.Forms.Button();
             this.lblLiaison = new System.Windows.Forms.Label();
             this.lblPeriode = new System.Windows.Forms.Label();
@@ -62,15 +62,15 @@
             this.lblsecteur.TabIndex = 1;
             this.lblsecteur.Text = "Secteurs : ";
             // 
-            // cbxLiaison
+            // cmbLiaison
             // 
-            this.cbxLiaison.FormattingEnabled = true;
-            this.cbxLiaison.Location = new System.Drawing.Point(132, 466);
-            this.cbxLiaison.Margin = new System.Windows.Forms.Padding(4);
-            this.cbxLiaison.Name = "cbxLiaison";
-            this.cbxLiaison.Size = new System.Drawing.Size(160, 24);
-            this.cbxLiaison.TabIndex = 2;
-            this.cbxLiaison.SelectedIndexChanged += new System.EventHandler(this.cbxLiaison_SelectedIndexChanged);
+            this.cmbLiaison.FormattingEnabled = true;
+            this.cmbLiaison.Location = new System.Drawing.Point(132, 466);
+            this.cmbLiaison.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbLiaison.Name = "cmbLiaison";
+            this.cmbLiaison.Size = new System.Drawing.Size(160, 24);
+            this.cmbLiaison.TabIndex = 2;
+            this.cmbLiaison.SelectedIndexChanged += new System.EventHandler(this.cbxLiaison_SelectedIndexChanged);
             // 
             // gbxTarifs
             // 
@@ -86,14 +86,14 @@
             this.gbxTarifs.Enter += new System.EventHandler(this.gbxTarifs_Enter);
             this.gbxTarifs.Validating += new System.ComponentModel.CancelEventHandler(this.gbxTarifs_Validating);
             // 
-            // cbxPeriode
+            // cmbPeriode
             // 
-            this.cbxPeriode.FormattingEnabled = true;
-            this.cbxPeriode.Location = new System.Drawing.Point(380, 466);
-            this.cbxPeriode.Margin = new System.Windows.Forms.Padding(4);
-            this.cbxPeriode.Name = "cbxPeriode";
-            this.cbxPeriode.Size = new System.Drawing.Size(459, 24);
-            this.cbxPeriode.TabIndex = 4;
+            this.cmbPeriode.FormattingEnabled = true;
+            this.cmbPeriode.Location = new System.Drawing.Point(380, 466);
+            this.cmbPeriode.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbPeriode.Name = "cmbPeriode";
+            this.cmbPeriode.Size = new System.Drawing.Size(459, 24);
+            this.cmbPeriode.TabIndex = 4;
             // 
             // btnadd
             // 
@@ -138,9 +138,9 @@
             this.Controls.Add(this.lblPeriode);
             this.Controls.Add(this.lblLiaison);
             this.Controls.Add(this.btnadd);
-            this.Controls.Add(this.cbxPeriode);
+            this.Controls.Add(this.cmbPeriode);
             this.Controls.Add(this.gbxTarifs);
-            this.Controls.Add(this.cbxLiaison);
+            this.Controls.Add(this.cmbLiaison);
             this.Controls.Add(this.lblsecteur);
             this.Controls.Add(this.lbxSecteur);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -157,9 +157,9 @@
 
         private System.Windows.Forms.ListBox lbxSecteur;
         private System.Windows.Forms.Label lblsecteur;
-        private System.Windows.Forms.ComboBox cbxLiaison;
+        private System.Windows.Forms.ComboBox cmbLiaison;
         private System.Windows.Forms.GroupBox gbxTarifs;
-        private System.Windows.Forms.ComboBox cbxPeriode;
+        private System.Windows.Forms.ComboBox cmbPeriode;
         private System.Windows.Forms.Button btnadd;
         private System.Windows.Forms.Label lblLiaison;
         private System.Windows.Forms.Label lblPeriode;

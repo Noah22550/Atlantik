@@ -24,11 +24,11 @@ namespace projetAtlantik
                 int noBateau;
                 string requeteBateau = "SELECT * FROM bateau";
                 MySqlCommand CmdBateau = new MySqlCommand(requeteBateau, MaCo);
-                MySqlDataReader readerBateau = CmdBateau.ExecuteReader();
-                while (readerBateau.Read())
+                MySqlDataReader JeuEnrBateau = CmdBateau.ExecuteReader();
+                while (JeuEnrBateau.Read())
                 {
-                    noBateau = Convert.ToInt32(readerBateau["NOBATEAU"]);
-                    nom = readerBateau["NOM"].ToString();
+                    noBateau = Convert.ToInt32(JeuEnrBateau["NOBATEAU"]);
+                    nom = JeuEnrBateau["NOM"].ToString();
                     Bateau nomb = new Bateau(nom, noBateau);
                     cmbBateau.Items.Add(nomb);
 
@@ -50,16 +50,16 @@ namespace projetAtlantik
 
                 string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
                 MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
-                MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
+                MySqlDataReader JeuEnrSecteur = cmdSecteur.ExecuteReader();
 
-                while (readerSecteur.Read())
+                while (JeuEnrSecteur.Read())
                 {
 
-                    Secteur secteur = new Secteur((int)readerSecteur["nosecteur"], readerSecteur["nom"].ToString());
+                    Secteur secteur = new Secteur((int)JeuEnrSecteur["nosecteur"], JeuEnrSecteur["nom"].ToString());
                     lbxSecteur.Items.Add(secteur);
                 }
 
-                readerSecteur.Close();
+                JeuEnrSecteur.Close();
             }
             catch (Exception ex)
             {
@@ -83,13 +83,13 @@ namespace projetAtlantik
                 string requete = "SELECT  noliaison, p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
-                MySqlDataReader reader = maCde.ExecuteReader();
+                MySqlDataReader JeuEnr = maCde.ExecuteReader();
                 cmbLiaison.Items.Clear();
-                while (reader.Read())
+                while (JeuEnr.Read())
                 {
-                    int NoLiaison = Convert.ToInt32(reader["noliaison"]);
-                    NomDepart = reader["NOM"].ToString();
-                    NomArrivee = reader["pNOM"].ToString();
+                    int NoLiaison = Convert.ToInt32(JeuEnr["noliaison"]);
+                    NomDepart = JeuEnr["NOM"].ToString();
+                    NomArrivee = JeuEnr["pNOM"].ToString();
                     Liaison Liaison = new Liaison(NomDepart, NomArrivee, NoLiaison);
                     cmbLiaison.Items.Add(Liaison);
                 }
@@ -165,14 +165,14 @@ namespace projetAtlantik
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
                 cmd.Parameters.AddWithValue("@bateau", noBateau);
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
-                while (reader.Read())
+                while (JeuEnr.Read())
                 {
-                    string lettre = reader["lettrecategorie"].ToString();
+                    string lettre = JeuEnr["lettrecategorie"].ToString();
                 }
 
-                reader.Close();
+                JeuEnr.Close();
             }
             catch (Exception ex)
             {

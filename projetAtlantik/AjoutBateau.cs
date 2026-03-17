@@ -28,15 +28,15 @@ namespace projetAtlantik
 
                 string requete = " SELECT * FROM  categorie";
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
                 int y = 10;
                 //int compteur = 0;
 
-                while (reader.Read())
+                while (JeuEnr.Read())
                 {
-                    string lettre = reader["LETTRECATEGORIE"].ToString();
-                    string libelle = reader["LIBELLE"].ToString();
+                    string lettre = JeuEnr["LETTRECATEGORIE"].ToString();
+                    string libelle = JeuEnr["LIBELLE"].ToString();
 
 
                     // Label
@@ -57,7 +57,7 @@ namespace projetAtlantik
                     y += 30;
                 }
 
-                reader.Close();
+                JeuEnr.Close();
             }
             catch (Exception ex)
             {

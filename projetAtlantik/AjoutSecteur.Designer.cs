@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnadd = new System.Windows.Forms.Button();
-            this.tbxadd = new System.Windows.Forms.TextBox();
+            this.tbxAjoutSecteur = new System.Windows.Forms.TextBox();
             this.lbladd = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -39,7 +39,7 @@
             // btnadd
             // 
             this.btnadd.Location = new System.Drawing.Point(375, 154);
-            this.btnadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnadd.Margin = new System.Windows.Forms.Padding(4);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(100, 28);
             this.btnadd.TabIndex = 0;
@@ -47,15 +47,15 @@
             this.btnadd.UseVisualStyleBackColor = true;
             this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
             // 
-            // tbxadd
+            // tbxAjoutSecteur
             // 
-            this.tbxadd.Location = new System.Drawing.Point(128, 154);
-            this.tbxadd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbxadd.Name = "tbxadd";
-            this.tbxadd.Size = new System.Drawing.Size(237, 22);
-            this.tbxadd.TabIndex = 1;
-            this.tbxadd.TextChanged += new System.EventHandler(this.tbxadd_TextChanged);
-            this.tbxadd.Validating += new System.ComponentModel.CancelEventHandler(this.tbxadd_Validating);
+            this.tbxAjoutSecteur.Location = new System.Drawing.Point(128, 154);
+            this.tbxAjoutSecteur.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxAjoutSecteur.Name = "tbxAjoutSecteur";
+            this.tbxAjoutSecteur.Size = new System.Drawing.Size(237, 22);
+            this.tbxAjoutSecteur.TabIndex = 1;
+            this.tbxAjoutSecteur.TextChanged += new System.EventHandler(this.tbxadd_TextChanged);
+            this.tbxAjoutSecteur.Validating += new System.ComponentModel.CancelEventHandler(this.tbxadd_Validating);
             // 
             // lbladd
             // 
@@ -78,9 +78,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 382);
             this.Controls.Add(this.lbladd);
-            this.Controls.Add(this.tbxadd);
+            this.Controls.Add(this.tbxAjoutSecteur);
             this.Controls.Add(this.btnadd);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AjoutSecteur";
             this.Text = "AjoutSecteur";
             this.Load += new System.EventHandler(this.AjoutSecteur_Load);
@@ -93,7 +93,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnadd;
-        private System.Windows.Forms.TextBox tbxadd;
+        private System.Windows.Forms.TextBox tbxAjoutSecteur;
         private System.Windows.Forms.Label lbladd;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }

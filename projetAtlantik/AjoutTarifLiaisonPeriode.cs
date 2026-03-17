@@ -28,14 +28,14 @@ namespace projetAtlantik
                 string datedebut, datefin;
                 string requetePeriode = "SELECT * FROM periode";
                 MySqlCommand Cmdperiode = new MySqlCommand(requetePeriode, MaCo);
-                MySqlDataReader readerPeriode = Cmdperiode.ExecuteReader();
-                while (readerPeriode.Read())
+                MySqlDataReader JeuEnrPeriode = Cmdperiode.ExecuteReader();
+                while (JeuEnrPeriode.Read())
                 {
-                    int NoPeriode = Convert.ToInt32(readerPeriode["noperiode"]);
-                    datedebut = readerPeriode["DATEDEBUT"].ToString();
-                    datefin = readerPeriode["DATEFIN"].ToString() ;
+                    int NoPeriode = Convert.ToInt32(JeuEnrPeriode["noperiode"]);
+                    datedebut = JeuEnrPeriode["DATEDEBUT"].ToString();
+                    datefin = JeuEnrPeriode["DATEFIN"].ToString() ;
                     Periode nPeriode = new Periode(datedebut, datefin,NoPeriode );
-                    cbxPeriode.Items.Add(nPeriode);
+                    cmbPeriode.Items.Add(nPeriode);
 
                 }
             }
@@ -57,16 +57,16 @@ namespace projetAtlantik
 
                 string requeteSecteur = "SELECT nosecteur, nom FROM secteur";
                 MySqlCommand cmdSecteur = new MySqlCommand(requeteSecteur, MaCo);
-                MySqlDataReader readerSecteur = cmdSecteur.ExecuteReader();
+                MySqlDataReader JeuEnrSecteur = cmdSecteur.ExecuteReader();
 
-                while (readerSecteur.Read())
+                while (JeuEnrSecteur.Read())
                 {
 
-                    Secteur secteur = new Secteur((int)readerSecteur["nosecteur"], readerSecteur["nom"].ToString());
+                    Secteur secteur = new Secteur((int)JeuEnrSecteur["nosecteur"], JeuEnrSecteur["nom"].ToString());
                     lbxSecteur.Items.Add(secteur);
                 }
 
-                readerSecteur.Close();
+                JeuEnrSecteur.Close();
             }
             catch (Exception ex)
             {
@@ -83,15 +83,15 @@ namespace projetAtlantik
                 MaCo.Open();
                 string requete = "SELECT notype, libelle, lettrecategorie FROM type";
                 MySqlCommand cmd = new MySqlCommand(requete, MaCo);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
                 int y = 20;
 
-                while (reader.Read())
+                while (JeuEnr.Read())
                 {
-                    int noType = Convert.ToInt32(reader["notype"]);
-                    string libelle = reader["libelle"].ToString();
-                    string lettre = reader["lettrecategorie"].ToString();
+                    int noType = Convert.ToInt32(JeuEnr["notype"]);
+                    string libelle = JeuEnr["libelle"].ToString();
+                    string lettre = JeuEnr["lettrecategorie"].ToString();
                     Type lblType = new Type(lettre, noType, libelle);
                     // Label pour notype
                     Label lblNoType = new Label();
@@ -112,7 +112,7 @@ namespace projetAtlantik
                     y += 30;
                 }
 
-                reader.Close();
+                JeuEnr.Close();
             }
             catch (Exception ex)
             {
@@ -135,14 +135,14 @@ namespace projetAtlantik
         { 
 
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");
-            if(cbxPeriode.SelectedItem == null || cbxLiaison.SelectedItem == null )
+            if(cmbPeriode.SelectedItem == null || cmbLiaison.SelectedItem == null )
             {
                 MessageBox.Show("Veuillez sélectionner une période et une liaison (infos manquante).");
                 return;
             }else
             {
-                object nPeriode = ((Periode)cbxPeriode.SelectedItem).GetNoPeriode();
-                object nliaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
+                object nPeriode = ((Periode)cmbPeriode.SelectedItem).GetNoPeriode();
+                object nliaison = ((Liaison)cmbLiaison.SelectedItem).GetNoLiaison();
                 try
                 {
                     MaCo.Open();
@@ -197,15 +197,15 @@ namespace projetAtlantik
                 string requete = "SELECT  noliaison, p.NOM, po.NOM As \"pNOM\" From liaison l inner join port p ON ( l.noport_depart = p.NOPORT) inner join port po ON ( l.NOPORT_ARRIVEE = po.NOPORT) Where nosecteur = @nomsecteurs;";
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
-                MySqlDataReader reader = maCde.ExecuteReader();
-                cbxLiaison.Items.Clear();
-                while (reader.Read())
+                MySqlDataReader JeuEnr = maCde.ExecuteReader();
+                cmbLiaison.Items.Clear();
+                while (JeuEnr.Read())
                 {
-                    int NoLiaison = Convert.ToInt32(reader["noliaison"]);
-                    NomDepart = reader["NOM"].ToString();
-                    NomArrivee = reader["pNOM"].ToString();
+                    int NoLiaison = Convert.ToInt32(JeuEnr["noliaison"]);
+                    NomDepart = JeuEnr["NOM"].ToString();
+                    NomArrivee = JeuEnr["pNOM"].ToString();
                     Liaison Liaison = new Liaison(NomDepart, NomArrivee, NoLiaison);
-                    cbxLiaison.Items.Add(Liaison);
+                    cmbLiaison.Items.Add(Liaison);
                 }
             }
             catch (Exception ex)

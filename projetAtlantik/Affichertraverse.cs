@@ -71,7 +71,7 @@ namespace projetAtlantik
             {
                 res = Convert.ToInt32(reader[0]);
             }
-                
+
 
             reader.Close();
             MaCo.Close();
@@ -128,7 +128,7 @@ namespace projetAtlantik
 
             while (reader.Read())
             {
-                Traversees t = new Traversees(Convert.ToInt32(reader["NOTRAVERSEE"]), reader["NOM"].ToString(),Convert.ToDateTime(reader["DATEHEUREDEPART"]) );
+                Traversees t = new Traversees(Convert.ToInt32(reader["NOTRAVERSEE"]), reader["NOM"].ToString(), Convert.ToDateTime(reader["DATEHEUREDEPART"]));
 
                 list.Add(t);
             }
@@ -198,14 +198,14 @@ namespace projetAtlantik
                 MySqlCommand maCde = new MySqlCommand(requete, MaCo);
                 maCde.Parameters.AddWithValue("@nomsecteurs", nosecteur);
                 MySqlDataReader reader = maCde.ExecuteReader();
-                cbxLiaison.Items.Clear();
+                cmbLiaison.Items.Clear();
                 while (reader.Read())
                 {
                     int NoLiaison = Convert.ToInt32(reader["noliaison"]);
                     NomDepart = reader["NOM"].ToString();
                     NomArrivee = reader["pNOM"].ToString();
                     Liaison Liaison = new Liaison(NomDepart, NomArrivee, NoLiaison);
-                    cbxLiaison.Items.Add(Liaison);
+                    cmbLiaison.Items.Add(Liaison);
                 }
             }
             catch (Exception ex)
@@ -225,38 +225,47 @@ namespace projetAtlantik
 
         private void btnAfficher_Click(object sender, EventArgs e)
         {
-            lvTraverse.Items.Clear();
-
-            int noLiaison = ((Liaison)cbxLiaison.SelectedItem).GetNoLiaison();
-            DateTime date = dateafficher.Value;
-
-            List<Traversees> lesTraversees = GetLesTraverseesBateaux(noLiaison, date);
-            List<Categorie> lesCategories = GetCategorie();
-
-            foreach (Traversees trav in lesTraversees)
+            if(cmbLiaison.SelectedItem == null || lbxSecteur == null)
             {
-                string[] ligne = new string[6];
+                MessageBox.Show("Veuillez sélectionner une liaison, un secteur et une date valide....");
 
-                ligne[0] = trav.GetNoTraverse().ToString();
-                ligne[1] = trav.GetDateHeure().ToString("HH:mm");
-                ligne[2] = trav.GetNomBateau();
-
-                int i = 3;
-
-                foreach (Categorie cat in lesCategories)
-                {
-                    int capacite = GetCapaciteMax(trav.GetNoTraverse(), cat.GetLettreCategorie());
-                    int reserve = GetQuantiteEnregistree(trav.GetNoTraverse(), cat.GetLettreCategorie());
-
-                    int dispo = capacite - reserve;
-
-                    ligne[i] = dispo.ToString();
-                    i++;
-                }
-
-                ListViewItem item = new ListViewItem(ligne);
-                lvTraverse.Items.Add(item);
             }
+            else
+            {
+                lvTraverse.Items.Clear();
+
+                int noLiaison = ((Liaison)cmbLiaison.SelectedItem).GetNoLiaison();
+                DateTime date = dateafficher.Value;
+
+                List<Traversees> lesTraversees = GetLesTraverseesBateaux(noLiaison, date);
+                List<Categorie> lesCategories = GetCategorie();
+
+                foreach (Traversees trav in lesTraversees)
+                {
+                    string[] ligne = new string[6];
+
+                    ligne[0] = trav.GetNoTraverse().ToString();
+                    ligne[1] = trav.GetDateHeure().ToString("HH:mm");
+                    ligne[2] = trav.GetNomBateau();
+
+                    int i = 3;
+
+                    foreach (Categorie cat in lesCategories)
+                    {
+                        int capacite = GetCapaciteMax(trav.GetNoTraverse(), cat.GetLettreCategorie());
+                        int reserve = GetQuantiteEnregistree(trav.GetNoTraverse(), cat.GetLettreCategorie());
+
+                        int dispo = capacite - reserve;
+
+                        ligne[i] = dispo.ToString();
+                        i++;
+                    }
+
+                    ListViewItem item = new ListViewItem(ligne);
+                    lvTraverse.Items.Add(item);
+                }
+            }
+           
         }
     }
 }

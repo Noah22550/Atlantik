@@ -72,16 +72,16 @@ namespace projetAtlantik
 
                 requete = "Select * from parametres";
                 maCde = new MySqlCommand(requete, maCnx);
-                MySqlDataReader jeuEnregistrements;
-                jeuEnregistrements = maCde.ExecuteReader();
-                while (jeuEnregistrements.Read())
+                MySqlDataReader JeuEnr;
+                JeuEnr = maCde.ExecuteReader();
+                while (JeuEnr.Read())
                 {
-                    string site = jeuEnregistrements["SITE_PB"].ToString();
-                    string rang = jeuEnregistrements["RANG_PB"].ToString();
-                    string identifiant = jeuEnregistrements["IDENTIFIANT_PB"].ToString();
-                    string cleHMAC = jeuEnregistrements["CLEHMAC_PB"].ToString();
-                    int enProduction = Convert.ToInt32(jeuEnregistrements["ENPRODUCTION"]);
-                    string mel = jeuEnregistrements["MELSITE"].ToString();
+                    string site = JeuEnr["SITE_PB"].ToString();
+                    string rang = JeuEnr["RANG_PB"].ToString();
+                    string identifiant = JeuEnr["IDENTIFIANT_PB"].ToString();
+                    string cleHMAC = JeuEnr["CLEHMAC_PB"].ToString();
+                    int enProduction = Convert.ToInt32(JeuEnr["ENPRODUCTION"]);
+                    string mel = JeuEnr["MELSITE"].ToString();
 
                     tbxSite.Text = site;
                     tbxRang.Text = rang;
@@ -89,7 +89,7 @@ namespace projetAtlantik
                     tbxHmax.Text = cleHMAC;
                     tbxMel.Text = mel;
                 }
-                jeuEnregistrements.Close();
+                JeuEnr.Close();
             }
             catch (Exception ex)
             {

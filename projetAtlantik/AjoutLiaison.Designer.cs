@@ -33,7 +33,7 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.cmbdepart = new System.Windows.Forms.ComboBox();
             this.cmbArrive = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxAddDIstance = new System.Windows.Forms.TextBox();
             this.lblsecteur = new System.Windows.Forms.Label();
             this.lblarrive = new System.Windows.Forms.Label();
             this.lbldepart = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@
             this.lbxliaison.FormattingEnabled = true;
             this.lbxliaison.ItemHeight = 16;
             this.lbxliaison.Location = new System.Drawing.Point(16, 52);
-            this.lbxliaison.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lbxliaison.Margin = new System.Windows.Forms.Padding(4);
             this.lbxliaison.Name = "lbxliaison";
             this.lbxliaison.Size = new System.Drawing.Size(159, 324);
             this.lbxliaison.TabIndex = 0;
@@ -58,7 +58,7 @@
             // 
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(229, 74);
-            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(20, 4);
             this.checkedListBox1.TabIndex = 1;
@@ -67,7 +67,7 @@
             // 
             this.cmbdepart.FormattingEnabled = true;
             this.cmbdepart.Location = new System.Drawing.Point(415, 74);
-            this.cmbdepart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbdepart.Margin = new System.Windows.Forms.Padding(4);
             this.cmbdepart.Name = "cmbdepart";
             this.cmbdepart.Size = new System.Drawing.Size(160, 24);
             this.cmbdepart.TabIndex = 2;
@@ -77,21 +77,21 @@
             // 
             this.cmbArrive.FormattingEnabled = true;
             this.cmbArrive.Location = new System.Drawing.Point(744, 74);
-            this.cmbArrive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbArrive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbArrive.Name = "cmbArrive";
             this.cmbArrive.Size = new System.Drawing.Size(160, 24);
             this.cmbArrive.TabIndex = 3;
             this.cmbArrive.SelectedIndexChanged += new System.EventHandler(this.cmbArrive_SelectedIndexChanged);
             // 
-            // textBox1
+            // tbxAddDIstance
             // 
-            this.textBox1.Location = new System.Drawing.Point(735, 329);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 22);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
+            this.tbxAddDIstance.Location = new System.Drawing.Point(735, 329);
+            this.tbxAddDIstance.Margin = new System.Windows.Forms.Padding(4);
+            this.tbxAddDIstance.Name = "tbxAddDIstance";
+            this.tbxAddDIstance.Size = new System.Drawing.Size(132, 22);
+            this.tbxAddDIstance.TabIndex = 4;
+            this.tbxAddDIstance.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tbxAddDIstance.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
             // lblsecteur
             // 
@@ -136,7 +136,7 @@
             // btnAddLiaison
             // 
             this.btnAddLiaison.Location = new System.Drawing.Point(768, 423);
-            this.btnAddLiaison.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddLiaison.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddLiaison.Name = "btnAddLiaison";
             this.btnAddLiaison.Size = new System.Drawing.Size(100, 28);
             this.btnAddLiaison.TabIndex = 9;
@@ -158,12 +158,12 @@
             this.Controls.Add(this.lbldepart);
             this.Controls.Add(this.lblarrive);
             this.Controls.Add(this.lblsecteur);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbxAddDIstance);
             this.Controls.Add(this.cmbArrive);
             this.Controls.Add(this.cmbdepart);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.lbxliaison);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AjoutLiaison";
             this.Text = "Ajout d\'une liaison";
             this.Load += new System.EventHandler(this.AjoutLiaison_Load);
@@ -179,7 +179,7 @@
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ComboBox cmbdepart;
         private System.Windows.Forms.ComboBox cmbArrive;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxAddDIstance;
         private System.Windows.Forms.Label lblsecteur;
         private System.Windows.Forms.Label lblarrive;
         private System.Windows.Forms.Label lbldepart;
