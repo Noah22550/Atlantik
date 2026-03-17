@@ -71,7 +71,20 @@ namespace projetAtlantik
 
         private void tbxAddBoat_TextChanged(object sender, EventArgs e)
         {
+            TextBox tbx = (TextBox)sender;
+            var objetRegEx = new Regex(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$");
+            var resultatTest = objetRegEx.Match(tbx.Text);
 
+            if (!resultatTest.Success)
+            {
+                tbx.BackColor = Color.Red;
+                btnAdd.Enabled = false;
+            }
+            else
+            {
+                tbx.BackColor = Color.White;
+                btnAdd.Enabled = true;
+            }
         }
 
 
@@ -137,21 +150,6 @@ namespace projetAtlantik
 
         private void tbxAddBoat_Validating(object sender, CancelEventArgs e)
         {
-            var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôù ûïî]*$");
-            var résultatTest = objetRegEx.Match(tbxAddBoat.Text);
-            if (!résultatTest.Success)
-            {
-                // KO : Fond de la zone de saisie passe en rouge
-                tbxAddBoat.BackColor = Color.Red;
-                e.Cancel = true;
-                errorProvider1.SetError(tbxAddBoat, "Saisir des charactère  !! ");
-            }
-            else
-            {
-                // OK : Fond de la zone de saisie passe en vert
-                tbxAddBoat.BackColor = Color.Green;
-                errorProvider1.Clear();
-            }
         }
 
         private void gbxboat_TextChanged(object sender, EventArgs e)

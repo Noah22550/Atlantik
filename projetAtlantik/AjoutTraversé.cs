@@ -115,18 +115,27 @@ namespace projetAtlantik
 
             try
             {
-                int noLiaison = ((Liaison)cmbLiaison.SelectedItem).GetNoLiaison();
-                int nobateau = ((Bateau)cmbBateau.SelectedItem).GetNoBateau();
+                if (cmbBateau.SelectedItem == null || lbxSecteur.SelectedItem == null || cmbLiaison.SelectedItem == null)
+                {
+                    MessageBox.Show("informations manquantes afin de réaliser l'ajout avec succès");
+                    return;
+                }
+                else
+                {
+                    int noLiaison = ((Liaison)cmbLiaison.SelectedItem).GetNoLiaison();
+                    int nobateau = ((Bateau)cmbBateau.SelectedItem).GetNoBateau();
 
-                MaCo.Open();
-                string requete = "INSERT INTO traversee( NOLIAISON, NOBATEAU, DATEHEUREDEPART, DATEHEUREARRIVEE) VALUES ( @noliaison, @nobateau, @datehD, @datehA)";
-                MySqlCommand maCde = new MySqlCommand(requete, MaCo);
-                maCde.Parameters.AddWithValue("@noliaison", noLiaison);
-                maCde.Parameters.AddWithValue("@nobateau", nobateau);
-                maCde.Parameters.AddWithValue("@datehD", dateDepart.Value);
-                maCde.Parameters.AddWithValue("@datehA", dateArrivee.Value);
-                int nb = maCde.ExecuteNonQuery();
-                MessageBox.Show("Traversé ajouté !!");
+                    MaCo.Open();
+                    string requete = "INSERT INTO traversee( NOLIAISON, NOBATEAU, DATEHEUREDEPART, DATEHEUREARRIVEE) VALUES ( @noliaison, @nobateau, @datehD, @datehA)";
+                    MySqlCommand maCde = new MySqlCommand(requete, MaCo);
+                    maCde.Parameters.AddWithValue("@noliaison", noLiaison);
+                    maCde.Parameters.AddWithValue("@nobateau", nobateau);
+                    maCde.Parameters.AddWithValue("@datehD", dateDepart.Value);
+                    maCde.Parameters.AddWithValue("@datehA", dateArrivee.Value);
+                    int nb = maCde.ExecuteNonQuery();
+                    MessageBox.Show("Traversé ajouté !!");
+                }
+                    
 
             }
             catch (Exception ex)
