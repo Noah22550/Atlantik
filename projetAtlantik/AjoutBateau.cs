@@ -52,8 +52,6 @@ namespace projetAtlantik
 
                     gbxboat.Controls.Add(lblBoat);
                     gbxboat.Controls.Add(txt);
-                    txt.Validating += gbxboat_Validating;
-
 
                     y += 30;
                 }
@@ -69,10 +67,62 @@ namespace projetAtlantik
                 MaCo.Close();
             }
         }
+        private bool ValiderGroupBox()
+        {
+            bool toutValide = true;
+            var regex = new Regex("^[0-9]+$");
+
+            foreach (Control c in gbxboat.Controls)
+            {
+                if (c is TextBox tbx)
+                {
+                    if (tbx.Text == null || tbx.Text == "" || tbx.Text == "")
+                    {
+                        tbx.BackColor = Color.LightCoral;
+                        errorProvider3.SetError(tbx, "Champ obligatoire");
+                        toutValide = false;
+                    }
+                    else if (!regex.IsMatch(tbx.Text))
+                    {
+                        tbx.BackColor = Color.LightCoral;
+                        errorProvider3.SetError(tbx, "Chiffres uniquement");
+                        toutValide = false;
+                    }
+                    else
+                    {
+                        tbx.BackColor = Color.White;
+                        errorProvider3.SetError(tbx, "");
+                    }
+                }
+            }
+
+            return toutValide;
+        }
+        private void txt_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tbx = (TextBox)sender;
+            var regex = new Regex("^[0-9]+$");
+
+            if (tbx.Text == null || tbx.Text == "" || tbx.Text == "")
+            {
+                tbx.BackColor = Color.LightCoral;
+                errorProvider3.SetError(tbx, "Champ obligatoire");
+            }
+            else if (!regex.IsMatch(tbx.Text))
+            {
+                tbx.BackColor = Color.LightCoral;
+                errorProvider3.SetError(tbx, "Chiffres uniquement");
+            }
+            else
+            {
+                tbx.BackColor = Color.White;
+                errorProvider3.SetError(tbx, "");
+            }
+        }
 
         private void tbxAddBoat_TextChanged(object sender, EventArgs e)
         {
-          
+
         }
 
 
@@ -88,6 +138,31 @@ namespace projetAtlantik
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            var regex = new Regex("^[a-zA-Zéèêëçàâôùûïî ]+$");
+
+            // Vérification du nom du bateau
+            if (string.IsNullOrWhiteSpace(tbxAddBoat.Text))
+            {
+                errorProvider3.SetError(tbxAddBoat, "Le nom du bateau est obligatoire");
+                return;
+            }
+            else if (!regex.IsMatch(tbxAddBoat.Text.Trim()))
+            {
+                errorProvider3.SetError(tbxAddBoat, "Caractères uniquement");
+                return;
+            }
+            else
+            {
+                errorProvider3.SetError(tbxAddBoat, "");
+            }
+
+            // Vérification des textbox du groupbox
+            if (!ValiderGroupBox())
+            {
+                MessageBox.Show("Veuillez corriger les erreurs avant d'ajouter un bateau.");
+                return;
+            }
+
             string CHAINECONNEXION = "Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;";
             MySqlConnection maCo = new MySqlConnection(CHAINECONNEXION);
 
@@ -95,12 +170,11 @@ namespace projetAtlantik
             {
                 maCo.Open();
 
-                MySqlCommand maCdeinsbateau;
-                string nombateau = tbxAddBoat.Text;
+                string nombateau = tbxAddBoat.Text.Trim();
                 string requêteinsbateau = "INSERT INTO bateau(nom) VALUES (@nombateau)";
-                maCdeinsbateau = new MySqlCommand(requêteinsbateau, maCo);
+                MySqlCommand maCdeinsbateau = new MySqlCommand(requêteinsbateau, maCo);
                 maCdeinsbateau.Parameters.AddWithValue("@nombateau", nombateau);
-                int nbinsbateau = maCdeinsbateau.ExecuteNonQuery();
+                maCdeinsbateau.ExecuteNonQuery();
 
                 int nobateau = (int)maCdeinsbateau.LastInsertedId;
 
@@ -108,22 +182,18 @@ namespace projetAtlantik
                 {
                     if (c is TextBox tbx)
                     {
-                        MySqlCommand maCde;
-                        TextBox txt = (TextBox)c;
-
-                        string tab;
-                        tab = (tbx.Tag).ToString();
-                        string letcat = tab[0].ToString();
+                        string letcat = tbx.Tag.ToString();
                         int capamax = int.Parse(tbx.Text);
 
                         string requête = "INSERT INTO contenir(lettrecategorie, nobateau, capacitemax) VALUES (@letcat, @nobateau, @capacitemax)";
-                        maCde = new MySqlCommand(requête, maCo);
+                        MySqlCommand maCde = new MySqlCommand(requête, maCo);
                         maCde.Parameters.AddWithValue("@letcat", letcat);
                         maCde.Parameters.AddWithValue("@nobateau", nobateau);
                         maCde.Parameters.AddWithValue("@capacitemax", capamax);
-                        int nb = maCde.ExecuteNonQuery();
+                        maCde.ExecuteNonQuery();
                     }
                 }
+
                 MessageBox.Show("Nouveau bateau ajouté !");
             }
             catch (Exception ex)
@@ -135,62 +205,19 @@ namespace projetAtlantik
                 maCo.Close();
             }
         }
+        
 
         private void tbxAddBoat_Validating(object sender, CancelEventArgs e)
         {
-            var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôùûïî]*$");
-            var resultatTest = objetRegEx.Match(tbxAddBoat.Text);
-
-            if (!resultatTest.Success)
-            {
-                MessageBox.Show("Format incorrect");
-                tbxAddBoat.BackColor = Color.Red;
-            }
-            else
-            {
-                tbxAddBoat.BackColor = Color.White;
-                btnAdd.Enabled = true;
-            }
         }
 
-        private void gbxboat_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
 
         private void gbxboat_Validating(object sender, CancelEventArgs e)
         {
-            bool valide = true;
-            var regex = new Regex("^[0-9]*$");
-
-            foreach (Control c in gbxboat.Controls)
-            {
-                if (c is TextBox tbx)
-                {
-                    if (!regex.IsMatch(tbx.Text))
-                    {
-                        tbx.BackColor = Color.Red;
-                        errorProvider3.SetError(tbx, "Veuillez entrer des chiffres");
-                        valide = false;
-                    }
-                    else
-                    {
-                        tbx.BackColor = Color.White;
-                        errorProvider3.SetError(tbx, "");
-                    }
-                }
-            }
-
-            if (!valide)
-            {
-                btnAdd.Enabled = false;
-                e.Cancel = true; // bloque la validation
-            }
-            else
-            {
-                btnAdd.Enabled = true;
-            }
+          
         }
     }
 }
+
+
 

@@ -17,53 +17,97 @@ namespace projetAtlantik
         public AfficherReservationClients()
         {
             InitializeComponent();
-
         }
 
         private void lvAfficherRes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(lvAfficherRes.SelectedItems.Count != 0)
+            if (lvAfficherRes.SelectedItems.Count != 0)
             {
                 MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
                 gbxAfficher.Controls.Clear();
-                string noRes = lvAfficherRes.SelectedItems[0].Text;
+                int noRes = Convert.ToInt32(lvAfficherRes.SelectedItems[0].Text);
                 try
                 {
                     maCnx.Open();
-                    string req = "SELECT * from enregistrer e " +
-                                "inner join type t on e.NOTYPE = t.NOTYPE " +
-                                "inner join reservation r on  e.NORESERVATION = r.NORESERVATION " +
-                                "where t.LETTRECATEGORIE= e.LETTRECATEGORIE and e.NOTYPE = t.NOTYPE " +
-                                "and e.NORESERVATION = @noRes";
-
-                    MySqlCommand cmd = new MySqlCommand(req, maCnx);
-                    cmd.Parameters.AddWithValue("@noRes", noRes);
-                    MySqlDataReader JeuEnr = cmd.ExecuteReader();
-
                     int i = 0;
-                    double montant = 0;
-                    while (JeuEnr.Read())
+
+                    // les prestations depuis enregistrer
+                    string reqPrestations = "SELECT e.QUANTITERESERVEE, t.LIBELLE " +
+                                            "FROM enregistrer e " +
+                                            "INNER JOIN type t ON e.NOTYPE = t.NOTYPE AND e.LETTRECATEGORIE = t.LETTRECATEGORIE " +
+                                            "WHERE e.NORESERVATION = @noRes";
+
+                    MySqlCommand cmdPrestations = new MySqlCommand(reqPrestations, maCnx);
+                    cmdPrestations.Parameters.AddWithValue("@noRes", noRes);
+                    MySqlDataReader jeuEnr = cmdPrestations.ExecuteReader();
+
+                    while (jeuEnr.Read())
                     {
-                        // Affichage dynamique de chaque catégorie
-                        Label lbl = new Label();
-                        lbl.Text = JeuEnr["LIBELLE"].ToString() + ": " + JeuEnr["QUANTITERESERVEE"].ToString();
-                        lbl.Location = new Point(15, 25 * i);
-                        gbxAfficher.Controls.Add(lbl);
-                        montant = Convert.ToDouble(JeuEnr["MONTANTTOTAL"]);
+                        // Label libellé (colonne gauche)
+                        Label lblLibelle = new Label();
+                        lblLibelle.Text = jeuEnr["LIBELLE"].ToString().Trim();
+                        lblLibelle.Location = new Point(15, 20 + 25 * i);
+                        lblLibelle.Width = 160;
+                        gbxAfficher.Controls.Add(lblLibelle);
+
+                        // Label valeur (colonne droite)
+                        Label lblValeur = new Label();
+                        lblValeur.Text = ": " + jeuEnr["QUANTITERESERVEE"].ToString();
+                        lblValeur.Location = new Point(180, 20 + 25 * i);
+                        lblValeur.AutoSize = true;
+                        gbxAfficher.Controls.Add(lblValeur);
+
                         i++;
                     }
 
-                    // Montant total
-                    Label lblMontant = new Label();
-                    lblMontant.Text = "Montant total: " + montant + "€";
-                    lblMontant.Location = new Point(15, 25 * i);
-                    gbxAfficher.Controls.Add(lblMontant);
+                    jeuEnr.Close();
+
+                    // Requête 2 : montant et mode de règlement depuis reservation 
+                    string reqReservation = "SELECT MONTANTTOTAL, MODEREGLEMENT " +
+                                            "FROM reservation " +
+                                            "WHERE NORESERVATION = @noRes";
+
+                    MySqlCommand cmdReservation = new MySqlCommand(reqReservation, maCnx);
+                    cmdReservation.Parameters.AddWithValue("@noRes", noRes);
+                    MySqlDataReader jeuEnr2 = cmdReservation.ExecuteReader();
+
+                    double montant = 0;
+                    string modereglement = "";
+
+                    if (jeuEnr2.Read())
+                    {
+                        if (jeuEnr2["MONTANTTOTAL"] != DBNull.Value)
+                        {
+                            montant = Convert.ToDouble(jeuEnr2["MONTANTTOTAL"]);
+                        }
+                        if (jeuEnr2["MODEREGLEMENT"] != DBNull.Value)
+                        {
+                            modereglement = jeuEnr2["MODEREGLEMENT"].ToString().Trim();
+                        }
+                    }
+
+                    jeuEnr2.Close();
+
+                    // Montant total (libellé gauche)
+                    Label lblMontantLibelle = new Label();
+                    lblMontantLibelle.Text = "Montant total";
+                    lblMontantLibelle.Location = new Point(15, 20 + 25 * i);
+                    lblMontantLibelle.Width = 160;
+                    gbxAfficher.Controls.Add(lblMontantLibelle);
+
+                    // Montant total (valeur droite)
+                    Label lblMontantValeur = new Label();
+                    lblMontantValeur.Text = ": " + montant.ToString() + " euros";
+                    lblMontantValeur.Location = new Point(180, 20 + 25 * i);
+                    lblMontantValeur.AutoSize = true;
+                    gbxAfficher.Controls.Add(lblMontantValeur);
                     i++;
 
-                    // Mode de paiement
+                    // Mode de règlement
                     Label lblReglement = new Label();
-                    lblReglement.Text = "Réglé par Carte Bancaire";
-                    lblReglement.Location = new Point(15, 25 * i);
+                    lblReglement.Text = "Réglé par Carte bancaire " + modereglement;
+                    lblReglement.Location = new Point(15, 20 + 25 * i);
+                    lblReglement.AutoSize = true;
                     gbxAfficher.Controls.Add(lblReglement);
                 }
                 catch (Exception ex)
@@ -75,8 +119,8 @@ namespace projetAtlantik
                     maCnx.Close();
                 }
             }
-            
         }
+
         private void gbxAfficher_Enter(object sender, EventArgs e)
         {
 
@@ -97,15 +141,18 @@ namespace projetAtlantik
             MySqlDataReader jeuEnr = null;
             try
             {
-                maCnx.Open();
-                string requête = "select NORESERVATION, reservation.NOTRAVERSEE, DATEHEURE " +
-                                "from reservation " +
-                                "inner join traversee on reservation.NOTRAVERSEE = traversee.NOTRAVERSEE " +
-                                "inner join liaison on traversee.NOLIAISON = liaison.NOLIAISON " +
-                                "inner join client on reservation.NOCLIENT = client.NOCLIENT " +
-                                "where client.noclient = 1";
+                Client clientSelectionne = (Client)comboBox1.SelectedItem;
+                int noClient = clientSelectionne.GetNoClient();
 
-                var maCde = new MySqlCommand(requête, maCnx);
+                maCnx.Open();
+                string requête = "SELECT r.NORESERVATION, r.NOTRAVERSEE, t.DATEHEUREDEPART " +
+                                 "FROM reservation r " +
+                                 "INNER JOIN traversee t ON r.NOTRAVERSEE = t.NOTRAVERSEE " +
+                                 "INNER JOIN liaison li ON t.NOLIAISON = li.NOLIAISON " +
+                                 "WHERE r.NOCLIENT = @noclient";
+
+                MySqlCommand maCde = new MySqlCommand(requête, maCnx);
+                maCde.Parameters.AddWithValue("@noclient", noClient);
                 jeuEnr = maCde.ExecuteReader();
 
                 while (jeuEnr.Read())
@@ -113,7 +160,7 @@ namespace projetAtlantik
                     string noreservation = jeuEnr["NORESERVATION"].ToString();
                     string notraversee = jeuEnr["NOTRAVERSEE"].ToString();
                     string liaison = GetLiaison(notraversee);
-                    string dateheure = ((DateTime)jeuEnr["DATEHEURE"]).ToString("dd/MM/yyyy à HH:mm");
+                    string dateheure = ((DateTime)jeuEnr["DATEHEUREDEPART"]).ToString("dd/MM/yyyy à HH:mm");
 
                     ListViewItem position = new ListViewItem(noreservation);
                     position.SubItems.Add(liaison);
@@ -128,10 +175,14 @@ namespace projetAtlantik
             }
             finally
             {
-                    jeuEnr.Close(); 
-                    maCnx.Close(); 
+                if (jeuEnr != null)
+                {
+                    jeuEnr.Close();
+                }
+                maCnx.Close();
             }
         }
+
         private string GetLiaison(string noTraversee)
         {
             MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
@@ -140,9 +191,15 @@ namespace projetAtlantik
             try
             {
                 maCnx.Open();
-                string requete = "select p1.nom as 'nomport_depart', p2.nom as 'nomport_arrivee', li.noliaison from liaison li inner join port p1 on li.NOPORT_DEPART = p1.noport inner join port p2 on li.NOPORT_ARRIVEE = p2.noport inner join traversee on traversee.NOLIAISON = li.NOLIAISON where traversee.notraversee = @notraversee";
-                var maCde = new MySqlCommand(requete, maCnx);
-                maCde.Parameters.AddWithValue("@noTraversee", noTraversee);
+                string requete = "SELECT p1.nom AS nomport_depart, p2.nom AS nomport_arrivee, li.noliaison " +
+                                 "FROM liaison li " +
+                                 "INNER JOIN port p1 ON li.NOPORT_DEPART = p1.noport " +
+                                 "INNER JOIN port p2 ON li.NOPORT_ARRIVEE = p2.noport " +
+                                 "INNER JOIN traversee ON traversee.NOLIAISON = li.NOLIAISON " +
+                                 "WHERE traversee.notraversee = @notraversee";
+
+                MySqlCommand maCde = new MySqlCommand(requete, maCnx);
+                maCde.Parameters.AddWithValue("@notraversee", noTraversee);
                 jeuEnr = maCde.ExecuteReader();
 
                 while (jeuEnr.Read())
@@ -159,18 +216,23 @@ namespace projetAtlantik
             }
             finally
             {
-                    maCnx.Close();
+                if (jeuEnr != null)
+                {
+                    jeuEnr.Close();
+                }
+                maCnx.Close();
             }
         }
+
         private void AfficherReservationClients_Load(object sender, EventArgs e)
         {
             MySqlConnection maCnx = new MySqlConnection("server=localhost;user=root;database=Atlantik;port=3306;password=");
             MySqlDataReader jeuEnr = null;
-            maCnx.Open();
             try
             {
-                string requête = "select * from client";
-                var maCde = new MySqlCommand(requête, maCnx);
+                maCnx.Open();
+                string requête = "SELECT * FROM client";
+                MySqlCommand maCde = new MySqlCommand(requête, maCnx);
                 jeuEnr = maCde.ExecuteReader();
 
                 while (jeuEnr.Read())
@@ -185,9 +247,11 @@ namespace projetAtlantik
             }
             finally
             {
+                if (jeuEnr != null)
+                {
+                    jeuEnr.Close();
+                }
                 maCnx.Close();
-
-
             }
         }
     }

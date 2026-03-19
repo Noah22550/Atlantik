@@ -234,7 +234,6 @@ namespace projetAtlantik
         {
            
         }
-
         private void gbxTarifs_TextChanged(object sender, EventArgs e)
         {
             TextBox tbx = (TextBox)sender;

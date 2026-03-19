@@ -81,7 +81,7 @@
             this.gbxboat.Size = new System.Drawing.Size(371, 302);
             this.gbxboat.TabIndex = 3;
             this.gbxboat.TabStop = false;
-            this.gbxboat.Text = "groupBox1";
+            this.gbxboat.Text = "Informations";
             this.gbxboat.TextChanged += new System.EventHandler(this.tbxAddBoat_TextChanged);
             this.gbxboat.Enter += new System.EventHandler(this.gbxboat_Enter);
             this.gbxboat.Validating += new System.ComponentModel.CancelEventHandler(this.gbxboat_Validating);
