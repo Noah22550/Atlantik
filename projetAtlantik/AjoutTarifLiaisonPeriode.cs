@@ -172,7 +172,7 @@ namespace projetAtlantik
                             maCde.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Tarifs ajoutés");
+                    MessageBox.Show("Tarifs ajouté");
                 }
                 catch (Exception ex)
                 {
@@ -230,6 +230,7 @@ namespace projetAtlantik
 
         private void gbxTarifs_Validating(object sender, CancelEventArgs e)
         {
+           
         }
 
         private void gbxTarifs_TextChanged(object sender, EventArgs e)

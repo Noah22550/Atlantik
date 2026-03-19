@@ -71,8 +71,6 @@ namespace projetAtlantik
             {
                 res = Convert.ToInt32(reader[0]);
             }
-
-
             reader.Close();
             MaCo.Close();
 
@@ -173,11 +171,10 @@ namespace projetAtlantik
 
         private void Affichertraverse_Load(object sender, EventArgs e)
         {
-            lvTraverse.View = View.Details; // Mode d'affichage
+            lvTraverse.View = View.Details; 
 
-            lvTraverse.GridLines = true; // on affichera la grille
-            lvTraverse.FullRowSelect = true; // Mode de sélection : ligne
-            lvTraverse.Columns.Add("N° ", 70); // 100 = largeur colonne
+            lvTraverse.GridLines = true; 
+            lvTraverse.Columns.Add("N° ", 70); 
             lvTraverse.Columns.Add("Heure", 100);
             lvTraverse.Columns.Add("Bateau", 100);
             lvTraverse.Columns.Add("A Passager", 120);
@@ -185,7 +182,6 @@ namespace projetAtlantik
             lvTraverse.Columns.Add("C Véh.sup.2m", 120);
 
         }
-
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
         {
             MySqlConnection MaCo = new MySqlConnection("Server=127.0.0.1;Port=3306;Database=atlantik;Uid=root;Pwd=;");

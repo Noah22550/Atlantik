@@ -79,12 +79,6 @@ namespace projetAtlantik
 
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
-            // sender = objet sur lequel l'évènement a été déclenché (ici tbxNote)
-
-            // particulièrement utile avec collection de Controls.
-
-
-
             var objetRegEx = new Regex("^[a-zA-Zéèêëçàâôù ûïî]*$");
             var résultatTest = objetRegEx.Match(tbxAjoutPort.Text);
             if (!résultatTest.Success)

@@ -69,24 +69,24 @@
             this.unSecteurToolStripMenuItem,
             this.unPortToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(131, 70);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(148, 76);
             // 
             // ajouterToolStripMenuItem
             // 
             this.ajouterToolStripMenuItem.Name = "ajouterToolStripMenuItem";
-            this.ajouterToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.ajouterToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.ajouterToolStripMenuItem.Text = "Ajouter";
             // 
             // unSecteurToolStripMenuItem
             // 
             this.unSecteurToolStripMenuItem.Name = "unSecteurToolStripMenuItem";
-            this.unSecteurToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.unSecteurToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.unSecteurToolStripMenuItem.Text = "Un secteur";
             // 
             // unPortToolStripMenuItem
             // 
             this.unPortToolStripMenuItem.Name = "unPortToolStripMenuItem";
-            this.unPortToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.unPortToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.unPortToolStripMenuItem.Text = "Un Port";
             // 
             // menuStrip1
@@ -99,8 +99,8 @@
             this.aProposToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1290, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1720, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -114,48 +114,48 @@
             this.mmAddBoat,
             this.mmtraverse});
             this.ajouterToolStripMenuItem1.Name = "ajouterToolStripMenuItem1";
-            this.ajouterToolStripMenuItem1.Size = new System.Drawing.Size(58, 20);
+            this.ajouterToolStripMenuItem1.Size = new System.Drawing.Size(72, 24);
             this.ajouterToolStripMenuItem1.Text = "Ajouter";
             // 
             // unSecteurToolStripMenuItem1
             // 
             this.unSecteurToolStripMenuItem1.Name = "unSecteurToolStripMenuItem1";
-            this.unSecteurToolStripMenuItem1.Size = new System.Drawing.Size(287, 22);
+            this.unSecteurToolStripMenuItem1.Size = new System.Drawing.Size(361, 26);
             this.unSecteurToolStripMenuItem1.Text = "Un secteur";
             this.unSecteurToolStripMenuItem1.Click += new System.EventHandler(this.unSecteurToolStripMenuItem1_Click);
             // 
             // mmPort
             // 
             this.mmPort.Name = "mmPort";
-            this.mmPort.Size = new System.Drawing.Size(287, 22);
+            this.mmPort.Size = new System.Drawing.Size(361, 26);
             this.mmPort.Text = "Un port";
             this.mmPort.Click += new System.EventHandler(this.mmPort_Click);
             // 
             // mmliaison
             // 
             this.mmliaison.Name = "mmliaison";
-            this.mmliaison.Size = new System.Drawing.Size(287, 22);
+            this.mmliaison.Size = new System.Drawing.Size(361, 26);
             this.mmliaison.Text = "Une liaison";
             this.mmliaison.Click += new System.EventHandler(this.mmliaison_Click);
             // 
             // mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem
             // 
             this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Name = "mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem";
-            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
+            this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Size = new System.Drawing.Size(361, 26);
             this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Text = "Les tarifs pour une liasion et une période";
             this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem.Click += new System.EventHandler(this.mmlesTarifsPourUneLiasionEtUnePériodeToolStripMenuItem_Click);
             // 
             // mmAddBoat
             // 
             this.mmAddBoat.Name = "mmAddBoat";
-            this.mmAddBoat.Size = new System.Drawing.Size(287, 22);
+            this.mmAddBoat.Size = new System.Drawing.Size(361, 26);
             this.mmAddBoat.Text = "Un bateau";
             this.mmAddBoat.Click += new System.EventHandler(this.mmAddBoat_Click);
             // 
             // mmtraverse
             // 
             this.mmtraverse.Name = "mmtraverse";
-            this.mmtraverse.Size = new System.Drawing.Size(287, 22);
+            this.mmtraverse.Size = new System.Drawing.Size(361, 26);
             this.mmtraverse.Text = "Une traversée";
             this.mmtraverse.Click += new System.EventHandler(this.mmtraverse_Click);
             // 
@@ -165,20 +165,20 @@
             this.mmModifierBateau,
             this.mmParamètre});
             this.modifierToolStripMenuItem.Name = "modifierToolStripMenuItem";
-            this.modifierToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.modifierToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             this.modifierToolStripMenuItem.Text = "Modifier";
             // 
             // mmModifierBateau
             // 
             this.mmModifierBateau.Name = "mmModifierBateau";
-            this.mmModifierBateau.Size = new System.Drawing.Size(186, 22);
-            this.mmModifierBateau.Text = "Un beateau";
+            this.mmModifierBateau.Size = new System.Drawing.Size(234, 26);
+            this.mmModifierBateau.Text = "Un bateau";
             this.mmModifierBateau.Click += new System.EventHandler(this.mmModifierBateau_Click);
             // 
             // mmParamètre
             // 
             this.mmParamètre.Name = "mmParamètre";
-            this.mmParamètre.Size = new System.Drawing.Size(186, 22);
+            this.mmParamètre.Size = new System.Drawing.Size(234, 26);
             this.mmParamètre.Text = "Les paramètre du site";
             this.mmParamètre.Click += new System.EventHandler(this.mmParamètre_Click);
             // 
@@ -188,13 +188,13 @@
             this.mmAfficherTraverse,
             this.mmDetailReservClients});
             this.afficherToolStripMenuItem.Name = "afficherToolStripMenuItem";
-            this.afficherToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.afficherToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.afficherToolStripMenuItem.Text = "Afficher";
             // 
             // mmAfficherTraverse
             // 
             this.mmAfficherTraverse.Name = "mmAfficherTraverse";
-            this.mmAfficherTraverse.Size = new System.Drawing.Size(524, 22);
+            this.mmAfficherTraverse.Size = new System.Drawing.Size(662, 26);
             this.mmAfficherTraverse.Text = "Les traversées pour une liaison et une date donnée avec places restantes par caté" +
     "gorie";
             this.mmAfficherTraverse.Click += new System.EventHandler(this.mmAfficherTraverse_Click);
@@ -202,33 +202,35 @@
             // mmDetailReservClients
             // 
             this.mmDetailReservClients.Name = "mmDetailReservClients";
-            this.mmDetailReservClients.Size = new System.Drawing.Size(524, 22);
+            this.mmDetailReservClients.Size = new System.Drawing.Size(662, 26);
             this.mmDetailReservClients.Text = "Les détail d\'une réservation pour un client";
             this.mmDetailReservClients.Click += new System.EventHandler(this.mmDetailReservClients_Click);
             // 
             // aProposToolStripMenuItem
             // 
             this.aProposToolStripMenuItem.Name = "aProposToolStripMenuItem";
-            this.aProposToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.aProposToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.aProposToolStripMenuItem.Text = "A propos";
             // 
             // lblAtlantik
             // 
             this.lblAtlantik.AutoSize = true;
-            this.lblAtlantik.Location = new System.Drawing.Point(347, 24);
+            this.lblAtlantik.Location = new System.Drawing.Point(463, 30);
+            this.lblAtlantik.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAtlantik.Name = "lblAtlantik";
-            this.lblAtlantik.Size = new System.Drawing.Size(104, 13);
+            this.lblAtlantik.Size = new System.Drawing.Size(127, 16);
             this.lblAtlantik.TabIndex = 4;
             this.lblAtlantik.Text = "bienvenue a Atlantik";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1290, 765);
+            this.ClientSize = new System.Drawing.Size(1720, 942);
             this.Controls.Add(this.lblAtlantik);
             this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Form1_Load);

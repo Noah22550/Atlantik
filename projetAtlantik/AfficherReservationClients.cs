@@ -38,21 +38,18 @@ namespace projetAtlantik
 
                     MySqlCommand cmd = new MySqlCommand(req, maCnx);
                     cmd.Parameters.AddWithValue("@noRes", noRes);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    MySqlDataReader JeuEnr = cmd.ExecuteReader();
 
                     int i = 0;
                     double montant = 0;
-
-                    while (reader.Read())
+                    while (JeuEnr.Read())
                     {
                         // Affichage dynamique de chaque catégorie
                         Label lbl = new Label();
-                        lbl.Text = reader["LIBELLE"].ToString() + ": " + reader["QUANTITERESERVEE"].ToString();
+                        lbl.Text = JeuEnr["LIBELLE"].ToString() + ": " + JeuEnr["QUANTITERESERVEE"].ToString();
                         lbl.Location = new Point(15, 25 * i);
-                        lbl.AutoSize = true;
                         gbxAfficher.Controls.Add(lbl);
-
-                        montant = Convert.ToDouble(reader["MONTANTTOTAL"]);
+                        montant = Convert.ToDouble(JeuEnr["MONTANTTOTAL"]);
                         i++;
                     }
 
@@ -64,11 +61,10 @@ namespace projetAtlantik
                     i++;
 
                     // Mode de paiement
-                    Label lblReg = new Label();
-                    lblReg.Text = "Réglé par Carte Bancaire";
-                    lblReg.Location = new Point(15, 25 * i);
-                    lblReg.AutoSize = true;
-                    gbxAfficher.Controls.Add(lblReg);
+                    Label lblReglement = new Label();
+                    lblReglement.Text = "Réglé par Carte Bancaire";
+                    lblReglement.Location = new Point(15, 25 * i);
+                    gbxAfficher.Controls.Add(lblReglement);
                 }
                 catch (Exception ex)
                 {
@@ -81,9 +77,6 @@ namespace projetAtlantik
             }
             
         }
-
-
-
         private void gbxAfficher_Enter(object sender, EventArgs e)
         {
 
@@ -92,7 +85,6 @@ namespace projetAtlantik
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             lvAfficherRes.FullRowSelect = true;
-            lvAfficherRes.GridLines = true;
             lvAfficherRes.Items.Clear();
             lvAfficherRes.Columns.Clear();
             lvAfficherRes.View = View.Details;
@@ -106,7 +98,12 @@ namespace projetAtlantik
             try
             {
                 maCnx.Open();
-                string requête = "select NORESERVATION, reservation.NOTRAVERSEE, DATEHEURE from reservation inner join traversee on reservation.NOTRAVERSEE = traversee.NOTRAVERSEE inner join liaison on traversee.NOLIAISON = liaison.NOLIAISON inner join client on reservation.NOCLIENT = client.NOCLIENT where client.noclient = 1";
+                string requête = "select NORESERVATION, reservation.NOTRAVERSEE, DATEHEURE " +
+                                "from reservation " +
+                                "inner join traversee on reservation.NOTRAVERSEE = traversee.NOTRAVERSEE " +
+                                "inner join liaison on traversee.NOLIAISON = liaison.NOLIAISON " +
+                                "inner join client on reservation.NOCLIENT = client.NOCLIENT " +
+                                "where client.noclient = 1";
 
                 var maCde = new MySqlCommand(requête, maCnx);
 
@@ -133,16 +130,8 @@ namespace projetAtlantik
             }
             finally
             {
-                if (jeuEnr is object & !jeuEnr.IsClosed)
-                {
-                    jeuEnr.Close(); // s'il existe et n'est pas déjà fermé
-                }
-
-                if (maCnx is object & maCnx.State == ConnectionState.Open)
-                {
-                    maCnx.Close(); // on se déconnecte
-
-                }
+                    jeuEnr.Close(); 
+                    maCnx.Close(); 
             }
         }
         private string GetLiaison(string noTraversee)
@@ -198,7 +187,7 @@ namespace projetAtlantik
             }
             finally
             {
-                maCnx.Close(); 
+                maCnx.Close();
 
 
             }
