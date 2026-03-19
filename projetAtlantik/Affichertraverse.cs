@@ -180,7 +180,6 @@ namespace projetAtlantik
             lvTraverse.Columns.Add("A Passager", 120);
             lvTraverse.Columns.Add("B Véh.in.2m", 120);
             lvTraverse.Columns.Add("C Véh.sup.2m", 120);
-
         }
         private void lbxSecteur_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -256,7 +255,6 @@ namespace projetAtlantik
                         ligne[i] = dispo.ToString();
                         i++;
                     }
-
                     ListViewItem item = new ListViewItem(ligne);
                     lvTraverse.Items.Add(item);
                 }

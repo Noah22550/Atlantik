@@ -21,7 +21,7 @@ namespace projetAtlantik
         public int GetNoLiaison() { return NoLiaison;}
         public override string ToString()
         {
-            return  NomportDepart.ToString() + " - " + NomportArrivee.ToString() ;
+            return  NomportDepart.ToString() + " - " + NomportArrivee.ToString() + " - " + NoLiaison.ToString();
         }
     }
 }

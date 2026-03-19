@@ -35,8 +35,10 @@
             this.gbxboat = new System.Windows.Forms.GroupBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider2 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider3 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAddBoat
@@ -80,8 +82,9 @@
             this.gbxboat.TabIndex = 3;
             this.gbxboat.TabStop = false;
             this.gbxboat.Text = "groupBox1";
-            this.gbxboat.TextChanged += new System.EventHandler(this.gbxboat_TextChanged);
+            this.gbxboat.TextChanged += new System.EventHandler(this.tbxAddBoat_TextChanged);
             this.gbxboat.Enter += new System.EventHandler(this.gbxboat_Enter);
+            this.gbxboat.Validating += new System.ComponentModel.CancelEventHandler(this.gbxboat_Validating);
             // 
             // errorProvider1
             // 
@@ -90,6 +93,10 @@
             // errorProvider2
             // 
             this.errorProvider2.ContainerControl = this;
+            // 
+            // errorProvider3
+            // 
+            this.errorProvider3.ContainerControl = this;
             // 
             // AjoutBateau
             // 
@@ -106,6 +113,7 @@
             this.Load += new System.EventHandler(this.AjoutBateau_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,5 +127,6 @@
         private System.Windows.Forms.GroupBox gbxboat;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ErrorProvider errorProvider2;
+        private System.Windows.Forms.ErrorProvider errorProvider3;
     }
 }

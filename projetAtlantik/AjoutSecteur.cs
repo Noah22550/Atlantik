@@ -42,9 +42,9 @@ namespace projetAtlantik
             try
             {
                 maCo.Open();
-                if (tbxAjoutSecteur.BackColor == Color.Red)
+                if (tbxAjoutSecteur == null)
                 {
-                    MessageBox.Show("Saisie incorrecte");
+                    MessageBox.Show("secteur non saisi");
                     return;
                 }
                 else

@@ -52,7 +52,8 @@ namespace projetAtlantik
 
                     gbxboat.Controls.Add(lblBoat);
                     gbxboat.Controls.Add(txt);
-                    txt.TextChanged += gbxboat_TextChanged;
+                    txt.Validating += gbxboat_Validating;
+
 
                     y += 30;
                 }
@@ -154,20 +155,42 @@ namespace projetAtlantik
 
         private void gbxboat_TextChanged(object sender, EventArgs e)
         {
-            TextBox tbx = (TextBox)sender;
-            var objetRegEx = new Regex("^[0-9]*$");
-            var resultatTest = objetRegEx.Match(tbx.Text);
+           
+        }
 
-            if (!resultatTest.Success)
+        private void gbxboat_Validating(object sender, CancelEventArgs e)
+        {
+            bool valide = true;
+            var regex = new Regex("^[0-9]*$");
+
+            foreach (Control c in gbxboat.Controls)
             {
-                tbx.BackColor = Color.Red;
+                if (c is TextBox tbx)
+                {
+                    if (!regex.IsMatch(tbx.Text))
+                    {
+                        tbx.BackColor = Color.Red;
+                        errorProvider3.SetError(tbx, "Veuillez entrer des chiffres");
+                        valide = false;
+                    }
+                    else
+                    {
+                        tbx.BackColor = Color.White;
+                        errorProvider3.SetError(tbx, "");
+                    }
+                }
+            }
+
+            if (!valide)
+            {
                 btnAdd.Enabled = false;
+                e.Cancel = true; // bloque la validation
             }
             else
             {
-                tbx.BackColor = Color.White;
                 btnAdd.Enabled = true;
             }
         }
     }
 }
+

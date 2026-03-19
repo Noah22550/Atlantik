@@ -29,10 +29,9 @@ namespace projetAtlantik
                 maCo.Open();
 
                
-                if (tbxAjoutPort.BackColor == Color.Red)
+                if (tbxAjoutPort == null )
                 {
-                    MessageBox.Show("Saisie incorrecte");
-                    return;
+                    MessageBox.Show("Veuillez remplir le champ du nom du port ");
                 }
                 else
                 {

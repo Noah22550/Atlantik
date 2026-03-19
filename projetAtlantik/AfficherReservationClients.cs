@@ -106,8 +106,6 @@ namespace projetAtlantik
                                 "where client.noclient = 1";
 
                 var maCde = new MySqlCommand(requête, maCnx);
-
-
                 jeuEnr = maCde.ExecuteReader();
 
                 while (jeuEnr.Read())

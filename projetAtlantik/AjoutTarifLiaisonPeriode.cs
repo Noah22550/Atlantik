@@ -95,7 +95,7 @@ namespace projetAtlantik
                     Type lblType = new Type(lettre, noType, libelle);
                     // Label pour notype
                     Label lblNoType = new Label();
-                    lblNoType.Text = noType.ToString()+" - "+lettre  + libelle;
+                    lblNoType.Text = lettre + noType.ToString()+ " - "  + libelle;
                     lblNoType.Location = new Point(10, y);
                     //lblNoType.AutoSize = true;
 
@@ -204,6 +204,8 @@ namespace projetAtlantik
                     int NoLiaison = Convert.ToInt32(JeuEnr["noliaison"]);
                     NomDepart = JeuEnr["NOM"].ToString();
                     NomArrivee = JeuEnr["pNOM"].ToString();
+
+
                     Liaison Liaison = new Liaison(NomDepart, NomArrivee, NoLiaison);
                     cmbLiaison.Items.Add(Liaison);
                 }
